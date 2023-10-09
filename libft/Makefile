@@ -52,7 +52,7 @@ SRCS = ft_atoi.c \
 	ft_lstmap.c \
 	ft_lstnew.c \
 	ft_lstsize.c \
-	get_next_line_bonus.c
+	get_next_line.c
 
 CC		= gcc
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
