@@ -56,28 +56,54 @@ void	init_variables(t_game *game)
 	game->map_width = 0;
 }
 
-int	init_program(t_game *game, char *map_name)
+void	deallocate_mlx(t_game *game)
+{
+	printf("deallocate_mlx\n");
+	free(game->win);
+	free(game->mlx);
+	return ;
+}
+
+void	deallocate_map(t_game *game)
+{
+	int	i;
+	printf("deallocate_map\n");
+	i = 0;
+	while (i < game->map_height)
+		free(game->map[i++]);
+	free(game->map);
+	return ;
+}
+
+int	safe_exit(t_game *game)
+{
+	printf("safe_exit\n");
+	deallocate_map(game);
+	deallocate_mlx(game);
+	free(game);
+	exit(0);
+}
+
+int	keys(int keycode, t_game *game)
+{
+	if (keycode == 53)
+		safe_exit(game);
+	return (0);
+}
+
+bool	init_program(t_game *game, char *map_name)
 {
 	printf("FUNC INIT_PROG\n");
 	init_variables(game);
 	copy_map(game, map_name);
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, game->map_width,
-			game->map_height, "Untitled Game");
-
-	return (1);
-}
-
-int	safe_exit(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < game->map_height)
-		free(game->map[i++]);
-	free(game->map);
-	free(game);
-	return (0);
+	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH,
+			WINDOW_HEIGHT, "Untitled Game");
+	if (!game->win)
+		safe_exit(game);
+	mlx_hook(game->win, 17, 0, safe_exit, game);
+	mlx_key_hook(game->win, keys, game);
+	return (true);
 }
 
 int	main(int argc, char *argv[])
@@ -91,12 +117,12 @@ int	main(int argc, char *argv[])
 		printf("failed to calloc game\n");
 		return (-1);
 	}
-	if (argc != 2)
-		return (0);
-	init_program(game, argv[1]);
+	char* temp_name = argc != 2 ? "valid.ber" : argv[1];
+	if (init_program(game, temp_name) == false)
+		safe_exit(game);
 
-	mlx_hook(game->win, 17, 0, safe_exit, game);
+
+
 	mlx_loop(game->mlx);
-	safe_exit(game);
 	return (0);
 }

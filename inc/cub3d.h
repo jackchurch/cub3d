@@ -10,11 +10,15 @@
 # define LEFT 0
 # define RIGHT 2
 # define ESC 53
+# define TILE_SIZE 32
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 400
 
 typedef	struct s_game
 {
 	int		map_height;
 	int		map_width;
+
 	char	**map;
 	void	*mlx;
 	void	*win;
