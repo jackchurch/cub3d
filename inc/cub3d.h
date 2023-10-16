@@ -23,6 +23,7 @@ typedef	struct s_game
 	void	*mlx;
 	void	*win;
 	void	*img;
+	void	*slime;
 }	t_game;
 
 int a = 5;

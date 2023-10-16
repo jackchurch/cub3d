@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include "../inc/cub3d.h"
 
+int	player_x, player_y;
 
 int	copy_map(t_game *game, char *map_name)
 {
@@ -83,11 +84,19 @@ int	safe_exit(t_game *game)
 	free(game);
 	exit(0);
 }
-
+void	update(t_game *game)
+{
+	mlx_destroy_image(game->mlx, game->slime);
+	game->slime = mlx_xpm_file_to_image(game->mlx, "images/slime.xpm", &player_x, &player_y);
+	mlx_put_image_to_window(game->mlx, game->win, game->slime, player_x, player_y);
+}
 int	keys(int keycode, t_game *game)
 {
 	if (keycode == 53)
 		safe_exit(game);
+	if (keycode == 0)
+		player_x += 50;
+	update(game);
 	return (0);
 }
 
@@ -102,13 +111,25 @@ bool	init_program(t_game *game, char *map_name)
 	if (!game->win)
 		safe_exit(game);
 	mlx_hook(game->win, 17, 0, safe_exit, game);
+    mlx_hook(game->win, 2, 0, keys, game);
 	mlx_key_hook(game->win, keys, game);
 	return (true);
+}
+
+
+
+void	assign_images(t_game *game)
+{
+	game->slime = mlx_xpm_file_to_image(game->mlx, "images/slime.xpm", &player_x, &player_y);
+	mlx_put_image_to_window(game->mlx, game->win, game->slime, player_x, player_y);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_game	*game;
+ 
+	player_x = 0; 
+	player_y = 0;
 
 	printf("FUNC MAIN\n");
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
@@ -120,9 +141,9 @@ int	main(int argc, char *argv[])
 	char* temp_name = argc != 2 ? "valid.ber" : argv[1];
 	if (init_program(game, temp_name) == false)
 		safe_exit(game);
-
-
-
+	assign_images(game);
+	update(game);
 	mlx_loop(game->mlx);
+
 	return (0);
 }
