@@ -8,23 +8,30 @@ INC_PATH	= ./inc
 SRC_PATH	= ./src
 OBJ_PATH	= ./obj
 
-INC_DIRS	= $(INC_PATH) $(MLX_PATH) $(FT_PATH)
-INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
-MLX_MAC_THINGS = -framework OpenGL -framework AppKit
+LINK_MLX	=-L$(MLX_PATH) -lmlx
+LINK_FT	=  -L$(FT_PATH) -lft
 
-SRCS	= src/main.c
+MLX_MAC_THINGS =-framework OpenGL -framework AppKit
+
+SRCS	=$(SRC_PATH)/main.c \
+$(SRC_PATH)/init_mlx.c \
+$(SRC_PATH)/destroy_mlx.c \
+$(SRC_PATH)/init_player.c
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 
 all: $(NAME)
+	printf "Compiling complete, run ./a.out or ./cub3d"
 
 $(NAME): $(OBJECTS) $(MLX_LIB) $(FT_LIB)
-	$(CC) $(INC_LIBS) $(MLX_MAC_THINGS) -o $@ $<
+	$(CC) -I$(INC_PATH) -I$(MLX_PATH) -I$(FT_PATH) $(LINK_MLX) $(LINK_FT) $(MLX_MAC_THINGS) -o $@ $(OBJECTS)
 
-%.o: $(SRC_PATH)/%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+
+# %.o: $(SRC_PATH)/%.c
+	# @printf "Source to Objects\n"
+	# $(CC) $(CFLAGS) -c -o $@ $^
 
 $(MLX_LIB):
 	make -C $(MLX_PATH)

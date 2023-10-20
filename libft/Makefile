@@ -61,12 +61,12 @@ CFLAGS	= -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) -c $(SRCS)
-	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+	@$(CC) -c $(SRCS)
+	@ar rc $(NAME) $(OBJECTS)
+	@ranlib $(NAME)
 
 %.o:%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -f $(OBJECTS)
