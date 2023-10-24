@@ -12,7 +12,10 @@ INC_DIRS	= $(INC_PATH) $(MLX_PATH) $(FT_PATH)
 INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
 MLX_MAC_THINGS = -framework OpenGL -framework AppKit
 
-SRCS	= src/main.c
+SRCS	= src/main.c \
+src/init_mlx.c \
+src/exit.c \
+src/render.c
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
@@ -21,7 +24,7 @@ OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(MLX_LIB) $(FT_LIB)
-	$(CC) $(INC_LIBS) $(MLX_MAC_THINGS) -o $@ $<
+	$(CC) $(OBJECTS) $(INC_LIBS) $(MLX_MAC_THINGS) -o $@
 
 %.o: $(SRC_PATH)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
