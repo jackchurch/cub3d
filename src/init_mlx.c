@@ -6,16 +6,15 @@
 
 void	init_player(t_game *game)
 {
-	game->player = (t_player *)ft_calloc(1, sizeof(game->player));
-	game->player->x = 0;
-	game->player->y = 0;
-	game->player->height = 50;
-	game->player->height = 50;
+	game->player->x = WINDOW_WIDTH / 2;
+	game->player->y = WINDOW_HEIGHT / 2;
+	game->player->width = game->player->x + PLAYER_SIZE;
+	game->player->height = game->player->y + PLAYER_SIZE;
 	game->player->turn_dir = 0;
 	game->player->walk_dir = 0;
 	game->player->rot_angle = M_PI_2;
 	game->player->walk_speed = 100;
-	game->player->turn_speed = 45 * (M_PI / 180);
+	game->player->turn_speed = 45 * M_PI_2;
 	return ;
 }
 
@@ -65,8 +64,6 @@ int	copy_map(t_game *game, char *map_name)
 void	init_variables(t_game *game)
 {
 	printf("FUNC INIT_VAR\n");
-	game->player_x = 0;
-	game->player_y = 0;
 	game->map_height = 0;
 	game->map_width = 0;
 }
