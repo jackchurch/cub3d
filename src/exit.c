@@ -25,7 +25,7 @@ void	deallocate_map(t_game *game)
 
 	printf("deallocate_map\n");
 	i = 0;
-	while (i < game->map_height)
+	while (i < game->map_num_rows)
 		free(game->map[i++]);
 	free(game->map);
 	return ;
