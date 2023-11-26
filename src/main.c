@@ -107,6 +107,22 @@ void	renderPlayer(t_game *game)
 	drawLine(game, &playerLine);
 }
 
+void	movePlayer(t_game *game)
+{
+	if (!game)
+		return ;
+	player.rotationAngle += player.turnDirection * player.turnSpeed;
+	float moveStep = player.walkDirection * player.walkSpeed;
+	float newPlayerX = player.x + cos(player.rotationAngle) * moveStep;
+	float newPlayerY = player.y + sin(player.rotationAngle) * moveStep;
+
+	// Wall collision here
+
+	player.x = newPlayerX;
+	player.y = newPlayerY;
+}
+
+
 void renderMap(t_game *game)
 {
 	for (int i = 0; i < MAP_NUM_ROWS; i++)
@@ -128,10 +144,36 @@ void renderMap(t_game *game)
 	}
 }
 
-int	process_input(int keycode, t_game *game)
+int	key_hook(int keycode, t_game *game)
 {
-	 if (keycode == ESC)
+	if (keycode == LEFT)
+		player.turnDirection = -1;
+	else if (keycode == RIGHT)
+		player.turnDirection = 1;
+	else if (keycode == UP)
+		player.walkDirection = 1;
+	else if (keycode == DOWN)
+		player.walkDirection = -1;
+	else if (keycode == ESC)
 		safe_exit(game);
+	// renderPlayer(game);
+	movePlayer(game);
+	renderMap(game);
+	renderPlayer(game);
+	// render(game);
+	return (0);
+}
+
+int	key_release(int keycode)
+{
+	if (keycode == LEFT)
+		player.turnDirection = 0;
+	else if (keycode == RIGHT)
+		player.turnDirection = 0;
+	else if (keycode == UP)
+		player.walkDirection = 0;
+	else if (keycode == DOWN)
+		player.walkDirection = 0;
 	return (0);
 }
 
@@ -143,13 +185,16 @@ bool	init_window(t_game *game)
 	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Legally Distinct Slï'mę Game");
 	if (!game->win)
 		safe_exit(game);
-	mlx_hook(game->win, 2, 0, process_input, game);
+	mlx_hook(game->win, 2, 0, key_hook, game);
+	mlx_hook(game->win, 3, 0, key_release, game);
+
 	return (true);
 }
 
-void update()
+void update(t_game *game)
 {
 	// Add FPS here if have time. 
+	movePlayer(game);
 }
 
 void setup()
@@ -161,8 +206,8 @@ void setup()
 	player.turnDirection = 0;
 	player.walkDirection = 0;
 	player.rotationAngle = HALF_PI;
-	player.walkSpeed = 100;
-	player.turnSpeed = 45 * ONE_PI / 180;
+	player.walkSpeed = 5;
+	player.turnSpeed = ONE_PI / 180 * player.walkSpeed;
 }
 
 void	render(t_game *game)
@@ -192,7 +237,7 @@ int	main(void)
 	setup();
 
 	// process_input(); // See keyhooks
-	// update(); // Add FPS if have time. 
+	update(game); // Add FPS if have time. 
 	render(game);
 	mlx_loop(game->mlx);
 	return (0);
