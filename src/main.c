@@ -1,87 +1,198 @@
-
 #include <stdbool.h>
 #include <fcntl.h>
+#include <sys/time.h>
 #include "../inc/cub3d.h"
 
-int	map_has_wall_at(t_game *game, float new_x, float new_y)
+const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	{1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
+	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
+
+struct Player {
+	float x;
+	float y;
+	float width;
+	float height;
+	int turnDirection;
+	int walkDirection;
+	float rotationAngle;
+	float walkSpeed;
+	float turnSpeed;
+} player;
+
+int	player_x, player_y;
+
+void	drawRect(t_game *game, t_rectangle *rect)
 {
-	int		map_grid_col;
-	int		map_grid_row;
-	char	result;
-
-	map_grid_col = floor(new_x / TILE_SIZE);
-	map_grid_row = floor(new_y / TILE_SIZE);
-	result = game->map[map_grid_row][map_grid_col]; // [row 0][column 0] -> [r0][c1] -> etc
-	if (result == '1')
-		return (TRUE);
-	return (FALSE);
-}
-
-void	move_player(t_game *game)
-{
-	float	move_step;
-	float	new_x;
-	float	new_y;
-
-	game->player->rot_angle += game->player->turn_dir * game->player->turn_speed;
-	move_step = game->player->walk_dir * game->player->walk_speed;
-	new_x = game->player->x + cos(game->player->rot_angle) * move_step;
-	new_y = game->player->y + sin(game->player->rot_angle) * move_step;
-	if (map_has_wall_at(game, new_x, new_y) == FALSE)
+	int	i;
+	int	j;
+	
+	i = rect->x;
+	while (i <= (rect->x + rect->width))
 	{
-		game->player->x = new_x;
-		game->player->y = new_y;
+		j = rect->y;
+		while (j <= (rect->y + rect->height))
+		{
+			mlx_pixel_put(game->mlx, game->win, i, j, rect->color);
+			j++;
+		}
+		i++;
 	}
 	return ;
 }
 
-int	keys(int keycode, t_game *game)
+void drawLine(t_game *game, t_line *line) {
+    
+	int x0 = line->x0;
+	int y0 = line->y0;
+	int x1 = line->x1;
+	int y1 = line->y1;
+	int color = line->color;
+	int deltaX = (x1 - x0);
+    int deltaY = (y1 - y0);
+
+    int longestSideLength = (abs(deltaX) >= abs(deltaY)) ? abs(deltaX) : abs(deltaY);
+
+    float xIncrement = deltaX / (float)longestSideLength;
+    float yIncrement = deltaY / (float)longestSideLength;
+
+    float currentX = x0;
+    float currentY = y0;
+
+    for (int i = 0; i < longestSideLength; i++) {
+		mlx_pixel_put(game->mlx, game->win, round(currentX), round(currentY), color);
+        currentX += xIncrement;
+        currentY += yIncrement;
+    }
+}
+
+void	safe_exit(t_game *game)
 {
-	if (keycode == LEFT)
-		game->player->turn_dir = -1;
-	else if (keycode == RIGHT)
-		game->player->turn_dir = 1;
-	else if (keycode == UP)
-		game->player->walk_dir = 1;
-	else if (keycode == DOWN)
-		game->player->walk_dir = -1;
-	else if (keycode == ESC)
+	if (game->win)
+		free(game->win);
+	if (game->mlx)
+		free(game->mlx);
+	if (game)
+		free(game);
+	exit(0);
+}
+
+void	renderPlayer(t_game *game)
+{
+	t_rectangle playerRect = {
+		player.x * MINIMAP_SCALE,
+		player.y * MINIMAP_SCALE,
+		player.width * MINIMAP_SCALE,
+		player.height * MINIMAP_SCALE,
+		0x00E0B0FF
+	};
+	drawRect(game, &playerRect);
+
+	t_line playerLine = {
+		player.x * MINIMAP_SCALE,
+		player.y * MINIMAP_SCALE,
+		(player.x + cos(player.rotationAngle) * 40) * MINIMAP_SCALE,
+		(player.y + sin(player.rotationAngle) * 40) * MINIMAP_SCALE,
+		0x00E0B0FF
+	};
+	drawLine(game, &playerLine);
+}
+
+void renderMap(t_game *game)
+{
+	for (int i = 0; i < MAP_NUM_ROWS; i++)
+	{
+		for (int j = 0; j < MAP_NUM_COLS; j++)
+		{
+			int tileX = j * TILE_SIZE; 
+			int tileY = i * TILE_SIZE;
+			int tileColor = (map[i][j] != 0 ? 0x000000FF : 0x00FFFFFF);
+			t_rectangle mapTileRect = {
+				tileX * MINIMAP_SCALE, 
+				tileY * MINIMAP_SCALE, 
+				TILE_SIZE * MINIMAP_SCALE, 
+				TILE_SIZE * MINIMAP_SCALE, 
+				tileColor
+			};
+			drawRect(game, &mapTileRect);
+		}
+	}
+}
+
+int	process_input(int keycode, t_game *game)
+{
+	 if (keycode == ESC)
 		safe_exit(game);
-	// render_player(game);
-	move_player(game);
-	game->player->turn_dir = 0;
-	game->player->turn_dir = 0;
-	game->player->walk_dir = 0;
-	game->player->walk_dir = 0;
-	render(game);
 	return (0);
 }
 
-int	key_release(int keycode, t_game *game)
+bool	init_window(t_game *game)
 {
-	if (keycode == LEFT)
-		game->player->turn_dir = 0;
-	else if (keycode == RIGHT)
-		game->player->turn_dir = 0;
-	else if (keycode == UP)
-		game->player->walk_dir = 0;
-	else if (keycode == DOWN)
-		game->player->walk_dir = 0;
-	return (0);
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		safe_exit(game);
+	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Legally Distinct Slï'mę Game");
+	if (!game->win)
+		safe_exit(game);
+	mlx_hook(game->win, 2, 0, process_input, game);
+	return (true);
 }
 
-int	main(int argc, char *argv[])
+void update()
 {
-	t_game	*game;
+	// Add FPS here if have time. 
+}
 
-	printf("FUNC MAIN\n");
+void setup()
+{
+	player.x = WINDOW_WIDTH / 2;
+	player.y = WINDOW_HEIGHT / 2;
+	player.width = 1;
+	player.height = 1;
+	player.turnDirection = 0;
+	player.walkDirection = 0;
+	player.rotationAngle = HALF_PI;
+	player.walkSpeed = 100;
+	player.turnSpeed = 45 * ONE_PI / 180;
+}
+
+void	render(t_game *game)
+{
+
+	renderMap(game);
+	renderPlayer(game);
+	// render_rays()
+
+	t_rectangle rect = {
+		.x = player_x,
+		.y = player_y,
+		.width = 20,
+		.height = 20,
+		.color = 0x00FF0000
+	};
+	drawRect(game, &rect);
+
+}
+
+int	main(void)
+{
+	t_game *game;
+
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
-	game->player = (t_player *)ft_calloc(1, sizeof(t_player));
-	if (!game)
-		return (-1);
-	char* temp_name = argc != 2 ? "valid.ber" : argv[1];
-	if (init_program(game, temp_name) == false)
-		safe_exit(game);
+	init_window(game);
+	setup();
+
+	// process_input(); // See keyhooks
+	// update(); // Add FPS if have time. 
 	render(game);
 	mlx_loop(game->mlx);
 	return (0);
