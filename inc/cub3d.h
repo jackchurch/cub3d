@@ -13,12 +13,12 @@
 # define MAP_NUM_ROWS 11
 # define MAP_NUM_COLS 15
 
-# define MINIMAP_SCALE 0.3
+# define MINIMAP_SCALE 0.2
 
 # define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE) 
 # define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 
-# define FOV_ANGLE (60 * PI / 180)
+# define FOV_ANGLE (60 * (ONE_PI / 180))
 
 # define NUM_RAYS WINDOW_WIDTH
 
