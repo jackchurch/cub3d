@@ -2,6 +2,7 @@
 # define CONSTANTS_H
 
 # include <math.h>
+# include <stdbool.h>
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
@@ -21,6 +22,9 @@
 # define FOV_ANGLE (60 * (ONE_PI / 180))
 
 # define NUM_RAYS WINDOW_WIDTH
+
+# define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
+
 
 # define UP 13
 # define DOWN 1
@@ -51,5 +55,29 @@ typedef struct s_line
 	int y1;
 	int color;
 }	t_line;
+
+typedef struct s_player {
+	float x;
+	float y;
+	float width;
+	float height;
+	int turnDirection;
+	int walkDirection;
+	float rotationAngle;
+	float walkSpeed;
+	float turnSpeed;
+} t_player;
+
+
+
+// player.c
+void setup(t_player *player);
+void	movePlayer(t_game *game, t_player *player);
+void	renderPlayer(t_game *game, t_player *player);
+
+
+bool mapHasWallAt(float x, float y);
+void drawLine(t_game *game, t_line *line);
+void	drawRect(t_game *game, t_rectangle *rect);
 
 #endif

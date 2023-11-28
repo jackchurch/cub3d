@@ -18,17 +18,6 @@ const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-struct Player {
-	float x;
-	float y;
-	float width;
-	float height;
-	int turnDirection;
-	int walkDirection;
-	float rotationAngle;
-	float walkSpeed;
-	float turnSpeed;
-} player;
 
 struct Ray {
 	float rayAngle;
@@ -45,18 +34,12 @@ struct Ray {
 
 int	player_x, player_y;
 
-void setup()
+int	getMapAt(int i, int j)
 {
-	player.x = WINDOW_WIDTH / 2;
-	player.y = WINDOW_HEIGHT / 2;
-	player.width = 1;
-	player.height = 1;
-	player.turnDirection = 0;
-	player.walkDirection = 0;
-	player.rotationAngle = HALF_PI;
-	player.walkSpeed = 10;
-	player.turnSpeed = ONE_PI / 180 * player.walkSpeed;
+	return (map[i][j]);
 }
+
+
 
 void	drawRect(t_game *game, t_rectangle *rect)
 {
@@ -113,26 +96,7 @@ void	safe_exit(t_game *game)
 	exit(0);
 }
 
-void	renderPlayer(t_game *game)
-{
-	t_rectangle playerRect = {
-		player.x * MINIMAP_SCALE,
-		player.y * MINIMAP_SCALE,
-		player.width * MINIMAP_SCALE,
-		player.height * MINIMAP_SCALE,
-		0x00E0B0FF
-	};
-	drawRect(game, &playerRect);
 
-	t_line playerLine = {
-		player.x * MINIMAP_SCALE,
-		player.y * MINIMAP_SCALE,
-		(player.x + cos(player.rotationAngle) * 40) * MINIMAP_SCALE,
-		(player.y + sin(player.rotationAngle) * 40) * MINIMAP_SCALE,
-		0x00E0B0FF
-	};
-	drawLine(game, &playerLine);
-}
 
 bool mapHasWallAt(float x, float y)
 {
@@ -147,22 +111,7 @@ bool mapHasWallAt(float x, float y)
 	return (false);
 }
 
-void	movePlayer(t_game *game)
-{
-	if (!game)
-		return ;
-	player.rotationAngle += player.turnDirection * player.turnSpeed;
-	float moveStep = player.walkDirection * player.walkSpeed;
-	float newPlayerX = player.x + cos(player.rotationAngle) * moveStep;
-	float newPlayerY = player.y + sin(player.rotationAngle) * moveStep;
 
-
-	if (!mapHasWallAt(newPlayerX, newPlayerY))
-	{
-		player.x = newPlayerX;
-		player.y = newPlayerY;
-	}
-}
 
 float normalizeAngle(float rayAngle)
 {
@@ -231,7 +180,7 @@ void castRay(float rayAngle, int stripId)
 			foundHorzWallHit = true;
 			horzWallHitX = nextHorzTouchX;
 			horzWallHitY = nextHorzTouchY;
-			horzWallContent = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
+			horzWallContent = getMapAt((int)floor(yToCheck / TILE_SIZE), (int)floor(xToCheck / TILE_SIZE));
 			break ;
 		}
 		else
@@ -279,7 +228,7 @@ void castRay(float rayAngle, int stripId)
 			foundVertWallHit = true;
 			vertWallHitX = nextVertTouchX;
 			vertWallHitY = nextVertTouchY;
-			vertWallContent = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
+			vertWallContent = getMapAt((int)floor(yToCheck / TILE_SIZE), (int)floor(xToCheck / TILE_SIZE));
 			break ;
 		}
 		else
@@ -324,12 +273,10 @@ void castRay(float rayAngle, int stripId)
 
 void castAllRays()
 {
-	float rayAngle = player.rotationAngle - FOV_ANGLE / 2;
-	for (int stripId = 0; stripId < NUM_RAYS; stripId++)
+	for (int col = 0; col < NUM_RAYS; col++)
 	{
-		// printf("FOV: %f StripId: %d RayAngle: %f\n", FOV_ANGLE, stripId, rayAngle);
-		castRay(rayAngle, stripId);
-		rayAngle += FOV_ANGLE / NUM_RAYS;
+		float rayAngle = player.rotationAngle + atan(col - NUM_RAYS / 2) / DIST_PROJ_PLANE;
+		castRay(rayAngle, col);
 	}
 }
 
@@ -422,13 +369,11 @@ void	generate3DProjection(t_game *game)
 	for (int i = 0; i < NUM_RAYS; i++)
 	{
 		float correctedDistance = rays[i].distance * cos(rays[i].rayAngle - player.rotationAngle);
-		float distanceProjPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
-		float projectedWallHeight = (TILE_SIZE / correctedDistance) * distanceProjPlane;
+		float projectedWallHeight = (TILE_SIZE / correctedDistance) * DIST_PROJ_PLANE;
 		int wallStripHeight = (int)projectedWallHeight;
 
 		int wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2);
 		wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
-
 
 		int wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
 		wallBottomPixel = wallTopPixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wallBottomPixel;
@@ -453,17 +398,17 @@ void	generate3DProjection(t_game *game)
 	}
 }
 
-void	render(t_game *game)
+void	render(t_game *game, t_player *player)
 {
-	movePlayer(game);
+	movePlayer(game, player);
 	renderMap(game);
-	renderPlayer(game);
+	renderPlayer(game, player);
 	castAllRays();
 	// renderRays(game);
 	generate3DProjection(game);
 
 }
-int	key_hook(int keycode, t_game *game)
+int	key_hook(int keycode, t_game *game, t_player *player)
 {
 	if (keycode == LEFT)
 		player.turnDirection = -1;
@@ -479,7 +424,7 @@ int	key_hook(int keycode, t_game *game)
 	// movePlayer(game);
 	// renderMap(game);
 	// renderPlayer(game);
-	render(game);
+	render(game, player);
 	return (0);
 }
 
@@ -491,7 +436,7 @@ bool	init_window(t_game *game)
 	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Legally Distinct Slï'mę Game");
 	if (!game->win)
 		safe_exit(game);
-	mlx_hook(game->win, 2, 0, key_hook, game);
+	mlx_hook(game->win, 2, 0, key_hook, game, player);
 	mlx_hook(game->win, 3, 0, key_release, game);
 
 	return (true);
@@ -500,13 +445,12 @@ bool	init_window(t_game *game)
 int	main(void)
 {
 	t_game *game;
+	t_player *player;
 
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
+	player = (t_player *)ft_calloc(1, sizeof(t_player));
 	init_window(game);
-	setup();
-
-	// process_input(); // See keyhooks
-	// update(game); // Add FPS if have time. 
+	setup(player);
 	render(game);
 	mlx_loop(game->mlx);
 	return (0);

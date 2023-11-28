@@ -12,8 +12,8 @@ INC_DIRS	= $(INC_PATH) $(MLX_PATH) $(FT_PATH)
 INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
 MLX_MAC_THINGS = -framework OpenGL -framework AppKit
 
-SRCS	= src/main.c
-
+SRCS	= src/main.c \
+src/player.c
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g -MP -MD
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
