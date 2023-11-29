@@ -1,7 +1,3 @@
-#include <stdbool.h>
-#include <fcntl.h>
-#include <sys/time.h>
-#include <float.h>
 #include "../inc/cub3d.h"
 
 const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
@@ -43,7 +39,6 @@ struct Ray {
 	int wallHitContent;
 } rays[NUM_RAYS];
 
-int	player_x, player_y;
 
 void setup()
 {
@@ -134,18 +129,25 @@ void	renderPlayer(t_game *game)
 	drawLine(game, &playerLine);
 }
 
-bool mapHasWallAt(float x, float y)
+int	mapContentAt(float x, float y)
 {
-	// IF out of bounds return true. 
-	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
-		return (true);
-	int mapGridIndexX = floor(x / TILE_SIZE);
-	int mapGridIndexY = floor(y / TILE_SIZE);
-	// IF wall collision, return true
-	if (map[mapGridIndexY][mapGridIndexX] != 0)
-		return (true);
-	return (false);
+	int mapGridIndexX = (int)floor(x / TILE_SIZE);
+	int mapGridIndexY = (int)floor(y / TILE_SIZE);
+	return (map[mapGridIndexY][mapGridIndexX]);
 }
+
+// bool mapHasWallAt(float x, float y)
+// {
+// 	// IF out of bounds return true. 
+// 	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
+// 		return (true);
+// 	int mapGridIndexX = floor(x / TILE_SIZE);
+// 	int mapGridIndexY = floor(y / TILE_SIZE);
+// 	// IF wall collision, return true
+// 	if (map[mapGridIndexY][mapGridIndexX] != 0)
+// 		return (true);
+// 	return (false);
+// }
 
 void	movePlayer(t_game *game)
 {
@@ -157,7 +159,7 @@ void	movePlayer(t_game *game)
 	float newPlayerY = player.y + sin(player.rotationAngle) * moveStep;
 
 
-	if (!mapHasWallAt(newPlayerX, newPlayerY))
+	if (mapContentAt(newPlayerX, newPlayerY) != 1)
 	{
 		player.x = newPlayerX;
 		player.y = newPlayerY;
@@ -226,12 +228,13 @@ void castRay(float rayAngle, int stripId)
 		float xToCheck = nextHorzTouchX;
 		float yToCheck = nextHorzTouchY + (isRayFacingUp ? -1 : 0);
 
-		if (mapHasWallAt(xToCheck, yToCheck))
+		if (mapContentAt(xToCheck, yToCheck) == 1)
 		{
 			foundHorzWallHit = true;
 			horzWallHitX = nextHorzTouchX;
 			horzWallHitY = nextHorzTouchY;
-			horzWallContent = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
+			horzWallContent = mapContentAt((int)floor(yToCheck / TILE_SIZE), (int)floor(xToCheck / TILE_SIZE) );
+			// horzWallContent = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
 			break ;
 		}
 		else
@@ -274,12 +277,13 @@ void castRay(float rayAngle, int stripId)
 		float xToCheck = nextVertTouchX + (isRayFacingLeft ? -1 : 0);
 		float yToCheck = nextVertTouchY;
 
-		if (mapHasWallAt(xToCheck, yToCheck))
+		if (mapContentAt(xToCheck, yToCheck) == 1)
 		{
 			foundVertWallHit = true;
 			vertWallHitX = nextVertTouchX;
 			vertWallHitY = nextVertTouchY;
-			vertWallContent = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
+			vertWallContent = mapContentAt((int)floor(yToCheck / TILE_SIZE), (int)floor(xToCheck / TILE_SIZE));
+			// vertWallContent = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
 			break ;
 		}
 		else
@@ -341,7 +345,8 @@ void renderMap(t_game *game)
 		{
 			int tileX = j * TILE_SIZE; 
 			int tileY = i * TILE_SIZE;
-			int tileColor = (map[i][j] != 0 ? 0x000000FF : 0x00FFFFFF);
+			int _mapContent = mapContentAt(i, j);
+			int tileColor = (_mapContent != 0 ? 0x000000FF : 0x00FFFFFF);
 			t_rectangle mapTileRect = {
 				tileX * MINIMAP_SCALE, 
 				tileY * MINIMAP_SCALE, 

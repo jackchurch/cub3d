@@ -2,6 +2,9 @@
 # define CONSTANTS_H
 
 # include <math.h>
+# include <stdbool.h>
+# include <float.h>
+
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
