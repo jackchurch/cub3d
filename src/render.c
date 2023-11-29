@@ -1,99 +1,49 @@
-
-// #include <stdbool.h>
-// #include <fcntl.h>
-// #include "../inc/cub3d.h"
+#include "../inc/cub3d.h"
 
 
-// void	draw_rect(t_game *game, t_rectangle *rect)
-// {
-// 	int	i;
-// 	int	j;
-	
-// 	i = rect->x;
-// 	while (i <= (rect->x + rect->width))
-// 	{
-// 		j = rect->y;
-// 		while (j <= (rect->y + rect->height))
-// 		{
-// 			mlx_pixel_put(game->mlx, game->win, i, j, rect->color);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return ;
-// }
+void	renderPlayer(t_game *game)
+{
+	t_rectangle playerRect = {
+		player.x * MINIMAP_SCALE,
+		player.y * MINIMAP_SCALE,
+		player.width * MINIMAP_SCALE,
+		player.height * MINIMAP_SCALE,
+		0x00E0B0FF
+	};
+	drawRect(game, &playerRect);
 
-// // TODO
-// void	draw_line(t_game *game, t_line *line)
-// {
-// 	mlx_pixel_put(game->mlx, game->win, line->end_x, line->end_y, line->color);
-// 	return ;
-// }
+	t_line playerLine = {
+		player.x * MINIMAP_SCALE,
+		player.y * MINIMAP_SCALE,
+		(player.x + cos(player.rotationAngle) * 40) * MINIMAP_SCALE,
+		(player.y + sin(player.rotationAngle) * 40) * MINIMAP_SCALE,
+		0x00E0B0FF
+	};
+	drawLine(game, &playerLine);
+}
 
-// int	ft_tile_color(char c)
-// {
-// 	if (c == '1')
-// 		return (0x000000FF);
-// 	else
-// 		return (0x00FFFFFF);
-// }
 
-// void	render_map(t_game *game)
-// {
-// 	int	i;
-// 	int	j;
-// 	t_rectangle	rect;
 
-// 	i = 0;
-// 	while (i < game->map_num_rows)
-// 	{
-// 		j = 0;
-// 		while (j < game->map_num_cols)
-// 		{
-// 			rect.x = j * TILE_SIZE * MINIMAP_SCALE;
-// 			rect.y = i * TILE_SIZE * MINIMAP_SCALE;
-// 			rect.width = TILE_SIZE * MINIMAP_SCALE;
-// 			rect.height = TILE_SIZE * MINIMAP_SCALE;
-// 			rect.color = ft_tile_color(game->map[i][j]);
 
-// 			// printf("tile_color %d game->map[%d][%d]\n", rect.color, i, j);
-// 			draw_rect(game, &rect);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
+void drawCeling(t_game *game)
+{
+	t_rectangle celing = {
+		.x = 0,
+		.y = 0,
+		.width = WINDOW_WIDTH,
+		.height = WINDOW_HEIGHT / 2,
+		.color = 0x00FAF0E6
+	};
+	drawRect(game, &celing);
 
-// void	render_player(t_game *game)
-// {
-// 	t_rectangle	rect;
-// 	t_line		line;
+	t_rectangle floor = {
+		.x = 0,
+		.y = WINDOW_HEIGHT / 2,
+		.width = WINDOW_WIDTH,
+		.height = WINDOW_HEIGHT / 2,
+		.color = 0x008B9E8A
+	};
+	drawRect(game, &floor);
 
-// 	rect.x = game->player->x * MINIMAP_SCALE;
-// 	rect.y = game->player->y * MINIMAP_SCALE;
-// 	rect.width = game->player->width * MINIMAP_SCALE;
-// 	rect.height = game->player->height * MINIMAP_SCALE;
-// 	rect.color = 0x000000FF;
-// 	draw_rect(game, &rect);
+}
 
-// 	line.start_x = game->player->x * MINIMAP_SCALE;
-// 	line.start_y = game->player->y * MINIMAP_SCALE;
-// 	line.end_x = (game->player->x + cos(game->player->rot_angle) * 50) * MINIMAP_SCALE;
-// 	line.end_y = (game->player->y + sin(game->player->rot_angle) * 50) * MINIMAP_SCALE;
-// 	line.color = 0x000000FF;
-// 	draw_line(game, &line);
-// }
-
-// // void	move_player(t_game *game)
-// // {
-	
-// // }
-
-// void	render(t_game *game)
-// {
-// 	render_map(game);
-// 	// render_rays(game);
-// 	render_player(game);
-
-// 	return ;
-// }

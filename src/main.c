@@ -1,31 +1,5 @@
 #include "../inc/cub3d.h"
 
-const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-	{1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
-	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-};
-
-struct Player {
-	float x;
-	float y;
-	float width;
-	float height;
-	int turnDirection;
-	int walkDirection;
-	float rotationAngle;
-	float walkSpeed;
-	float turnSpeed;
-} player;
-
 struct Ray {
 	float rayAngle;
 	float wallHitX;
@@ -53,50 +27,6 @@ void setup()
 	player.turnSpeed = ONE_PI / 180 * player.walkSpeed;
 }
 
-void	drawRect(t_game *game, t_rectangle *rect)
-{
-	int	i;
-	int	j;
-	
-	i = rect->x;
-	while (i <= (rect->x + rect->width))
-	{
-		j = rect->y;
-		while (j <= (rect->y + rect->height))
-		{
-			mlx_pixel_put(game->mlx, game->win, i, j, rect->color);
-			j++;
-		}
-		i++;
-	}
-	return ;
-}
-
-void drawLine(t_game *game, t_line *line) {
-    
-	int x0 = line->x0;
-	int y0 = line->y0;
-	int x1 = line->x1;
-	int y1 = line->y1;
-	int color = line->color;
-	int deltaX = (x1 - x0);
-    int deltaY = (y1 - y0);
-
-    int longestSideLength = (abs(deltaX) >= abs(deltaY)) ? abs(deltaX) : abs(deltaY);
-
-    float xIncrement = deltaX / (float)longestSideLength;
-    float yIncrement = deltaY / (float)longestSideLength;
-
-    float currentX = x0;
-    float currentY = y0;
-
-    for (int i = 0; i < longestSideLength; i++) {
-		mlx_pixel_put(game->mlx, game->win, round(currentX), round(currentY), color);
-        currentX += xIncrement;
-        currentY += yIncrement;
-    }
-}
-
 void	safe_exit(t_game *game)
 {
 	if (game->win)
@@ -108,46 +38,8 @@ void	safe_exit(t_game *game)
 	exit(0);
 }
 
-void	renderPlayer(t_game *game)
-{
-	t_rectangle playerRect = {
-		player.x * MINIMAP_SCALE,
-		player.y * MINIMAP_SCALE,
-		player.width * MINIMAP_SCALE,
-		player.height * MINIMAP_SCALE,
-		0x00E0B0FF
-	};
-	drawRect(game, &playerRect);
 
-	t_line playerLine = {
-		player.x * MINIMAP_SCALE,
-		player.y * MINIMAP_SCALE,
-		(player.x + cos(player.rotationAngle) * 40) * MINIMAP_SCALE,
-		(player.y + sin(player.rotationAngle) * 40) * MINIMAP_SCALE,
-		0x00E0B0FF
-	};
-	drawLine(game, &playerLine);
-}
 
-int	mapContentAt(float x, float y)
-{
-	int mapGridIndexX = (int)floor(x / TILE_SIZE);
-	int mapGridIndexY = (int)floor(y / TILE_SIZE);
-	return (map[mapGridIndexY][mapGridIndexX]);
-}
-
-// bool mapHasWallAt(float x, float y)
-// {
-// 	// IF out of bounds return true. 
-// 	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
-// 		return (true);
-// 	int mapGridIndexX = floor(x / TILE_SIZE);
-// 	int mapGridIndexY = floor(y / TILE_SIZE);
-// 	// IF wall collision, return true
-// 	if (map[mapGridIndexY][mapGridIndexX] != 0)
-// 		return (true);
-// 	return (false);
-// }
 
 void	movePlayer(t_game *game)
 {
@@ -164,19 +56,6 @@ void	movePlayer(t_game *game)
 		player.x = newPlayerX;
 		player.y = newPlayerY;
 	}
-}
-
-float normalizeAngle(float rayAngle)
-{
-	rayAngle = remainder(rayAngle, TWO_PI);
-	if (rayAngle < 0)
-		rayAngle = TWO_PI + rayAngle;
-	return (rayAngle);
-}
-
-float distanceBetweenPoints(float x1, float y1, float x2, float y2)
-{
-	return (sqrt( (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) ) );
 }
 
 void castRay(float rayAngle, int stripId)
@@ -337,27 +216,6 @@ void castAllRays()
 	}
 }
 
-void renderMap(t_game *game)
-{
-	for (int i = 0; i < MAP_NUM_ROWS; i++)
-	{
-		for (int j = 0; j < MAP_NUM_COLS; j++)
-		{
-			int tileX = j * TILE_SIZE; 
-			int tileY = i * TILE_SIZE;
-			int _mapContent = mapContentAt(i, j);
-			int tileColor = (_mapContent != 0 ? 0x000000FF : 0x00FFFFFF);
-			t_rectangle mapTileRect = {
-				tileX * MINIMAP_SCALE, 
-				tileY * MINIMAP_SCALE, 
-				TILE_SIZE * MINIMAP_SCALE, 
-				TILE_SIZE * MINIMAP_SCALE, 
-				tileColor
-			};
-			drawRect(game, &mapTileRect);
-		}
-	}
-}
 
 void	renderRays(t_game *game)
 {
@@ -385,41 +243,7 @@ void	renderRays(t_game *game)
 // 	add angle increment to go to the next ray (rayangle += 60/320) -> convert 60 deg into rads
 // }
 
-int	key_release(int keycode)
-{
-	if (keycode == LEFT)
-		player.turnDirection = 0;
-	else if (keycode == RIGHT)
-		player.turnDirection = 0;
-	else if (keycode == UP)
-		player.walkDirection = 0;
-	else if (keycode == DOWN)
-		player.walkDirection = 0;
-	return (0);
-}
 
-
-void drawCeling(t_game *game)
-{
-	t_rectangle celing = {
-		.x = 0,
-		.y = 0,
-		.width = WINDOW_WIDTH,
-		.height = WINDOW_HEIGHT / 2,
-		.color = 0x00FAF0E6
-	};
-	drawRect(game, &celing);
-
-	t_rectangle floor = {
-		.x = 0,
-		.y = WINDOW_HEIGHT / 2,
-		.width = WINDOW_WIDTH,
-		.height = WINDOW_HEIGHT / 2,
-		.color = 0x008B9E8A
-	};
-	drawRect(game, &floor);
-
-}
 
 void	generate3DProjection(t_game *game)
 {
@@ -467,39 +291,6 @@ void	render(t_game *game)
 	// renderRays(game);
 	generate3DProjection(game);
 
-}
-int	key_hook(int keycode, t_game *game)
-{
-	if (keycode == LEFT)
-		player.turnDirection = -1;
-	else if (keycode == RIGHT)
-		player.turnDirection = 1;
-	else if (keycode == UP)
-		player.walkDirection = 1;
-	else if (keycode == DOWN)
-		player.walkDirection = -1;
-	else if (keycode == ESC)
-		safe_exit(game);
-	// renderPlayer(game);
-	// movePlayer(game);
-	// renderMap(game);
-	// renderPlayer(game);
-	render(game);
-	return (0);
-}
-
-bool	init_window(t_game *game)
-{
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		safe_exit(game);
-	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Legally Distinct Slï'mę Game");
-	if (!game->win)
-		safe_exit(game);
-	mlx_hook(game->win, 2, 0, key_hook, game);
-	mlx_hook(game->win, 3, 0, key_release, game);
-
-	return (true);
 }
 
 int	main(void)

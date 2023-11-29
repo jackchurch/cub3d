@@ -12,7 +12,13 @@ INC_DIRS	= $(INC_PATH) $(MLX_PATH) $(FT_PATH)
 INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
 MLX_MAC_THINGS = -framework OpenGL -framework AppKit
 
-SRCS	= src/main.c
+SRCS	= $(SRC_PATH)/main.c \
+$(SRC_PATH)/mlx.c \
+$(SRC_PATH)/maths.c \
+$(SRC_PATH)/map.c \
+$(SRC_PATH)/render_utils.c \
+$(SRC_PATH)/render.c
+
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g -MP -MD
