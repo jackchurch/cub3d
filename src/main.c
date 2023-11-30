@@ -1,30 +1,16 @@
 #include "../inc/cub3d.h"
 
-struct Ray {
-	float rayAngle;
-	float wallHitX;
-	float wallHitY;
-	float distance;
-	int wasHitVertical;
-	int isRayFacingUp;
-	int isRayFacingDown;
-	int isRayFacingLeft;
-	int isRayFacingRight;
-	int wallHitContent;
-} rays[NUM_RAYS];
-
-
-void setup()
+void	setup(void)
 {
-	player.x = WINDOW_WIDTH / 2;
-	player.y = WINDOW_HEIGHT / 2;
-	player.width = 1;
-	player.height = 1;
-	player.turnDirection = 0;
-	player.walkDirection = 0;
-	player.rotationAngle = HALF_PI;
-	player.walkSpeed = 10;
-	player.turnSpeed = ONE_PI / 180 * player.walkSpeed;
+	t_player.x = WINDOW_WIDTH / 2;
+	t_player.y = WINDOW_HEIGHT / 2;
+	t_player.width = 1;
+	t_player.height = 1;
+	t_player.turnDirection = 0;
+	t_player.walkDirection = 0;
+	t_player.rotationAngle = M_PI / 2;
+	t_player.walkSpeed = 10;
+	t_player.turnSpeed = M_PI / 180 * t_player.walkSpeed;
 }
 
 void	safe_exit(t_game *game)
@@ -45,28 +31,29 @@ void	movePlayer(t_game *game)
 {
 	if (!game)
 		return ;
-	player.rotationAngle += player.turnDirection * player.turnSpeed;
-	float moveStep = player.walkDirection * player.walkSpeed;
-	float newPlayerX = player.x + cos(player.rotationAngle) * moveStep;
-	float newPlayerY = player.y + sin(player.rotationAngle) * moveStep;
+	t_player.rotationAngle += t_player.turnDirection * t_player.turnSpeed;
+	float moveStep = t_player.walkDirection * t_player.walkSpeed;
+	float newPlayerX = t_player.x + cos(t_player.rotationAngle) * moveStep;
+	float newPlayerY = t_player.y + sin(t_player.rotationAngle) * moveStep;
 
 
 	if (mapContentAt(newPlayerX, newPlayerY) != 1)
 	{
-		player.x = newPlayerX;
-		player.y = newPlayerY;
+		t_player.x = newPlayerX;
+		t_player.y = newPlayerY;
 	}
 }
 
-void castRay(float rayAngle, int stripId)
+
+void cast_one_ray(float rayAngle, int stripId)
 {
 	// "constructor methods"
 	rayAngle = normalizeAngle(rayAngle);
 
 	// Starts at 3 oclock and goes clockwise. 
-	int isRayFacingDown = rayAngle > 0 && rayAngle < ONE_PI;
+	int isRayFacingDown = rayAngle > 0 && rayAngle < M_PI;
 	int isRayFacingUp = !isRayFacingDown;
-	int isRayFacingRight = rayAngle < HALF_PI || rayAngle > (ONE_PI * 1.5);
+	int isRayFacingRight = rayAngle < (M_PI / 2) || rayAngle > (M_PI * 1.5);
 	int isRayFacingLeft = !isRayFacingRight;
 
 	float xstep;
@@ -77,17 +64,18 @@ void castRay(float rayAngle, int stripId)
 	//////////////////////////////////////////////
 	// Horizintal ray grid intersection code.
 	//////////////////////////////////////////////
+
 	int foundHorzWallHit = false;
 	float horzWallHitX = 0;
 	float horzWallHitY = 0;
 	int horzWallContent = 0;
 
 	// Find the y-coordinate of the closet horizontal grid intersection.  
-	yintercept = floor(player.y / TILE_SIZE) * TILE_SIZE;
+	yintercept = floor(t_player.y / TILE_SIZE) * TILE_SIZE;
 	yintercept += (isRayFacingDown ? TILE_SIZE : 0);
 
 	// Find the x coordinate of the closest horizontal grid intersection
-	xintercept = player.x + (yintercept - player.y) / tan(rayAngle);
+	xintercept = t_player.x + (yintercept - t_player.y) / tan(rayAngle);
 
 	// Calculate the increment for xstep and ystep.
 	ystep = TILE_SIZE;
@@ -132,11 +120,11 @@ void castRay(float rayAngle, int stripId)
 	int vertWallContent = 0;
 
 	// Find the x-coordinate of the closet horizontal grid intersection.  
-	xintercept = floor(player.x / TILE_SIZE) * TILE_SIZE;
+	xintercept = floor(t_player.x / TILE_SIZE) * TILE_SIZE;
 	xintercept += (isRayFacingRight ? TILE_SIZE : 0);
 
 	// Find the y coordinate of the closest horizontal grid intersection
-	yintercept = player.y + (xintercept - player.x) * tan(rayAngle);
+	yintercept = t_player.y + (xintercept - t_player.x) * tan(rayAngle);
 
 	// Calculate the increment for ystep and xstep.
 	xstep = TILE_SIZE;
@@ -174,11 +162,11 @@ void castRay(float rayAngle, int stripId)
 	
 	// Calculate both horizontal and vertical distances and choose the smaller.
 	float horzHitDistance = (foundHorzWallHit
-		? distanceBetweenPoints(player.x, player.y, horzWallHitX, horzWallHitY)
+		? distanceBetweenPoints(t_player.x, t_player.y, horzWallHitX, horzWallHitY)
 		: FLT_MAX);
 
 	float vertHitDistance = (foundVertWallHit
-		? distanceBetweenPoints(player.x, player.y, vertWallHitX, vertWallHitY)
+		? distanceBetweenPoints(t_player.x, t_player.y, vertWallHitX, vertWallHitY)
 		: FLT_MAX);
 
 	// Only store the smallest of the distances and x and y. 
@@ -207,11 +195,11 @@ void castRay(float rayAngle, int stripId)
 
 void castAllRays()
 {
-	float rayAngle = player.rotationAngle - FOV_ANGLE / 2;
+	float rayAngle = t_player.rotationAngle - FOV_ANGLE / 2;
 	for (int stripId = 0; stripId < NUM_RAYS; stripId++)
 	{
 		// printf("FOV: %f StripId: %d RayAngle: %f\n", FOV_ANGLE, stripId, rayAngle);
-		castRay(rayAngle, stripId);
+		cast_one_ray(rayAngle, stripId);
 		rayAngle += FOV_ANGLE / NUM_RAYS;
 	}
 }
@@ -222,8 +210,8 @@ void	renderRays(t_game *game)
 	for (int i = 0; i < NUM_RAYS; i++)
 	{
 		t_line line = {
-			player.x * MINIMAP_SCALE,
-			player.y * MINIMAP_SCALE,
+			t_player.x * MINIMAP_SCALE,
+			t_player.y * MINIMAP_SCALE,
 			rays[i].wallHitX * MINIMAP_SCALE,
 			rays[i].wallHitY * MINIMAP_SCALE,
 			0x00FFC8D7
@@ -250,7 +238,7 @@ void	generate3DProjection(t_game *game)
 	drawCeling(game);
 	for (int i = 0; i < NUM_RAYS; i++)
 	{
-		float correctedDistance = rays[i].distance * cos(rays[i].rayAngle - player.rotationAngle);
+		float correctedDistance = rays[i].distance * cos(rays[i].rayAngle - t_player.rotationAngle);
 		float distanceProjPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
 		float projectedWallHeight = (TILE_SIZE / correctedDistance) * distanceProjPlane;
 		int wallStripHeight = (int)projectedWallHeight;

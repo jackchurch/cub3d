@@ -2,9 +2,9 @@
 
 float normalizeAngle(float rayAngle)
 {
-	rayAngle = remainder(rayAngle, TWO_PI);
+	rayAngle = remainder(rayAngle, M_PI * 2);
 	if (rayAngle < 0)
-		rayAngle = TWO_PI + rayAngle;
+		rayAngle = M_PI * 2 + rayAngle;
 	return (rayAngle);
 }
 

@@ -1,5 +1,6 @@
 - Make const int map into file and then struct. 
 
+Make vert and horiz cast_one_ray() components structs to pass into a new compare function. 
 
 # Sort out. or: remove as globals
 int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
@@ -12,11 +13,13 @@ Ray {
 main(void)
 render(t_game \*game) *It's a bad name*
 safe_exit(t_game *game)
+
+## Init
 setup() — must change
 
 
 ## Ray
-castRay(float rayAngle, int stripId)
+cast_one_ray(float rayAngle, int stripId)
 renderRays(t_game \*game) can remove
 generate3DProjection(t_game \*game) *because it has the rays[] struct*
 

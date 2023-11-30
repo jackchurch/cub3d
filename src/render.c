@@ -4,19 +4,19 @@
 void	renderPlayer(t_game *game)
 {
 	t_rectangle playerRect = {
-		player.x * MINIMAP_SCALE,
-		player.y * MINIMAP_SCALE,
-		player.width * MINIMAP_SCALE,
-		player.height * MINIMAP_SCALE,
+		t_player.x * MINIMAP_SCALE,
+		t_player.y * MINIMAP_SCALE,
+		t_player.width * MINIMAP_SCALE,
+		t_player.height * MINIMAP_SCALE,
 		0x00E0B0FF
 	};
 	drawRect(game, &playerRect);
 
 	t_line playerLine = {
-		player.x * MINIMAP_SCALE,
-		player.y * MINIMAP_SCALE,
-		(player.x + cos(player.rotationAngle) * 40) * MINIMAP_SCALE,
-		(player.y + sin(player.rotationAngle) * 40) * MINIMAP_SCALE,
+		t_player.x * MINIMAP_SCALE,
+		t_player.y * MINIMAP_SCALE,
+		(t_player.x + cos(t_player.rotationAngle) * 40) * MINIMAP_SCALE,
+		(t_player.y + sin(t_player.rotationAngle) * 40) * MINIMAP_SCALE,
 		0x00E0B0FF
 	};
 	drawLine(game, &playerLine);

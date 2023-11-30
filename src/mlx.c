@@ -2,27 +2,27 @@
 
 int	key_release(int keycode)
 {
-	if (keycode == LEFT)
-		player.turnDirection = 0;
-	else if (keycode == RIGHT)
-		player.turnDirection = 0;
-	else if (keycode == UP)
-		player.walkDirection = 0;
-	else if (keycode == DOWN)
-		player.walkDirection = 0;
+	if (keycode == LEFT_ARROW)
+		t_player.turnDirection = 0;
+	else if (keycode == RIGHT_ARROW)
+		t_player.turnDirection = 0;
+	else if (keycode == UP_ARROW)
+		t_player.walkDirection = 0;
+	else if (keycode == S_KEY)
+		t_player.walkDirection = 0;
 	return (0);
 }
 
 int	key_hook(int keycode, t_game *game)
 {
-	if (keycode == LEFT)
-		player.turnDirection = -1;
-	else if (keycode == RIGHT)
-		player.turnDirection = 1;
-	else if (keycode == UP)
-		player.walkDirection = 1;
-	else if (keycode == DOWN)
-		player.walkDirection = -1;
+	if (keycode == LEFT_ARROW)
+		t_player.turnDirection = -1;
+	else if (keycode == RIGHT_ARROW)
+		t_player.turnDirection = 1;
+	else if (keycode == UP_ARROW)
+		t_player.walkDirection = 1;
+	else if (keycode == S_KEY)
+		t_player.walkDirection = -1;
 	else if (keycode == ESC)
 		safe_exit(game);
 	// renderPlayer(game);
