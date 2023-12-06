@@ -273,12 +273,12 @@ void	generate3DProjection(t_game *game)
 void	render(t_game *game)
 {
 	movePlayer(game);
-	renderMap(game);
 	renderPlayer(game);
 	castAllRays();
 	// renderRays(game);
 	generate3DProjection(game);
-
+	renderMap(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->data.img, 0, 0);
 }
 
 int	main(void)
@@ -288,6 +288,10 @@ int	main(void)
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	init_window(game);
 	setup();
+	game->data = (t_data){0};
+	game->data.img = mlx_new_image(game->mlx, WINDOW_WIDTH,  WINDOW_HEIGHT);
+	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bits_per_pixel, &game->data.line_length, &game->data.endian);
+
 
 	// process_input(); // See keyhooks
 	// update(game); // Add FPS if have time. 

@@ -21,7 +21,8 @@ $(SRC_PATH)/render.c
 
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g -MP -MD
+DFLAGS  = -fsanitize=address -g 
+CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) -MP -MD
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 DEPFILES = $(patsubst %.c,%.d,$(SRCS))
 
@@ -29,7 +30,7 @@ DEPFILES = $(patsubst %.c,%.d,$(SRCS))
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(MLX_LIB) $(FT_LIB)
-	$(CC) -fsanitize=address -g $(OBJECTS) $(INC_LIBS) $(MLX_MAC_THINGS) -o $@
+	$(CC) $(DFLAGS) $(OBJECTS) $(INC_LIBS) $(MLX_MAC_THINGS) -o $@
 
 %.o: $(SRC_PATH)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<

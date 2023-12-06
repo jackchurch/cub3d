@@ -1,5 +1,14 @@
 #include "../inc/cub3d.h"
 
+void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char *dst;
+	if (x < 0 || y < 0 || x >= WINDOW_WIDTH || y >= WINDOW_HEIGHT)
+		return ;
+	// vvvvvv this is the color buffer in your notes vvvvvvv
+	dst = (data->addr + (y * data->line_length + x * data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
 void	drawRect(t_game *game, t_rectangle *rect)
 {
@@ -12,7 +21,7 @@ void	drawRect(t_game *game, t_rectangle *rect)
 		j = rect->y;
 		while (j <= (rect->y + rect->height))
 		{
-			mlx_pixel_put(game->mlx, game->win, i, j, rect->color);
+			my_mlx_pixel_put(&game->data, i, j, rect->color);
 			j++;
 		}
 		i++;
@@ -39,7 +48,7 @@ void drawLine(t_game *game, t_line *line) {
     float currentY = y0;
 
     for (int i = 0; i < longestSideLength; i++) {
-		mlx_pixel_put(game->mlx, game->win, round(currentX), round(currentY), color);
+		my_mlx_pixel_put(&game->data, round(currentX), round(currentY), color);
         currentX += xIncrement;
         currentY += yIncrement;
     }
