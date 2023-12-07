@@ -273,11 +273,11 @@ void	generate3DProjection(t_game *game)
 void	render(t_game *game)
 {
 	movePlayer(game);
-	renderPlayer(game);
 	castAllRays();
-	// renderRays(game);
 	generate3DProjection(game);
 	renderMap(game);
+	renderRays(game);
+	renderPlayer(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data.img, 0, 0);
 }
 
