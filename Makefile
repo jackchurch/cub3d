@@ -13,11 +13,12 @@ INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
 MLX_MAC_THINGS = -framework OpenGL -framework AppKit
 
 SRCS	= $(SRC_PATH)/main.c \
-$(SRC_PATH)/mlx.c \
+$(SRC_PATH)/ft_mlx.c \
 $(SRC_PATH)/maths.c \
 $(SRC_PATH)/map.c \
-$(SRC_PATH)/render_utils.c \
-$(SRC_PATH)/render.c
+$(SRC_PATH)/draw.c \
+$(SRC_PATH)/render.c \
+$(SRC_PATH)/ray.c
 
 
 CC		= gcc

@@ -1,4 +1,5 @@
-#include "../inc/cub3d.h"
+#include "../inc/ft_mlx.h"
+#include "../inc/constance.h"
 
 int	key_release(int keycode)
 {

@@ -1,11 +1,11 @@
-#include "../inc/cub3d.h"
+#include "../inc/maths.h"
+#include "../inc/constance.h"
 
-float normalizeAngle(float rayAngle)
+void	normalizeAngle(float *rayAngle)
 {
-	rayAngle = remainder(rayAngle, M_PI * 2);
-	if (rayAngle < 0)
-		rayAngle = M_PI * 2 + rayAngle;
-	return (rayAngle);
+	*rayAngle = remainder(*rayAngle, M_PI * 2);
+	if (*rayAngle < 0)
+		*rayAngle = M_PI * 2 + *rayAngle;
 }
 
 float distanceBetweenPoints(float x1, float y1, float x2, float y2)
