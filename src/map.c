@@ -2,7 +2,7 @@
 #include "../inc/draw.h"
 #include "../inc/map.h"
 
-static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+static const int	map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
 	{1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
@@ -18,8 +18,11 @@ static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 
 int	mapContentAt(float x, float y)
 {
-	int mapGridIndexX = (int)floor(x / TILE_SIZE);
-	int mapGridIndexY = (int)floor(y / TILE_SIZE);
+	int	mapGridIndexY;
+	int	mapGridIndexX;
+
+	mapGridIndexY = (int)floor(y / TILE_SIZE);
+	mapGridIndexX = (int)floor(x / TILE_SIZE);
 	return (map[mapGridIndexY][mapGridIndexX]);
 }
 
@@ -28,9 +31,10 @@ int	getMapAt(int i, int j)
 	return (map[i][j]);
 }
 
-bool isInsideMap(float x, float y)
+bool	isInsideMap(float x, float y)
 {
-	return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE && y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
+	return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE
+		&& y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
 }
 
 // bool mapHasWallAt(float x, float y)
@@ -46,21 +50,30 @@ bool isInsideMap(float x, float y)
 // 	return (false);
 // }
 
-void renderMap(t_game *game)
+void	renderMap(t_game *game)
 {
-	for (int i = 0; i < MAP_NUM_ROWS; i++)
+	int	i;
+	int	j;
+	t_tile	tile;
+	t_rectangle mapTileRect;
+
+	i = -1;
+	while (++i < MAP_NUM_ROWS)
 	{
-		for (int j = 0; j < MAP_NUM_COLS; j++)
+		j = -1;
+		while (++j < MAP_NUM_COLS)
 		{
-			int tileX = j * TILE_SIZE; 
-			int tileY = i * TILE_SIZE;
-			int tileColor = (getMapAt(i, j) != 0 ? 0x000000FF : 0x00FFFFFF);
-			t_rectangle mapTileRect = {
-				tileX * MINIMAP_SCALE, 
-				tileY * MINIMAP_SCALE, 
-				TILE_SIZE * MINIMAP_SCALE, 
-				TILE_SIZE * MINIMAP_SCALE, 
-				tileColor
+			tile.x = j * TILE_SIZE; 
+			tile.y = i * TILE_SIZE;
+			if (getMapAt(i, j) != 0)
+				tile.color = 0x000000FF;
+			else
+				tile.color = 0x00FFFFFF;
+			mapTileRect =
+			{
+				tile.x * MINIMAP_SCALE, tile.y * MINIMAP_SCALE,
+				TILE_SIZE * MINIMAP_SCALE, TILE_SIZE * MINIMAP_SCALE,
+				tile.color
 			};
 			drawRect(game, &mapTileRect);
 		}

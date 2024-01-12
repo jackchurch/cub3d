@@ -1,14 +1,15 @@
 #include "../inc/cub3d.h"
 #include "../inc/draw.h"
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
+
 	if (x < 0 || y < 0 || x >= WINDOW_WIDTH || y >= WINDOW_HEIGHT)
 		return ;
 	// vvvvvv this is the color buffer in your notes vvvvvvv
 	dst = (data->addr + (y * data->line_length + x * data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 void	drawRect(t_game *game, t_rectangle *rect)
@@ -30,27 +31,29 @@ void	drawRect(t_game *game, t_rectangle *rect)
 	return ;
 }
 
-void drawLine(t_game *game, t_line *line) {
-    
-	int x0 = line->x0;
-	int y0 = line->y0;
-	int x1 = line->x1;
-	int y1 = line->y1;
-	int color = line->color;
-	int deltaX = (x1 - x0);
-    int deltaY = (y1 - y0);
+void	drawLine(t_game *game, const t_line *line)
+{
+	t_line_math	drawn;
+	int			i;
 
-    int longestSideLength = (abs(deltaX) >= abs(deltaY)) ? abs(deltaX) : abs(deltaY);
-
-    float xIncrement = deltaX / (float)longestSideLength;
-    float yIncrement = deltaY / (float)longestSideLength;
-
-    float currentX = x0;
-    float currentY = y0;
-
-    for (int i = 0; i < longestSideLength; i++) {
-		my_mlx_pixel_put(&game->data, round(currentX), round(currentY), color);
-        currentX += xIncrement;
-        currentY += yIncrement;
-    }
+	drawn.absX = abs(drawn.deltaX);
+	drawn.absY = abs(drawn.deltaY);
+	drawn.deltaX = (line->x1 - line->x0);
+	drawn.deltaY = (line->y1 - line->y0);
+	if (drawn.absX) >= drawn.absY)
+		drawn.longestSideLength = drawn.absX;
+	else
+		drawn.longestSideLength = drawn.absY;
+	drawn.xIncrement = drawn.deltaX / (float)drawn.longestSideLength;
+	drawn.yIncrement = drawn.deltaY / (float)drawn.longestSideLength;
+	drawn.currentX = line->x0;
+	drawn.currentY = line->y0;
+	i = -1;
+	while (++i < drawn.longestSideLength)
+	{
+		my_mlx_pixel_put(&game->data, round(drawn.currentX),
+			round(drawn.currentY), line->color);
+		drawn.currentX += drawn.xIncrement;
+		drawn.currentY += drawn.yIncrement;
+	}
 }
