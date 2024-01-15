@@ -4,7 +4,7 @@
 # include <math.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
+# include "mlx.h"
 # include "constance.h"
 
 
