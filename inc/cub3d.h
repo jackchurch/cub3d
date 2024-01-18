@@ -31,6 +31,16 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
+typedef struct s_map {
+	char	**the_map;
+	char	*north;
+	char	*south;
+	char	*east;
+	char	*west;
+	int[3]	floor;
+	int[3]	celing;
+}	t_map;
+
 typedef struct s_game
 {
 	void	*mlx;

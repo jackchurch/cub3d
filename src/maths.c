@@ -1,5 +1,5 @@
-#include "../inc/maths.h"
-#include "../inc/constance.h"
+#include "maths.h"
+#include "constance.h"
 
 void	normalizeAngle(float *rayAngle)
 {

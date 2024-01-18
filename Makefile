@@ -19,7 +19,6 @@ $(SRC_PATH)/draw.c \
 $(SRC_PATH)/render.c \
 $(SRC_PATH)/ray.c
 
-
 CC		= gcc
 DFLAGS  = -fsanitize=address -g 
 CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD

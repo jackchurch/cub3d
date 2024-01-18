@@ -8,11 +8,10 @@
 # include "cub3d.h"
 # include "constance.h"
 
-
-void renderMap(t_game *game);
-int	mapContentAt(float x, float y);
-bool isInsideMap(float x, float y);
-
+void	renderMap(t_game *game);
+int		mapContentAt(float x, float y);
+bool	isInsideMap(float x, float y);
+bool	init_texture_and_map(char *file_name);
 
 
 #endif
