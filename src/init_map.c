@@ -1,6 +1,7 @@
 #include <fcntl.h>
 
-#include "map.h"
+#include "../inc/map.h"
+#include "constance.h"
 #include "cub3d.h"
 
 bool	is_white_space(char c)
@@ -10,63 +11,137 @@ bool	is_white_space(char c)
 	return (false);
 }
 
-int	find_first_char(char *current_line)
+void	find_first_char(char *current_line, int *i)
 {
 	int i = 0;
-	while (current_line[i] != '\0' && is_white_space(current_line[i]))
-		i++;
-	if (current_line[i] == '\0')
+	while (is_white_space(current_line[*i]))
+		*i++;
+	if (current_line[*i] == '\0')
+		*i = -1;
+}
+
+char	*remove_tail_whitespace(char *in_string)
+{
+	int		len;
+	char	*temp;
+
+	len = ft_strlen(in_string);
+	if (is_white_space(in_string[len - 1]))
+	{
+		while (is_white_space(in_string[len - 1]))
+		{
+			len--;
+		}
+		ft_strlcpy(temp, in_string, ft_strlen(in_string) - len);
+		return (temp);
+	}
+	return (in_string);
+}
+
+bool	is_xpm_file(char *file_name)
+{
+	int	len;
+
+	len = ft_strlen(file_name);
+	if (file_name[len - 1] == 'm' || file_name[len - 2] == 'p' || 
+		file_name[len - 3] == 'x' || file_name[len - 4] == '.')
+	{
+		return (true);
+	}
+	else
+	{
+		return (false);
+	}
+}
+
+int	find_element_path(char *current_line, int *i, int element_type)
+{
+	int		j;
+	char	*file_name;
+	char	*file_name2;
+
+	find_first_char(current_line, i);
+	if (*i == -1)
 		return (-1);
-	printf("first char found: %s\n", current_line);
-	return (i);
+	file_name = ft_substr(current_line, *i, ft_strlen(current_line));
+	file_name2 = remove_tail_whitespace(file_name);
+	free(file_name);
+	if (element_type == CELING || element_type == FLOOR)
+	{
+		//set_celing_or_floor(element_type)
+		return (1);
+	}
+	if (is_xpm_file(file_name2) == false)
+		return (-1);
+	
+
+	
 }
 
 // assign things here maybe
-int	element_found_is(int *i, char *current_line)
+int	element_maybe_at(char *current_line, int *i)
 { 
+	int	element_type;
+
 	if (current_line[*i] == 'C' && is_white_space(current_line[*i + 1]))
-		return (1);
+		element_type = CELING;
 	else if (current_line[*i] == 'F' && is_white_space(current_line[*i + 1]))
-		return (2);
+		element_type = FLOOR;
 	else if (current_line[*i] == 'N' && current_line[*i + 1] == 'O' && is_white_space(current_line[*i + 2]))
-		return (3);
+		element_type = NORTH;
 	else if (current_line[*i] == 'S' && current_line[*i + 1] == 'O' && is_white_space(current_line[*i + 2]))
-		return (4);
+		element_type = SOUTH;
 	else if (current_line[*i] == 'E' && current_line[*i + 1] == 'A' && is_white_space(current_line[*i + 2]))
-		return (5);
+		element_type = EAST;
 	else if (current_line[*i] == 'W' && current_line[*i + 1] == 'E' && is_white_space(current_line[*i + 2]))
-		return (6);
+		element_type = WEST;
 	else
 		return (-1);
+	find_element_path(current_line, i, element_type);
+	return (element_type);
 }
 
-int	get_elements(int *fd, char *current_line, int *elements_found
+int	get_elements(int *fd, char *current_line, int *elements_found)
 {
 	int	first_char_index;
 
+	first_char_index = 0;
 	if (*elements_found >= 6)
 		return (-1);
 	while (current_line != '\0' && current_line[0] != '\n')
 	{
-		first_char_index = find_first_char(current_line);
+		find_first_char(current_line, &first_char_index);
 		if (first_char_index == -1)
 			return -1;
+		element_maybe_at(current_line, &first_char_index);
+
 		
 		// if char is C or F or NO or SO or EA or WE do function for element
 		// else nope
 	}
 }
 
+int	open_cub_file(char *file_name)
+{
+	int	fd;
+
+	if (file_name == NULL)
+		return (-1);
+	fd = open(file_name, O_RDONLY);
+	if (fd == -1 || fd == NULL)
+		return (-1);
+	return (fd);
+}
 
 
-bool	init_texture_and_map(char *file_name);
+bool	init_cub_file(char *file_name)
 {
 	int		fd;
 	char	*current_line;
 	int		elements_found;
 
 	elements_found = 0;
-	fd = open(file_name, O_RDONLY);
+	fd = open_cub_file(file_name);
 	current_line = "temp";
 	while (current_line != NULL)
 	{

@@ -33,4 +33,7 @@
 # define	SOUTH 3
 # define	WEST 4
 
+# define	CELING 5
+# define	FLOOR 6
+
 #endif
