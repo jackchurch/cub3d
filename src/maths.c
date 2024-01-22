@@ -1,11 +1,11 @@
 #include "../inc/maths.h"
 #include "../inc/constance.h"
 
-void	normalizeAngle(float *rayAngle)
+void	normalizeAngle(float *ray_angle)
 {
-	*rayAngle = remainder(*rayAngle, M_PI * 2);
-	if (*rayAngle < 0)
-		*rayAngle = M_PI * 2 + *rayAngle;
+	*ray_angle = remainder(*ray_angle, M_PI * 2);
+	if (*ray_angle < 0)
+		*ray_angle = M_PI * 2 + *ray_angle;
 }
 
 float	distanceBetweenPoints(float x1, float y1, float x2, float y2)
