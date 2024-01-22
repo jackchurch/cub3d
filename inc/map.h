@@ -11,7 +11,5 @@
 void	renderMap(t_game *game);
 int		mapContentAt(float x, float y);
 bool	isInsideMap(float x, float y);
-bool	init_cub_file(char *file_name);
-
 
 #endif

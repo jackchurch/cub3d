@@ -46,7 +46,6 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	t_data	data;
-	t_map	map;
 } t_game;
 
 
