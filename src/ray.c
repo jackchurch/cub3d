@@ -5,7 +5,7 @@
 #include "../inc/constance.h"
 #include "../inc/map.h"
 
-ray_t	rays[NUM_RAYS];
+t_ray	rays[NUM_RAYS];
 
 int	isRayFacingDown(float angle)
 {
@@ -27,7 +27,40 @@ int	isRayFacingLeft(float angle)
 	return (!isRayFacingRight(angle));
 }
 
-void cast_one_ray(float rayAngle, int stripId)
+void	calculateSteps(float rayAngle, float *xstep, float *ystep, char axis)
+{
+	if (axis = x)
+	{
+		*ystep = TILE_SIZE;
+		if (isRayFacingUp(rayAngle))
+			*ystep *= -1;
+		*xstep = TILE_SIZE / tan(rayAngle);
+		if (isRayFacingLeft(rayAngle) && *xstep > 0)
+			*xstep *= -1;
+		if (isRayFacingRight(rayAngle) && *xstep < 0)
+			*xstep *= -1;
+	}
+	if (axis = y)
+	{
+		*xstep = TILE_SIZE;
+		if (isRayFacingLeft(rayAngle))
+			*xstep *= -1;
+		*ystep = TILE_SIZE / tan(rayAngle);
+		if (isRayFacingUp(rayAngle) && *ystep > 0)
+			*ystep *= -1;
+		if (isRayFacingDown(rayAngle) && *ystep < 0)
+			*ystep *= -1;
+	}
+}
+
+void	wallHitParams(t_wall_hit *params)
+{
+	params->xstep = 0;
+	params->ystep = 0;
+
+}
+
+void	cast_one_ray(float rayAngle, int stripId)
 {
 	// "constructor methods"
 	normalizeAngle(&rayAngle);
@@ -42,6 +75,9 @@ void cast_one_ray(float rayAngle, int stripId)
 	float ystep;
 	float xintercept;
 	float yintercept;
+	t_wall_hit	params;
+
+	wallHitParams(&params);
 
 	//////////////////////////////////////////////
 	// Horizintal ray grid intersection code.
@@ -60,12 +96,7 @@ void cast_one_ray(float rayAngle, int stripId)
 	xintercept = t_player.x + (yintercept - t_player.y) / tan(rayAngle);
 
 	// Calculate the increment for xstep and ystep.
-	ystep = TILE_SIZE;
-	ystep *= (isRayFacingUp(rayAngle) ? -1 : 1);
-
-	xstep = TILE_SIZE / tan(rayAngle);
-	xstep *= ((isRayFacingLeft(rayAngle) && xstep > 0) ? -1 : 1);
-	xstep *= ((isRayFacingRight(rayAngle) && xstep < 0) ? -1 : 1);
+	calculateSteps(rayAngle, &xstep, &ystep, 'x');
 	// Ask is that a wall for each ystep and xstep, if yes, get the distance, but therei s a catch....
 	float nextHorzTouchX = xintercept;
 	float nextHorzTouchY = yintercept;
@@ -109,12 +140,7 @@ void cast_one_ray(float rayAngle, int stripId)
 	yintercept = t_player.y + (xintercept - t_player.x) * tan(rayAngle);
 
 	// Calculate the increment for ystep and xstep.
-	xstep = TILE_SIZE;
-	xstep *= (isRayFacingLeft(rayAngle) ? -1 : 1);
-
-	ystep = TILE_SIZE * tan(rayAngle);
-	ystep *= ((isRayFacingUp(rayAngle) && ystep > 0) ? -1 : 1);
-	ystep *= ((isRayFacingDown(rayAngle) && ystep < 0) ? -1 : 1);
+	calculateSteps(rayAngle, &xstep, &ystep, 'y');
 	// Ask is that a wall for each ystep and xstep, if yes, get the distance, but therei s a catch....
 	float nextVertTouchX = xintercept;
 	float nextVertTouchY = yintercept;

@@ -8,17 +8,17 @@
 # include "constance.h"
 
 
-struct s_player
+struct	s_player
 {
-	float x;
-	float y;
-	float width;
-	float height;
-	int turnDirection;
-	int walkDirection;
-	float rotationAngle;
-	float walkSpeed;
-	float turnSpeed;
+	float	x;
+	float	y;
+	float	width;
+	float	height;
+	int		turnDirection;
+	int		walkDirection;
+	float	rotationAngle;
+	float	walkSpeed;
+	float	turnSpeed;
 }	t_player;
 
 typedef struct	s_data {
@@ -31,7 +31,7 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
-typedef struct s_game
+typedef struct	s_game
 {
 	void	*mlx;
 	void	*win;
