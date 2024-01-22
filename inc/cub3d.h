@@ -37,8 +37,8 @@ typedef struct s_map {
 	char	*south;
 	char	*east;
 	char	*west;
-	int[3]	floor;
-	int[3]	celing;
+	int		floor[3];
+	int		celing[3];
 }	t_map;
 
 typedef struct s_game
@@ -46,6 +46,7 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	t_data	data;
+	t_map	map;
 } t_game;
 
 

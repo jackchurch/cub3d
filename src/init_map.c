@@ -43,8 +43,8 @@ bool	is_xpm_file(char *file_name)
 	int	len;
 
 	len = ft_strlen(file_name);
-	if (file_name[len - 1] == 'm' || file_name[len - 2] == 'p' || 
-		file_name[len - 3] == 'x' || file_name[len - 4] == '.')
+	if (file_name[len - 1] == 'm' && file_name[len - 2] == 'p' && 
+		file_name[len - 3] == 'x' && file_name[len - 4] == '.')
 	{
 		return (true);
 	}
@@ -54,24 +54,35 @@ bool	is_xpm_file(char *file_name)
 	}
 }
 
-int	find_element_path(char *current_line, int *i, int element_type)
+char	*isolate_element_path(char *current_line, int *i)
 {
-	int		j;
-	char	*file_name;
-	char	*file_name2;
+	char	*head_removed;
+	char	*element_path;
 
 	find_first_char(current_line, i);
 	if (*i == -1)
 		return (-1);
-	file_name = ft_substr(current_line, *i, ft_strlen(current_line));
-	file_name2 = remove_tail_whitespace(file_name);
-	free(file_name);
+	head_removed = ft_substr(current_line, *i, ft_strlen(current_line));
+	element_path = remove_tail_whitespace(head_removed);
+	free(head_removed);
+}
+
+int	find_element_path(char *current_line, int *i, int element_type)
+{
+	char	*file_name;
+
+	file_name = isolate_element_path(current_line, i);
 	if (element_type == CELING || element_type == FLOOR)
 	{
-		//set_celing_or_floor(element_type)
+		// TODO set_celing_or_floor(element_type)
 		return (1);
 	}
-	if (is_xpm_file(file_name2) == false)
+	else if (is_xpm_file(file_name) == true)
+	{
+		// TODO check_xpm_file(file_name)
+
+	}
+	else
 		return (-1);
 	
 
@@ -79,7 +90,7 @@ int	find_element_path(char *current_line, int *i, int element_type)
 }
 
 // assign things here maybe
-int	element_maybe_at(char *current_line, int *i)
+int	discover_element_type(char *current_line, int *i)
 { 
 	int	element_type;
 
@@ -97,6 +108,9 @@ int	element_maybe_at(char *current_line, int *i)
 		element_type = WEST;
 	else
 		return (-1);
+	*i++;
+	if (element_type != CELING && element_type != FLOOR)
+		*i++;
 	find_element_path(current_line, i, element_type);
 	return (element_type);
 }
@@ -113,7 +127,7 @@ int	get_elements(int *fd, char *current_line, int *elements_found)
 		find_first_char(current_line, &first_char_index);
 		if (first_char_index == -1)
 			return -1;
-		element_maybe_at(current_line, &first_char_index);
+		discover_element_type(current_line, &first_char_index);
 
 		
 		// if char is C or F or NO or SO or EA or WE do function for element
