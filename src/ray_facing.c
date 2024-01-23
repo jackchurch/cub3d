@@ -13,7 +13,7 @@ int	is_ray_facing_up(float angle)
 
 int	is_ray_facing_right(float angle)
 {
-	return (angle < (M_PI / 2) || angle >(M_PI * 1.5));
+	return (angle < (M_PI / 2) || angle > (M_PI * 1.5));
 }
 
 int	is_ray_facing_left(float angle)

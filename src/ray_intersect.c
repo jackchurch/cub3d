@@ -11,18 +11,14 @@ extern t_ray	g_rays[NUM_RAYS];
 //////////////////////////////////////////////
 void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle)
 {
-	float		yintercept;
-	float		xintercept;
 	float		x_to_check;
 	float		y_to_check;
 
-	yintercept = floor(t_player.y / TILE_SIZE) * TILE_SIZE;
+	horizontal->next_touch_y = floor(t_player.y / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_down(ray_angle))
-		yintercept += TILE_SIZE;
-	xintercept = t_player.x + (yintercept - t_player.y) / tan(ray_angle);
+		horizontal->next_touch_y += TILE_SIZE;
+	horizontal->next_touch_x = t_player.x + (horizontal->next_touch_y - t_player.y) / tan(ray_angle);
 	calculate_steps(ray_angle, &horizontal->xstep, &horizontal->ystep, 'x');
-	horizontal->next_touch_x = xintercept;
-	horizontal->next_touch_y = yintercept;
 	while (is_inside_map(horizontal->next_touch_x, horizontal->next_touch_y))
 	{
 		x_to_check = horizontal->next_touch_x;
@@ -33,7 +29,8 @@ void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle)
 			wall_found(horizontal, y_to_check, x_to_check, false);
 			break ;
 		}
-		step_increment(horizontal);
+		horizontal->next_touch_x += horizontal->xstep;
+		horizontal->next_touch_y += horizontal->ystep;
 	}
 }
 
@@ -42,18 +39,14 @@ void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle)
 //////////////////////////////////////////////
 void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 {
-	float		yintercept;
-	float		xintercept;
 	float		x_to_check;
 	float		y_to_check;
 
-	xintercept = floor(t_player.x / TILE_SIZE) * TILE_SIZE;
+	vertical->next_touch_x = floor(t_player.x / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_right(ray_angle))
-		xintercept += TILE_SIZE;
-	yintercept = t_player.y + (xintercept - t_player.x) * tan(ray_angle);
+		vertical->next_touch_t += TILE_SIZE;
+	vertical->next_touch_y = t_player.y + (vertical->next_touch_x - t_player.x) * tan(ray_angle);
 	calculate_steps(ray_angle, &vertical->xstep, &vertical->ystep, 'y');
-	vertical->next_touch_x = xintercept;
-	vertical->next_touch_y = yintercept;
 	while (is_inside_map(vertical->next_touch_x, vertical->next_touch_y))
 	{
 		y_to_check = vertical->next_touch_y;
@@ -64,14 +57,9 @@ void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 			wall_found(vertical, y_to_check, x_to_check, true);
 			break ;
 		}
-		step_increment(vertical);
+		vertical->next_touch_x += vertical->xstep;
+		vertical->next_touch_y += vertical->ystep;
 	}
-}
-
-void	step_increment(t_wall_hit *orientation)
-{
-	orientation->next_touch_x += orientation->xstep;
-	orientation->next_touch_y += orientation->ystep;
 }
 
 void	wall_found(t_wall_hit *orientation, float y_to_check,
