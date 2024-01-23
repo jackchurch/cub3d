@@ -19,7 +19,7 @@ setup() — must change
 
 
 ## Ray
-cast_one_ray(float rayAngle, int stripId)
+cast_one_ray(float ray_angle, int stripId)
 renderRays(t_game \*game) can remove
 generate3DProjection(t_game \*game) *because it has the rays[] struct*
 
@@ -37,7 +37,7 @@ key_hook(int keycode, t_game *game)
 key_release(int keycode)
 
 ## Maths
-normalizeAngle(float rayAngle)
+normalizeAngle(float ray_angle)
 istanceBetweenPoints(float x1, float y1, float x2, float y2)
 
 ## Map

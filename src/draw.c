@@ -36,24 +36,24 @@ void	drawLine(t_game *game, const t_line *line)
 	t_line_math	drawn;
 	int			i;
 
-	drawn.absX = abs(drawn.deltaX);
-	drawn.absY = abs(drawn.deltaY);
-	drawn.deltaX = (line->x1 - line->x0);
-	drawn.deltaY = (line->y1 - line->y0);
-	if (drawn.absX) >= drawn.absY)
-		drawn.longestSideLength = drawn.absX;
+	drawn.abs_x = abs(drawn.delta_x);
+	drawn.abs_y = abs(drawn.delta_y);
+	drawn.delta_x = (line->x1 - line->x0);
+	drawn.delta_y = (line->y1 - line->y0);
+	if (drawn.abs_x) >= drawn.abs_y)
+		drawn.longest_side_length = drawn.abs_x;
 	else
-		drawn.longestSideLength = drawn.absY;
-	drawn.xIncrement = drawn.deltaX / (float)drawn.longestSideLength;
-	drawn.yIncrement = drawn.deltaY / (float)drawn.longestSideLength;
-	drawn.currentX = line->x0;
-	drawn.currentY = line->y0;
+		drawn.longest_side_length = drawn.abs_y;
+	drawn.x_increment = drawn.delta_x / (float)drawn.longest_side_length;
+	drawn.y_increment = drawn.delta_y / (float)drawn.longest_side_length;
+	drawn.current_x = line->x0;
+	drawn.current_y = line->y0;
 	i = -1;
-	while (++i < drawn.longestSideLength)
+	while (++i < drawn.longest_side_length)
 	{
-		my_mlx_pixel_put(&game->data, round(drawn.currentX),
-			round(drawn.currentY), line->color);
-		drawn.currentX += drawn.xIncrement;
-		drawn.currentY += drawn.yIncrement;
+		my_mlx_pixel_put(&game->data, round(drawn.current_x),
+			round(drawn.current_y), line->color);
+		drawn.current_x += drawn.x_increment;
+		drawn.current_y += drawn.y_increment;
 	}
 }

@@ -28,15 +28,15 @@ typedef struct s_line
 
 typedef struct s_line_math
 {
-	int		deltaX;
-	int		deltaY;
-	int		longestSideLength;
-	float	xIncrement;
-	float	yIncrement;
-	float	currentX;
-	float	currentY;
-	int		absX;
-	int		absY;
+	int		delta_x;
+	int		delta_y;
+	int		longest_side_length;
+	float	x_increment;
+	float	y_increment;
+	float	current_x;
+	float	current_y;
+	int		abs_x;
+	int		abs_y;
 }	t_line_math;
 
 
