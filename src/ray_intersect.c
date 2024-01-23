@@ -11,9 +11,6 @@ extern t_ray	g_rays[NUM_RAYS];
 //////////////////////////////////////////////
 void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle)
 {
-	float		x_to_check;
-	float		y_to_check;
-
 	horizontal->next_touch_y = floor(t_player.y / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_down(ray_angle))
 		horizontal->next_touch_y += TILE_SIZE;
@@ -21,12 +18,11 @@ void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle)
 	calculate_steps(ray_angle, &horizontal->xstep, &horizontal->ystep, 'x');
 	while (is_inside_map(horizontal->next_touch_x, horizontal->next_touch_y))
 	{
-		x_to_check = horizontal->next_touch_x;
 		if (is_ray_facing_up(ray_angle))
-			y_to_check = horizontal->next_touch_y - 1;
-		if (map_content_at(x_to_check, y_to_check) == 1)
+			horizontal->next_touch_y--;
+		if (map_content_at(horizontal->next_touch_x, horizontal->next_touch_y) == 1)
 		{
-			wall_found(horizontal, y_to_check, x_to_check, false);
+			wall_found(horizontal, horizontal->next_touch_y, horizontal->next_touch_x, false);
 			break ;
 		}
 		horizontal->next_touch_x += horizontal->xstep;
@@ -39,9 +35,6 @@ void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle)
 //////////////////////////////////////////////
 void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 {
-	float		x_to_check;
-	float		y_to_check;
-
 	vertical->next_touch_x = floor(t_player.x / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_right(ray_angle))
 		vertical->next_touch_t += TILE_SIZE;
@@ -49,12 +42,11 @@ void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 	calculate_steps(ray_angle, &vertical->xstep, &vertical->ystep, 'y');
 	while (is_inside_map(vertical->next_touch_x, vertical->next_touch_y))
 	{
-		y_to_check = vertical->next_touch_y;
 		if (is_ray_facing_left(ray_angle))
-			x_to_check = vertical->next_touch_x - 1;
-		if (map_content_at(x_to_check, y_to_check) == 1)
+			vertical->next_touch_x--;
+		if (map_content_at(vertical->next_touch_x, vertical->next_touch_y) == 1)
 		{
-			wall_found(vertical, y_to_check, x_to_check, true);
+			wall_found(vertical, vertical->next_touch_y, vertical->next_touch_x, true);
 			break ;
 		}
 		vertical->next_touch_x += vertical->xstep;
