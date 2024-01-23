@@ -69,7 +69,7 @@ void	wall_hit_params(t_wall_hit *params)
 void	cast_one_ray(float ray_angle, int stripId)
 {
 	// "constructor methods"
-	normalizeAngle(&ray_angle);
+	normalize_angle(&ray_angle);
 
 	// Starts at 3 oclock and goes clockwise. 
 	// int is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
@@ -176,11 +176,11 @@ void	cast_one_ray(float ray_angle, int stripId)
 	
 	// Calculate both horizontal and vertical distances and choose the smaller.
 	float horzHitDistance = (foundHorzWallHit
-		? distanceBetweenPoints(t_player.x, t_player.y, horzwall_hit_x, horzwall_hit_y)
+		? distance_between_points(t_player.x, t_player.y, horzwall_hit_x, horzwall_hit_y)
 		: FLT_MAX);
 
 	float vertHitDistance = (foundVertWallHit
-		? distanceBetweenPoints(t_player.x, t_player.y, vertwall_hit_x, vertwall_hit_y)
+		? distance_between_points(t_player.x, t_player.y, vertwall_hit_x, vertwall_hit_y)
 		: FLT_MAX);
 
 	// Only store the smallest of the distances and x and y. 

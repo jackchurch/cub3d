@@ -17,6 +17,7 @@ typedef struct s_tile
 
 void	render_map(t_game *game);
 int		map_content_at(float x, float y);
+void	tile_rect_init(t_rectangle *map_tile_rect, const t_tile tile);
 bool	is_inside_map(float x, float y);
 
 #endif

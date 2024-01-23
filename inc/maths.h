@@ -4,7 +4,7 @@
 # include <math.h>
 
 // maths.c
-void	normalizeAngle(float *ray_angle);
-float	distanceBetweenPoints(float x1, float y1, float x2, float y2);
+void	normalize_angle(float *ray_angle);
+float	distance_between_points(float x1, float y1, float x2, float y2);
 
 #endif
