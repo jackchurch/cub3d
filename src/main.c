@@ -64,10 +64,10 @@ void	move_player(t_game *game)
 void	render(t_game *game)
 {
 	move_player(game);
-	castAllRays();
+	cast_all_rays();
 	generate3DProjection(game);
 	render_map(game);
-	renderRays(game);
+	render_rays(game);
 	renderPlayer(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data.img, 0, 0);
 }

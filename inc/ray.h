@@ -36,7 +36,14 @@ typedef struct s_wall_hit
 
 extern t_ray	g_rays[NUM_RAYS];
 
-void	renderRays(t_game *game);
-void	castAllRays(void);
+void	render_rays(t_game *game);
+void	cast_all_rays(void);
+void	cast_one_ray(float ray_angle, int stripId);
+int		is_ray_facing_down(float angle);
+int		is_ray_facing_up(float angle);
+int		is_ray_facing_right(float angle);
+int		is_ray_facing_left(float angle);
+void	calculate_steps(float ray_angle, float *xstep,
+		float *ystep, char axis);
 
 #endif
