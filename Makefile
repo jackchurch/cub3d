@@ -18,7 +18,9 @@ $(SRC_PATH)/maths.c \
 $(SRC_PATH)/map.c \
 $(SRC_PATH)/draw.c \
 $(SRC_PATH)/render.c \
-$(SRC_PATH)/ray.c
+$(SRC_PATH)/ray.c \
+$(SRC_PATH)/ray_facing.c \
+$(SRC_PATH)/ray_intersect.c
 
 
 CC		= gcc

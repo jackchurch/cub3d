@@ -25,20 +25,28 @@ typedef struct s_wall_hit
 {
 	float	xstep;
 	float	ystep;
-	int		*found_wall_hit;
-	float	*wall_hit_x;
-	float	*wall_hit_y;
-	int		*wall_content;
+	bool	found_wall_hit;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	int		wall_content;
 	float	next_touch_x;
 	float	next_touch_y;
-	int		is_vertical;
+	bool	is_vertical;
 }	t_wall_hit;
 
 extern t_ray	g_rays[NUM_RAYS];
 
 void	render_rays(t_game *game);
+void	step_increment(t_wall_hit *orientation);
+void	wall_hit_params(t_wall_hit *params);
+void	ray_cast(t_wall_hit *hit, int stripId,
+	float ray_angle, float hit_distance);
+void	wall_found(t_wall_hit *orientation, float y_to_check,
+	float x_to_check, bool is_vertical);
 void	cast_all_rays(void);
 void	cast_one_ray(float ray_angle, int stripId);
+void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle);
+void	vertical_intersection(t_wall_hit *vertical, float ray_angle);
 int		is_ray_facing_down(float angle);
 int		is_ray_facing_up(float angle);
 int		is_ray_facing_right(float angle);
