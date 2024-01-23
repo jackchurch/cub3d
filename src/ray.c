@@ -203,7 +203,7 @@ void	cast_one_ray(float ray_angle, int stripId)
 
 void castAllRays(void)
 {
-	float ray_angle = t_player.rotationAngle - FOV_ANGLE / 2;
+	float ray_angle = t_player.rotation_angle - FOV_ANGLE / 2;
 	for (int stripId = 0; stripId < NUM_RAYS; stripId++)
 	{
 		// printf("FOV: %f StripId: %d ray_angle: %f\n", FOV_ANGLE, stripId, ray_angle);

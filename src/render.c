@@ -18,8 +18,8 @@ void	renderPlayer(t_game *game)
 	t_line playerLine = {
 		t_player.x * MINIMAP_SCALE,
 		t_player.y * MINIMAP_SCALE,
-		(t_player.x + cos(t_player.rotationAngle) * 40) * MINIMAP_SCALE,
-		(t_player.y + sin(t_player.rotationAngle) * 40) * MINIMAP_SCALE,
+		(t_player.x + cos(t_player.rotation_angle) * 40) * MINIMAP_SCALE,
+		(t_player.y + sin(t_player.rotation_angle) * 40) * MINIMAP_SCALE,
 		0x00E0B0FF
 	};
 	drawLine(game, &playerLine);
@@ -52,7 +52,7 @@ void	generate3DProjection(t_game *game)
 	drawCeling(game);
 	for (int i = 0; i < NUM_RAYS; i++)
 	{
-		float correctedDistance = rays[i].distance * cos(rays[i].ray_angle - t_player.rotationAngle);
+		float correctedDistance = rays[i].distance * cos(rays[i].ray_angle - t_player.rotation_angle);
 		float distanceProjPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
 		float projectedWallHeight = (TILE_SIZE / correctedDistance) * distanceProjPlane;
 		int wallStripHeight = (int)projectedWallHeight;

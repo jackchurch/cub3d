@@ -13,11 +13,11 @@ void	setup(void)
 	t_player.y = WINDOW_HEIGHT / 2;
 	t_player.width = 1;
 	t_player.height = 1;
-	t_player.turnDirection = 0;
-	t_player.walkDirection = 0;
-	t_player.rotationAngle = M_PI / 2;
-	t_player.walkSpeed = 10;
-	t_player.turnSpeed = M_PI / 180 * t_player.walkSpeed;
+	t_player.turn_direction = 0;
+	t_player.walk_direction = 0;
+	t_player.rotation_angle = M_PI / 2;
+	t_player.walk_speed = 10;
+	t_player.turn_speed = M_PI / 180 * t_player.walk_speed;
 }
 
 void	safe_exit(t_game *game)
@@ -39,10 +39,10 @@ void	movePlayer(t_game *game)
 
 	if (!game)
 		return ;
-	t_player.rotationAngle += t_player.turnDirection * t_player.turnSpeed;
-	moveStep = t_player.walkDirection * t_player.walkSpeed;
-	newPlayerX = t_player.x + cos(t_player.rotationAngle) * moveStep;
-	newPlayerY = t_player.y + sin(t_player.rotationAngle) * moveStep;
+	t_player.rotation_angle += t_player.turn_direction * t_player.turn_speed;
+	moveStep = t_player.walk_direction * t_player.walk_speed;
+	newPlayerX = t_player.x + cos(t_player.rotation_angle) * moveStep;
+	newPlayerY = t_player.y + sin(t_player.rotation_angle) * moveStep;
 	if (mapContentAt(newPlayerX, newPlayerY) != 1)
 	{
 		t_player.x = newPlayerX;

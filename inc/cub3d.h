@@ -7,21 +7,21 @@
 # include "../mlx/mlx.h"
 # include "constance.h"
 
-
 struct	s_player
 {
 	float	x;
 	float	y;
 	float	width;
 	float	height;
-	int		turnDirection;
-	int		walkDirection;
-	float	rotationAngle;
-	float	walkSpeed;
-	float	turnSpeed;
+	int		turn_direction;
+	int		walk_direction;
+	float	rotation_angle;
+	float	walk_speed;
+	float	turn_speed;
 }	t_player;
 
-typedef struct	s_data {
+typedef struct	s_data
+{
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
@@ -38,23 +38,12 @@ typedef struct	s_game
 	t_data	data;
 } t_game;
 
-
-
-
 bool	init_window(t_game *game);
 
 // main.c
 void	safe_exit(t_game *game);
 
-
-
-
 // To sort
 void	render(t_game *game);
-
-
-
-
-
 
 #endif
