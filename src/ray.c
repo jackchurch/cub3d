@@ -16,7 +16,7 @@ int	is_ray_facing_up(float angle)
 {
 	return (!is_ray_facing_down(angle));
 }
-+2
+
 int	is_ray_facing_right(float angle)
 {
 	return (angle < (M_PI / 2) || angle > (M_PI * 1.5));
