@@ -65,13 +65,13 @@ void	generate3DProjection(t_game *game)
 		wallBottomPixel = wallTopPixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wallBottomPixel;
 
 		int _color;
-		if (rays[i].isRayFacingDown && !rays[i].was_hit_vertical)
+		if (rays[i].is_ray_facing_down && !rays[i].was_hit_vertical)
 			_color = 0x0000FFFF;
-		if (rays[i].isRayFacingUp && !rays[i].was_hit_vertical)
+		if (rays[i].is_ray_facing_up && !rays[i].was_hit_vertical)
 			_color = 0x00FFFF00;
-		if (rays[i].isRayFacingLeft && rays[i].was_hit_vertical)
+		if (rays[i].is_ray_facing_left && rays[i].was_hit_vertical)
 			_color = 0x00FF00FF;
-		if (rays[i].isRayFacingRight && rays[i].was_hit_vertical)
+		if (rays[i].is_ray_facing_right && rays[i].was_hit_vertical)
 			_color = 0x0000FF00;
 		t_rectangle rect = {
 			.x = i,

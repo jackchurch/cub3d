@@ -14,10 +14,10 @@ typedef struct s_ray
 	float	wall_hit_y;
 	float	distance;
 	int		was_hit_vertical;
-	int		isRayFacingUp;
-	int		isRayFacingDown;
-	int		isRayFacingLeft;
-	int		isRayFacingRight;
+	int		is_ray_facing_up;
+	int		is_ray_facing_down;
+	int		is_ray_facing_left;
+	int		is_ray_facing_right;
 	int		wall_hit_content;
 }	t_ray;
 
@@ -25,13 +25,13 @@ typedef struct s_wall_hit
 {
 	float	xstep;
 	float	ystep;
-	int		*foundWallHit;
+	int		*found_wall_hit;
 	float	*wall_hit_x;
 	float	*wall_hit_y;
-	int		*wallContent;
-	float	nextTouchX;
-	float	nextTouchY;
-	int		isVertical;
+	int		*wall_content;
+	float	next_touch_x;
+	float	next_touch_y;
+	int		is_vertical;
 }	t_wall_hit;
 
 extern t_ray	rays[NUM_RAYS];

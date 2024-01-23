@@ -44,6 +44,5 @@ bool	init_window(t_game *game)
 		safe_exit(game);
 	mlx_hook(game->win, 2, 0, key_hook, game);
 	mlx_hook(game->win, 3, 0, key_release, game);
-
 	return (true);
 }

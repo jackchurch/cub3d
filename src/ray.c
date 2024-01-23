@@ -29,7 +29,7 @@ int	isRayFacingLeft(float angle)
 
 void	calculateSteps(float ray_angle, float *xstep, float *ystep, char axis)
 {
-	if (axis = x)
+	if (axis == 'x')
 	{
 		*ystep = TILE_SIZE;
 		if (isRayFacingUp(ray_angle))
@@ -40,7 +40,7 @@ void	calculateSteps(float ray_angle, float *xstep, float *ystep, char axis)
 		if (isRayFacingRight(ray_angle) && *xstep < 0)
 			*xstep *= -1;
 	}
-	if (axis = y)
+	if (axis == 'y')
 	{
 		*xstep = TILE_SIZE;
 		if (isRayFacingLeft(ray_angle))
@@ -130,7 +130,7 @@ void	cast_one_ray(float ray_angle, int stripId)
 	int foundVertWallHit = false;
 	float vertwall_hit_x = 0;
 	float vertwall_hit_y = 0;
-	int vertWallContent = 0;
+	int vertwall_content = 0;
 
 	// Find the x-coordinate of the closet horizontal grid intersection.  
 	xintercept = floor(t_player.x / TILE_SIZE) * TILE_SIZE;
@@ -157,8 +157,8 @@ void	cast_one_ray(float ray_angle, int stripId)
 			foundVertWallHit = true;
 			vertwall_hit_x = nextVertTouchX;
 			vertwall_hit_y = nextVertTouchY;
-			vertWallContent = mapContentAt((yToCheck / TILE_SIZE), (xToCheck / TILE_SIZE));
-			// vertWallContent = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
+			vertwall_content = mapContentAt((yToCheck / TILE_SIZE), (xToCheck / TILE_SIZE));
+			// vertwall_content = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
 			break ;
 		}
 		else
@@ -183,7 +183,7 @@ void	cast_one_ray(float ray_angle, int stripId)
 		rays[stripId].distance = vertHitDistance;
 		rays[stripId].wall_hit_x = vertwall_hit_x;
 		rays[stripId].wall_hit_y = vertwall_hit_y;
-		rays[stripId].wall_hit_content = vertWallContent;
+		rays[stripId].wall_hit_content = vertwall_content;
 		rays[stripId].was_hit_vertical = true;
 	}
 	else
@@ -195,10 +195,10 @@ void	cast_one_ray(float ray_angle, int stripId)
 		rays[stripId].was_hit_vertical = false;
 	}
 	rays[stripId].ray_angle = ray_angle;
-	rays[stripId].isRayFacingDown = isRayFacingDown(ray_angle);
-	rays[stripId].isRayFacingUp = isRayFacingUp(ray_angle);
-	rays[stripId].isRayFacingLeft = isRayFacingLeft(ray_angle);
-	rays[stripId].isRayFacingRight = isRayFacingRight(ray_angle);
+	rays[stripId].is_ray_facing_down = isRayFacingDown(ray_angle);
+	rays[stripId].is_ray_facing_up = isRayFacingUp(ray_angle);
+	rays[stripId].is_ray_facing_left = isRayFacingLeft(ray_angle);
+	rays[stripId].is_ray_facing_right = isRayFacingRight(ray_angle);
 }
 
 void castAllRays(void)

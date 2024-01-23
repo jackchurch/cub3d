@@ -18,12 +18,12 @@ static const int	map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 
 int	mapContentAt(float x, float y)
 {
-	int	mapGridIndexY;
-	int	mapGridIndexX;
+	int	map_grid_index_y;
+	int	map_grid_index_x;
 
-	mapGridIndexY = (int)floor(y / TILE_SIZE);
-	mapGridIndexX = (int)floor(x / TILE_SIZE);
-	return (map[mapGridIndexY][mapGridIndexX]);
+	map_grid_index_y = (int)floor(y / TILE_SIZE);
+	map_grid_index_x = (int)floor(x / TILE_SIZE);
+	return (map[map_grid_index_y][map_grid_index_x]);
 }
 
 int	getMapAt(int i, int j)
@@ -55,7 +55,6 @@ void	renderMap(t_game *game)
 	int	i;
 	int	j;
 	t_tile	tile;
-	t_rectangle mapTileRect;
 
 	i = -1;
 	while (++i < MAP_NUM_ROWS)
@@ -69,7 +68,7 @@ void	renderMap(t_game *game)
 				tile.color = 0x000000FF;
 			else
 				tile.color = 0x00FFFFFF;
-			mapTileRect =
+			t_rectangle mapTileRect =
 			{
 				tile.x * MINIMAP_SCALE, tile.y * MINIMAP_SCALE,
 				TILE_SIZE * MINIMAP_SCALE, TILE_SIZE * MINIMAP_SCALE,
