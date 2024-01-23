@@ -20,7 +20,7 @@ struct	s_player
 	float	turn_speed;
 }	t_player;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*mlx;
 	void	*mlx_win;
@@ -29,14 +29,14 @@ typedef struct	s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}	t_data;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
 	t_data	data;
-} t_game;
+}	t_game;
 
 bool	init_window(t_game *game);
 
