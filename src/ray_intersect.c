@@ -37,7 +37,7 @@ void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 {
 	vertical->next_touch_x = floor(t_player.x / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_right(ray_angle))
-		vertical->next_touch_t += TILE_SIZE;
+		vertical->next_touch_y += TILE_SIZE;
 	vertical->next_touch_y = t_player.y + (vertical->next_touch_x - t_player.x) * tan(ray_angle);
 	calculate_steps(ray_angle, &vertical->xstep, &vertical->ystep, 'y');
 	while (is_inside_map(vertical->next_touch_x, vertical->next_touch_y))
@@ -58,8 +58,8 @@ void	wall_found(t_wall_hit *orientation, float y_to_check,
 		float x_to_check, bool is_vertical)
 {
 	orientation->found_wall_hit = true;
-	orientation->wall_hit_x = orientation->next_touch_x;
-	orientation->wall_hit_y = orientation->next_touch_y;
+	orientation->wall_hit_x = x_to_check;
+	orientation->wall_hit_y = y_to_check;
 	orientation->wall_content = map_content_at((y_to_check / TILE_SIZE), (x_to_check / TILE_SIZE));
 	orientation->is_vertical = is_vertical;
 }

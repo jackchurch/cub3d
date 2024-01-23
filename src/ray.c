@@ -44,14 +44,16 @@ void	cast_one_ray(float ray_angle, int stripId)
 	wall_hit_params(&vertical);
 	horizontal_intersection(&horizontal, ray_angle);
 	vertical_intersection(&vertical, ray_angle);
-	horz_hit_distance = FLT_MAX;
 	if (horizontal.found_wall_hit)
 		horz_hit_distance = distance_between_points(t_player.x, t_player.y,
 			horizontal.wall_hit_x, horizontal.wall_hit_y);
-	vert_hit_distance = FLT_MAX;
+	else
+		horz_hit_distance = FLT_MAX;
 	if (vertical.found_wall_hit)
 		vert_hit_distance = distance_between_points(t_player.x, t_player.y,
 			vertical.wall_hit_x, vertical.wall_hit_y);
+	else
+		vert_hit_distance = FLT_MAX;
 	if (vert_hit_distance < horz_hit_distance)
 		ray_cast(&vertical, stripId, ray_angle, vert_hit_distance);
 	else
