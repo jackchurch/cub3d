@@ -53,11 +53,11 @@ bool	is_inside_map(float x, float y)
 
 void	tile_rect_init(t_rectangle *map_tile_rect, const t_tile tile)
 {
-	map_tile_rect.x = tile.x * MINIMAP_SCALE;
-	map_tile_rect.y = tile.y * MINIMAP_SCALE;
-	map_tile_rect.width = TILE_SIZE * MINIMAP_SCALE;
-	map_tile_rect.height = TILE_SIZE * MINIMAP_SCALE;
-	map_tile_rect.color = tile.color;
+	map_tile_rect->x = tile.x * MINIMAP_SCALE;
+	map_tile_rect->y = tile.y * MINIMAP_SCALE;
+	map_tile_rect->width = TILE_SIZE * MINIMAP_SCALE;
+	map_tile_rect->height = TILE_SIZE * MINIMAP_SCALE;
+	map_tile_rect->color = tile.color;
 }
 
 void	render_map(t_game *game)

@@ -50,7 +50,7 @@ void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 	while (is_inside_map(vertical->next_touch_x, vertical->next_touch_y))
 	{
 		y_to_check = vertical->next_touch_y;
-		if (is_ray_facing_left(ray_angle)
+		if (is_ray_facing_left(ray_angle))
 			x_to_check = vertical->next_touch_x - 1;
 		if (map_content_at(x_to_check, y_to_check) == 1)
 		{
