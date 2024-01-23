@@ -15,8 +15,8 @@ typedef struct s_tile
 	int	color;
 }	t_tile;
 
-void	renderMap(t_game *game);
-int		mapContentAt(float x, float y);
-bool	isInsideMap(float x, float y);
+void	render_map(t_game *game);
+int		map_content_at(float x, float y);
+bool	is_inside_map(float x, float y);
 
 #endif

@@ -31,7 +31,7 @@ void	safe_exit(t_game *game)
 	exit(0);
 }
 
-void	movePlayer(t_game *game)
+void	move_player(t_game *game)
 {
 	float	move_step;
 	float	new_player_x;
@@ -43,7 +43,7 @@ void	movePlayer(t_game *game)
 	move_step = t_player.walk_direction * t_player.walk_speed;
 	new_player_x = t_player.x + cos(t_player.rotation_angle) * move_step;
 	new_player_y = t_player.y + sin(t_player.rotation_angle) * move_step;
-	if (mapContentAt(new_player_x, new_player_y) != 1)
+	if (map_content_at(new_player_x, new_player_y) != 1)
 	{
 		t_player.x = new_player_x;
 		t_player.y = new_player_y;
@@ -63,10 +63,10 @@ void	movePlayer(t_game *game)
 
 void	render(t_game *game)
 {
-	movePlayer(game);
+	move_player(game);
 	castAllRays();
 	generate3DProjection(game);
-	renderMap(game);
+	render_map(game);
 	renderRays(game);
 	renderPlayer(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data.img, 0, 0);
@@ -82,7 +82,7 @@ int	main(void)
 	game->data = (t_data){0};
 	game->data.img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bpp,
-		&game->data.line_length,&game->data.endian);
+			&game->data.line_length, &game->data.endian);
 	// process_input(); // See keyhooks
 	// update(game); // Add FPS if have time. 
 	render(game);

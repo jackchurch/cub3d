@@ -17,7 +17,7 @@ static const int	map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-int	mapContentAt(float x, float y)
+int	map_content_at(float x, float y)
 {
 	int	map_grid_index_y;
 	int	map_grid_index_x;
@@ -27,12 +27,12 @@ int	mapContentAt(float x, float y)
 	return (map[map_grid_index_y][map_grid_index_x]);
 }
 
-int	getMapAt(int i, int j)
+int	get_map_at(int i, int j)
 {
 	return (map[i][j]);
 }
 
-bool	isInsideMap(float x, float y)
+bool	is_inside_map(float x, float y)
 {
 	return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE
 		&& y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
@@ -51,10 +51,10 @@ bool	isInsideMap(float x, float y)
 // 	return (false);
 // }
 
-void	renderMap(t_game *game)
+void	render_map(t_game *game)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	t_tile	tile;
 
 	i = -1;
@@ -65,7 +65,7 @@ void	renderMap(t_game *game)
 		{
 			tile.x = j * TILE_SIZE; 
 			tile.y = i * TILE_SIZE;
-			if (getMapAt(i, j) != 0)
+			if (get_map_at(i, j) != 0)
 				tile.color = 0x000000FF;
 			else
 				tile.color = 0x00FFFFFF;

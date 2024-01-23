@@ -27,8 +27,8 @@ int	key_hook(int keycode, t_game *game)
 	else if (keycode == ESC)
 		safe_exit(game);
 	// renderPlayer(game);
-	// movePlayer(game);
-	// renderMap(game);
+	// move_player(game);
+	// render_map(game);
 	// renderPlayer(game);
 	render(game);
 	return (0);
@@ -40,7 +40,7 @@ bool	init_window(t_game *game)
 	if (!game->mlx)
 		safe_exit(game);
 	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT,
-		"Legally Distinct Slï'mę Game");
+			"Legally Distinct Slï'mę Game");
 	if (!game->win)
 		safe_exit(game);
 	mlx_hook(game->win, 2, 0, key_hook, game);

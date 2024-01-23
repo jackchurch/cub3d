@@ -102,18 +102,18 @@ void	cast_one_ray(float ray_angle, int stripId)
 	float nextHorzTouchY = yintercept;
 
 	//Inc xstep and ystep until wall is found
-	while (isInsideMap(nextHorzTouchX, nextHorzTouchY))
+	while (is_inside_map(nextHorzTouchX, nextHorzTouchY))
 	{
 		// ...We must check one beyond
 		float xToCheck = nextHorzTouchX;
 		float yToCheck = nextHorzTouchY + (isRayFacingUp(ray_angle) ? -1 : 0);
 
-		if (mapContentAt(xToCheck, yToCheck) == 1)
+		if (map_content_at(xToCheck, yToCheck) == 1)
 		{
 			foundHorzWallHit = true;
 			horzwall_hit_x = nextHorzTouchX;
 			horzwall_hit_y = nextHorzTouchY;
-			horz_wall_content = mapContentAt((yToCheck / TILE_SIZE), (xToCheck / TILE_SIZE) );
+			horz_wall_content = map_content_at((yToCheck / TILE_SIZE), (xToCheck / TILE_SIZE) );
 			// horz_wall_content = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
 			break ;
 		}
@@ -146,18 +146,18 @@ void	cast_one_ray(float ray_angle, int stripId)
 	float nextVertTouchY = yintercept;
 
 	//Inc xstep and ystep until wall is found
-	while (isInsideMap(nextVertTouchX, nextVertTouchY))
+	while (is_inside_map(nextVertTouchX, nextVertTouchY))
 	{
 		// ...We must check one beyond
 		float xToCheck = nextVertTouchX + (isRayFacingLeft(ray_angle) ? -1 : 0);
 		float yToCheck = nextVertTouchY;
 
-		if (mapContentAt(xToCheck, yToCheck) == 1)
+		if (map_content_at(xToCheck, yToCheck) == 1)
 		{
 			foundVertWallHit = true;
 			vertwall_hit_x = nextVertTouchX;
 			vertwall_hit_y = nextVertTouchY;
-			vertwall_content = mapContentAt((yToCheck / TILE_SIZE), (xToCheck / TILE_SIZE));
+			vertwall_content = map_content_at((yToCheck / TILE_SIZE), (xToCheck / TILE_SIZE));
 			// vertwall_content = map[ (int)floor(yToCheck / TILE_SIZE) ][ (int)floor(xToCheck / TILE_SIZE) ];
 			break ;
 		}
