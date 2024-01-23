@@ -34,7 +34,7 @@ typedef struct s_wall_hit
 	int		is_vertical;
 }	t_wall_hit;
 
-extern t_ray	rays[NUM_RAYS];
+extern t_ray	g_rays[NUM_RAYS];
 
 void	renderRays(t_game *game);
 void	castAllRays(void);

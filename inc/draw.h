@@ -7,7 +7,6 @@
 # include "../mlx/mlx.h"
 # include "cub3d.h"
 
-
 typedef struct s_rectangle
 {
 	int	x;
@@ -39,9 +38,7 @@ typedef struct s_line_math
 	int		abs_y;
 }	t_line_math;
 
-
 void	drawRect(t_game *game, t_rectangle *rect);
 void	drawLine(t_game *game, const t_line *line);
-
 
 #endif

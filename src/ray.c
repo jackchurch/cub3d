@@ -5,7 +5,7 @@
 #include "../inc/constance.h"
 #include "../inc/map.h"
 
-t_ray	rays[NUM_RAYS];
+t_ray	g_rays[NUM_RAYS];
 
 int	isRayFacingDown(float angle)
 {
@@ -180,25 +180,25 @@ void	cast_one_ray(float ray_angle, int stripId)
 	// Only store the smallest of the distances and x and y. 
 	if (vertHitDistance < horzHitDistance)
 	{
-		rays[stripId].distance = vertHitDistance;
-		rays[stripId].wall_hit_x = vertwall_hit_x;
-		rays[stripId].wall_hit_y = vertwall_hit_y;
-		rays[stripId].wall_hit_content = vertwall_content;
-		rays[stripId].was_hit_vertical = true;
+		g_rays[stripId].distance = vertHitDistance;
+		g_rays[stripId].wall_hit_x = vertwall_hit_x;
+		g_rays[stripId].wall_hit_y = vertwall_hit_y;
+		g_rays[stripId].wall_hit_content = vertwall_content;
+		g_rays[stripId].was_hit_vertical = true;
 	}
 	else
 	{
-		rays[stripId].distance = horzHitDistance;
-		rays[stripId].wall_hit_x = horzwall_hit_x;
-		rays[stripId].wall_hit_y = horzwall_hit_y;
-		rays[stripId].wall_hit_content = horz_wall_content;
-		rays[stripId].was_hit_vertical = false;
+		g_rays[stripId].distance = horzHitDistance;
+		g_rays[stripId].wall_hit_x = horzwall_hit_x;
+		g_rays[stripId].wall_hit_y = horzwall_hit_y;
+		g_rays[stripId].wall_hit_content = horz_wall_content;
+		g_rays[stripId].was_hit_vertical = false;
 	}
-	rays[stripId].ray_angle = ray_angle;
-	rays[stripId].is_ray_facing_down = isRayFacingDown(ray_angle);
-	rays[stripId].is_ray_facing_up = isRayFacingUp(ray_angle);
-	rays[stripId].is_ray_facing_left = isRayFacingLeft(ray_angle);
-	rays[stripId].is_ray_facing_right = isRayFacingRight(ray_angle);
+	g_rays[stripId].ray_angle = ray_angle;
+	g_rays[stripId].is_ray_facing_down = isRayFacingDown(ray_angle);
+	g_rays[stripId].is_ray_facing_up = isRayFacingUp(ray_angle);
+	g_rays[stripId].is_ray_facing_left = isRayFacingLeft(ray_angle);
+	g_rays[stripId].is_ray_facing_right = isRayFacingRight(ray_angle);
 }
 
 void castAllRays(void)
@@ -220,8 +220,8 @@ void	renderRays(t_game *game)
 		t_line line = {
 			t_player.x * MINIMAP_SCALE,
 			t_player.y * MINIMAP_SCALE,
-			rays[i].wall_hit_x * MINIMAP_SCALE,
-			rays[i].wall_hit_y * MINIMAP_SCALE,
+			g_rays[i].wall_hit_x * MINIMAP_SCALE,
+			g_rays[i].wall_hit_y * MINIMAP_SCALE,
 			0x00FFC8D7
 		};
 		drawLine(game, &line);

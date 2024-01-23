@@ -7,8 +7,6 @@
 # include "../mlx/mlx.h"
 # include "cub3d.h"
 
-
 bool	init_window(t_game *game);
-
 
 #endif

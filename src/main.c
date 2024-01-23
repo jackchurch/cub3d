@@ -6,9 +6,9 @@
 #include "../inc/ray.h"
 #include "../inc/constance.h"
 
+	// Add wall textrues here?
 void	setup(void)
 {
-	// Add wall textrues here?
 	t_player.x = WINDOW_WIDTH / 2;
 	t_player.y = WINDOW_HEIGHT / 2;
 	t_player.width = 1;
@@ -33,20 +33,20 @@ void	safe_exit(t_game *game)
 
 void	movePlayer(t_game *game)
 {
-	float	moveStep;
-	float	newPlayerX;
-	float	newPlayerY;
+	float	move_step;
+	float	new_player_x;
+	float	new_player_y;
 
 	if (!game)
 		return ;
 	t_player.rotation_angle += t_player.turn_direction * t_player.turn_speed;
-	moveStep = t_player.walk_direction * t_player.walk_speed;
-	newPlayerX = t_player.x + cos(t_player.rotation_angle) * moveStep;
-	newPlayerY = t_player.y + sin(t_player.rotation_angle) * moveStep;
-	if (mapContentAt(newPlayerX, newPlayerY) != 1)
+	move_step = t_player.walk_direction * t_player.walk_speed;
+	new_player_x = t_player.x + cos(t_player.rotation_angle) * move_step;
+	new_player_y = t_player.y + sin(t_player.rotation_angle) * move_step;
+	if (mapContentAt(new_player_x, new_player_y) != 1)
 	{
-		t_player.x = newPlayerX;
-		t_player.y = newPlayerY;
+		t_player.x = new_player_x;
+		t_player.y = new_player_y;
 	}
 }
 
@@ -80,9 +80,9 @@ int	main(void)
 	init_window(game);
 	setup();
 	game->data = (t_data){0};
-	game->data.img = mlx_new_image(game->mlx, WINDOW_WIDTH,  WINDOW_HEIGHT);
-	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bits_per_pixel,
-		&game->data.line_length, &game->data.endian);
+	game->data.img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bpp,
+		&game->data.line_length,&game->data.endian);
 	// process_input(); // See keyhooks
 	// update(game); // Add FPS if have time. 
 	render(game);

@@ -39,7 +39,8 @@ bool	init_window(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		safe_exit(game);
-	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Legally Distinct Slï'mę Game");
+	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT,
+		"Legally Distinct Slï'mę Game");
 	if (!game->win)
 		safe_exit(game);
 	mlx_hook(game->win, 2, 0, key_hook, game);

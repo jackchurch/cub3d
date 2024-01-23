@@ -26,7 +26,7 @@ typedef struct s_data
 	void	*mlx_win;
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
 }	t_data;
