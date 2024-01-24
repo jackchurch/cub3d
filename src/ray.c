@@ -46,12 +46,12 @@ void	cast_one_ray(float ray_angle, int stripId)
 	vertical_intersection(&vertical, ray_angle);
 	if (horizontal.found_wall_hit)
 		horz_hit_distance = distance_between_points(t_player.x, t_player.y,
-			horizontal.wall_hit_x, horizontal.wall_hit_y);
+				horizontal.wall_hit_x, horizontal.wall_hit_y);
 	else
 		horz_hit_distance = FLT_MAX;
 	if (vertical.found_wall_hit)
 		vert_hit_distance = distance_between_points(t_player.x, t_player.y,
-			vertical.wall_hit_x, vertical.wall_hit_y);
+				vertical.wall_hit_x, vertical.wall_hit_y);
 	else
 		vert_hit_distance = FLT_MAX;
 	if (vert_hit_distance < horz_hit_distance)
@@ -75,7 +75,7 @@ void	ray_cast(t_wall_hit *hit, int stripId,
 	g_rays[stripId].is_ray_facing_right = is_ray_facing_right(ray_angle);
 }
 
-void cast_all_rays(void)
+void	cast_all_rays(void)
 {
 	int		strip_id;
 	float	ray_angle;
@@ -89,7 +89,7 @@ void cast_all_rays(void)
 		strip_id++;
 	}
 }
-		// printf("FOV: %f StripId: %d ray_angle: %f\n", FOV_ANGLE, stripId, ray_angle);
+	// printf("FOV: %f StripId: %d ray_angle: %f\n", FOV_ANGLE, stripId, ray_angle);
 
 void	render_rays(t_game *game)
 {
@@ -101,9 +101,9 @@ void	render_rays(t_game *game)
 	{
 		line.x0 = t_player.x * MINIMAP_SCALE;
 		line.y0 = t_player.y * MINIMAP_SCALE;
-		line.x1 = g_rays[i].wall_hit_x *MINIMAP_SCALE;
-		line.y1 = g_rays[i].wall_hit_y *MINIMAP_SCALE;
+		line.x1 = g_rays[i].wall_hit_x * MINIMAP_SCALE;
+		line.y1 = g_rays[i].wall_hit_y * MINIMAP_SCALE;
 		line.color = 0x00FFC8D7;
-		drawLine(game, &line);
+		draw_line(game, &line);
 	}
 }

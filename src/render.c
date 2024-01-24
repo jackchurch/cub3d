@@ -13,7 +13,7 @@ void	renderPlayer(t_game *game)
 		t_player.height * MINIMAP_SCALE,
 		0x00E0B0FF
 	};
-	drawRect(game, &playerRect);
+	draw_rect(game, &playerRect);
 
 	t_line playerLine = {
 		t_player.x * MINIMAP_SCALE,
@@ -22,7 +22,7 @@ void	renderPlayer(t_game *game)
 		(t_player.y + sin(t_player.rotation_angle) * 40) * MINIMAP_SCALE,
 		0x00E0B0FF
 	};
-	drawLine(game, &playerLine);
+	draw_line(game, &playerLine);
 }
 
 void drawCeling(t_game *game)
@@ -34,7 +34,7 @@ void drawCeling(t_game *game)
 		.height = WINDOW_HEIGHT / 2,
 		.color = 0x00FAF0E6
 	};
-	drawRect(game, &celing);
+	draw_rect(game, &celing);
 
 	t_rectangle floor = {
 		.x = 0,
@@ -43,7 +43,7 @@ void drawCeling(t_game *game)
 		.height = WINDOW_HEIGHT / 2,
 		.color = 0x008B9E8A
 	};
-	drawRect(game, &floor);
+	draw_rect(game, &floor);
 
 }
 
@@ -80,6 +80,6 @@ void	generate3DProjection(t_game *game)
 			.height = wallStripHeight,
 			.color = _color
 		};
-		drawRect(game, &rect);
+		draw_rect(game, &rect);
 	}
 }

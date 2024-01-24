@@ -12,11 +12,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	drawRect(t_game *game, t_rectangle *rect)
+void	draw_rect(t_game *game, t_rectangle *rect)
 {
 	int	i;
 	int	j;
-	
+
 	i = rect->x;
 	while (i <= (rect->x + rect->width))
 	{
@@ -31,7 +31,7 @@ void	drawRect(t_game *game, t_rectangle *rect)
 	return ;
 }
 
-void	drawLine(t_game *game, const t_line *line)
+void	draw_line(t_game *game, const t_line *line)
 {
 	t_line_math	drawn;
 	int			i;

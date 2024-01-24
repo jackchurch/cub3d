@@ -58,7 +58,7 @@ void	move_player(t_game *game)
 // 	cast a ray
 // 	trace the ray until it intersects with a wall (map[i][j] == 1)
 // 	record the intersection x,y and ray distance
-// 	add angle increment to go to the next ray (ray_angle += 60/320) -> convert 60 deg into rads
+// 	add angle increment to go to the next ray (ray_angle += 60/320)to rads
 // }
 
 void	render(t_game *game)
