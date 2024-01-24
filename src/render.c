@@ -4,7 +4,7 @@
 #include "../inc/cub3d.h"
 #include "../inc/ray.h"
 
-void	renderPlayer(t_game *game)
+void	render_player(t_game *game)
 {
 	t_rectangle	player_rect;
 	t_line		player_line;

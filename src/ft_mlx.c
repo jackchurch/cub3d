@@ -26,10 +26,10 @@ int	key_hook(int keycode, t_game *game)
 		t_player.walk_direction = -1;
 	else if (keycode == ESC)
 		safe_exit(game);
-	// renderPlayer(game);
+	// render_player(game);
 	// move_player(game);
 	// render_map(game);
-	// renderPlayer(game);
+	// render_player(game);
 	render(game);
 	return (0);
 }
