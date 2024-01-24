@@ -44,7 +44,7 @@ int	discover_element_type(char *current_line, int *i)
 		find_element_path(current_line, *i + 1, CELING);
 	else if (current_line[*i] == 'F' && is_white_space(current_line[*i + 1]))
 		find_element_path(current_line, *i + 1, FLOOR);
-	else if (current_line[*i] == 'N' && current_line[*i + 1] == 'O' && is_white_space(current_line[*i + 2]))
+	else if (current_line[*i] == 'N' && current_line[*i + 1] == 'O'	&& is_white_space(current_line[*i + 2]))
 		find_element_path(current_line, *i + 2, NORTH);
 	else if (current_line[*i] == 'S' && current_line[*i + 1] == 'O' && is_white_space(current_line[*i + 2]))
 		find_element_path(current_line, *i + 2, SOUTH);

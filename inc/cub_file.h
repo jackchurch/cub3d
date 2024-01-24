@@ -1,5 +1,5 @@
-#ifndef MAP_H
-# define MAP_H
+#ifndef CUB_FILE_H
+# define CUB_FILE_H
 
 # include <math.h>
 # include <stdbool.h>
@@ -15,6 +15,6 @@ char	*remove_tail_whitespace(char *in_string);
 void	find_first_char(char *current_line, int *i);
 bool	is_white_space(char c);
 
-void	celing_floor_branch(char *current_line, int element_type);
+int	celing_floor_branch(char *current_line, int element_type);
 
 #endif
