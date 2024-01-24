@@ -80,5 +80,5 @@ void	wall_hit_params(t_wall_hit *params)
 	params->wall_content = 0;
 	params->next_touch_x = 0.0;
 	params->next_touch_y = 0.0;
-	params->is_vertical = 0;
+	params->is_vertical = false;
 }

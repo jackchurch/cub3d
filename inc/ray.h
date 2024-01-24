@@ -37,7 +37,6 @@ typedef struct s_wall_hit
 extern t_ray	g_rays[NUM_RAYS];
 
 void	render_rays(t_game *game);
-void	step_increment(t_wall_hit *orientation);
 void	wall_hit_params(t_wall_hit *params);
 void	ray_cast(t_wall_hit *hit, int stripId,
 			float ray_angle, float hit_distance);
