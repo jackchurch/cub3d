@@ -40,7 +40,7 @@ void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 {
 	vertical->next_touch_x = floor(t_player.x / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_right(ray_angle))
-		vertical->next_touch_y += TILE_SIZE;
+		vertical->next_touch_x += TILE_SIZE;
 	vertical->next_touch_y = t_player.y
 		+ (vertical->next_touch_x - t_player.x) * tan(ray_angle);
 	calculate_steps(ray_angle, &vertical->xstep, &vertical->ystep, 'y');
