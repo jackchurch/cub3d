@@ -40,9 +40,9 @@ void	render_rays(t_game *game);
 void	step_increment(t_wall_hit *orientation);
 void	wall_hit_params(t_wall_hit *params);
 void	ray_cast(t_wall_hit *hit, int stripId,
-	float ray_angle, float hit_distance);
+			float ray_angle, float hit_distance);
 void	wall_found(t_wall_hit *orientation, float y_to_check,
-	float x_to_check, bool is_vertical);
+			float x_to_check, bool is_vertical);
 void	cast_all_rays(void);
 void	cast_one_ray(float ray_angle, int stripId);
 void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle);
@@ -52,6 +52,6 @@ int		is_ray_facing_up(float angle);
 int		is_ray_facing_right(float angle);
 int		is_ray_facing_left(float angle);
 void	calculate_steps(float ray_angle, float *xstep,
-		float *ystep, char axis);
+			float *ystep, char axis);
 
 #endif
