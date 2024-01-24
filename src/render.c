@@ -18,9 +18,9 @@ void	render_player(t_game *game)
 	player_line.x0 = t_player.x * MINIMAP_SCALE;
 	player_line.y0 = t_player.y * MINIMAP_SCALE;
 	player_line.x1 = (t_player.x + cos(t_player.rotation_angle) * 40)
-			* MINIMAP_SCALE;
+		* MINIMAP_SCALE;
 	player_line.y1 = (t_player.y + sin(t_player.rotation_angle) * 40)
-			* MINIMAP_SCALE;
+		* MINIMAP_SCALE;
 	player_line.color = 0x00E0B0FF;
 	draw_line(game, &player_line);
 }
