@@ -71,7 +71,7 @@ void	render_map(t_game *game)
 	while (++i < MAP_NUM_ROWS)
 	{
 		j = -1;
-		while (++j < MAP_NUM_COLS)																																								
+		while (++j < MAP_NUM_COLS)
 		{
 			tile.x = j * TILE_SIZE; 
 			tile.y = i * TILE_SIZE;
