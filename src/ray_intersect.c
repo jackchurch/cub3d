@@ -15,17 +15,17 @@ void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle)
 	if (is_ray_facing_down(ray_angle))
 		horizontal->next_touch_y += TILE_SIZE;
 	horizontal->next_touch_x = t_player.x
-				+ (horizontal->next_touch_y - t_player.y) / tan(ray_angle);
+			+ (horizontal->next_touch_y - t_player.y) / tan(ray_angle);
 	calculate_steps(ray_angle, &horizontal->xstep, &horizontal->ystep, 'x');
 	while (is_inside_map(horizontal->next_touch_x, horizontal->next_touch_y))
 	{
 		if (is_ray_facing_up(ray_angle))
 			horizontal->next_touch_y--;
 		if (map_content_at(horizontal->next_touch_x,
-					horizontal->next_touch_y) == 1)
+				horizontal->next_touch_y) == 1)
 		{
 			wall_found(horizontal, horizontal->next_touch_y,
-					horizontal->next_touch_x, false);
+				horizontal->next_touch_x, false);
 			break ;
 		}
 		horizontal->next_touch_x += horizontal->xstep;
@@ -42,7 +42,7 @@ void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 	if (is_ray_facing_right(ray_angle))
 		vertical->next_touch_y += TILE_SIZE;
 	vertical->next_touch_y = t_player.y
-				+ (vertical->next_touch_x - t_player.x) * tan(ray_angle);
+		+ (vertical->next_touch_x - t_player.x) * tan(ray_angle);
 	calculate_steps(ray_angle, &vertical->xstep, &vertical->ystep, 'y');
 	while (is_inside_map(vertical->next_touch_x, vertical->next_touch_y))
 	{
@@ -51,7 +51,7 @@ void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 		if (map_content_at(vertical->next_touch_x, vertical->next_touch_y) == 1)
 		{
 			wall_found(vertical, vertical->next_touch_y,
-						vertical->next_touch_x, true);
+					vertical->next_touch_x, true);
 			break ;
 		}
 		vertical->next_touch_x += vertical->xstep;
@@ -66,7 +66,7 @@ void	wall_found(t_wall_hit *orientation, float y_to_check,
 	orientation->wall_hit_x = x_to_check;
 	orientation->wall_hit_y = y_to_check;
 	orientation->wall_content = map_content_at((y_to_check / TILE_SIZE),
-				(x_to_check / TILE_SIZE));
+			(x_to_check / TILE_SIZE));
 	orientation->is_vertical = is_vertical;
 }
 
