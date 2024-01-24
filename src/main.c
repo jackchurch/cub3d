@@ -65,7 +65,7 @@ void	render(t_game *game)
 {
 	move_player(game);
 	cast_all_rays();
-	generate3DProjection(game);
+	generate_3d_projection(game);
 	render_map(game);
 	render_rays(game);
 	render_player(game);

@@ -9,24 +9,26 @@ void	render_player(t_game *game)
 	t_rectangle	player_rect;
 	t_line		player_line;
 
-	player_rect.x = t_player.x *MINIMAP_SCALE;
-	player_rect.y = t_player.y *MINIMAP_SCALE;
-	player_rect.width = t_player.width *MINIMAP_SCALE;
-	player_rect.height = t_player.height *MINIMAP_SCALE;
+	player_rect.x = t_player.x * MINIMAP_SCALE;
+	player_rect.y = t_player.y * MINIMAP_SCALE;
+	player_rect.width = t_player.width * MINIMAP_SCALE;
+	player_rect.height = t_player.height * MINIMAP_SCALE;
 	player_rect.color = 0x00E0B0FF;
 	draw_rect(game, &player_rect);
 	player_line.x0 = t_player.x * MINIMAP_SCALE;
-	player_line.y0 = t_player.y *MINIMAP_SCALE;
-	player_line.x1 = (t_player.x + cos(t_player.rotation_angle) * 40) *MINIMAP_SCALE;
-	player_line.y1 = (t_player.y + sin(t_player.rotation_angle) * 40) *MINIMAP_SCALE;
+	player_line.y0 = t_player.y * MINIMAP_SCALE;
+	player_line.x1 = (t_player.x + cos(t_player.rotation_angle) * 40)
+			* MINIMAP_SCALE;
+	player_line.y1 = (t_player.y + sin(t_player.rotation_angle) * 40)
+			* MINIMAP_SCALE;
 	player_line.color = 0x00E0B0FF;
 	draw_line(game, &player_line);
 }
 
-void draw_ceiling(t_game *game)
+void	draw_ceiling(t_game *game)
 {
-	t_rectangle ceiling;
-	t_rectangle floor;
+	t_rectangle	ceiling;
+	t_rectangle	floor;
 
 	ceiling.x = 0;
 	ceiling.y = 0;
@@ -42,7 +44,7 @@ void draw_ceiling(t_game *game)
 	draw_rect(game, &floor);
 }
 
-void	generate3DProjection(t_game *game)
+void	generate_3d_projection(t_game *game)
 {
 	int			i;
 	int			projected_wall_height;
@@ -55,8 +57,8 @@ void	generate3DProjection(t_game *game)
 	while (++i < NUM_RAYS)
 	{
 		projected_wall_height = (int)((TILE_SIZE / (g_rays[i].distance
-				* cos(g_rays[i].ray_angle - t_player.rotation_angle)))
-					* ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2)));
+					* cos(g_rays[i].ray_angle - t_player.rotation_angle)))
+				* ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2)));
 		wall_top_pixel = (WINDOW_HEIGHT / 2) - (projected_wall_height / 2);
 		if (wall_top_pixel < 0)
 			wall_top_pixel = 0;
@@ -72,7 +74,7 @@ void	generate3DProjection(t_game *game)
 	}
 }
 
-int	color_assignment()
+int	color_assignment(void)
 {
 	if (g_rays[i].is_ray_facing_down && !g_rays[i].was_hit_vertical)
 		return (0x0000FFFF);

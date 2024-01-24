@@ -9,7 +9,7 @@
 
 void	draw_ceiling(t_game *game);
 void	render_player(t_game *game);
-void	generate3DProjection(t_game *game);
+void	generate_3d_projection(t_game *game);
 int		color_assignment();
 
 #endif
