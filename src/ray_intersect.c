@@ -15,7 +15,7 @@ void	horizontal_intersection(t_wall_hit *horizontal, float ray_angle)
 	if (is_ray_facing_down(ray_angle))
 		horizontal->next_touch_y += TILE_SIZE;
 	horizontal->next_touch_x = t_player.x
-			+ (horizontal->next_touch_y - t_player.y) / tan(ray_angle);
+		+ (horizontal->next_touch_y - t_player.y) / tan(ray_angle);
 	calculate_steps(ray_angle, &horizontal->xstep, &horizontal->ystep, 'x');
 	while (is_inside_map(horizontal->next_touch_x, horizontal->next_touch_y))
 	{
@@ -51,7 +51,7 @@ void	vertical_intersection(t_wall_hit *vertical, float ray_angle)
 		if (map_content_at(vertical->next_touch_x, vertical->next_touch_y) == 1)
 		{
 			wall_found(vertical, vertical->next_touch_y,
-					vertical->next_touch_x, true);
+				vertical->next_touch_x, true);
 			break ;
 		}
 		vertical->next_touch_x += vertical->xstep;
