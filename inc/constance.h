@@ -31,6 +31,12 @@
 # define LEFT_ARROW 0
 # define RIGHT_ARROW 2
 # define ESC 53
+# define LINUX_A 38
+# define LINUX_S 39
+# define LINUX_D 40
+# define LINUX_W 25
+# define LINUX_ESC 9
+
 
 # define NORTH 1
 # define EAST 2

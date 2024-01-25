@@ -16,15 +16,15 @@ int	key_release(int keycode)
 
 int	key_hook(int keycode, t_game *game)
 {
-	if (keycode == LEFT_ARROW)
+	if (keycode == LEFT_ARROW || keycode == LINUX_A)
 		t_player.turn_direction = -1;
-	else if (keycode == RIGHT_ARROW)
+	else if (keycode == RIGHT_ARROW || keycode == LINUX_D)
 		t_player.turn_direction = 1;
-	else if (keycode == UP_ARROW)
+	else if (keycode == UP_ARROW || keycode == LINUX_W)
 		t_player.walk_direction = 1;
-	else if (keycode == S_KEY)
+	else if (keycode == S_KEY || keycode == LINUX_S)
 		t_player.walk_direction = -1;
-	else if (keycode == ESC)
+	else if (keycode == ESC || keycode == LINUX_ESC)
 		safe_exit(game);
 	// render_player(game);
 	// move_player(game);
