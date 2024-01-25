@@ -39,22 +39,22 @@ void	cast_one_ray(float ray_angle, int stripId,
 	float		horz_hit_distance;
 
 	normalize_angle(&ray_angle);
-	horizontal_intersection(&horizontal, ray_angle);
-	vertical_intersection(&vertical, ray_angle);
-	if (horizontal.found_wall_hit)
+	horizontal_intersection(horizontal, ray_angle);
+	vertical_intersection(vertical, ray_angle);
+	if (horizontal->found_wall_hit)
 		horz_hit_distance = distance_between_points(t_player.x, t_player.y,
-				horizontal.wall_hit_x, horizontal.wall_hit_y);
+				horizontal->wall_hit_x, horizontal->wall_hit_y);
 	else
 		horz_hit_distance = FLT_MAX;
-	if (vertical.found_wall_hit)
+	if (vertical->found_wall_hit)
 		vert_hit_distance = distance_between_points(t_player.x, t_player.y,
-				vertical.wall_hit_x, vertical.wall_hit_y);
+				vertical->wall_hit_x, vertical->wall_hit_y);
 	else
 		vert_hit_distance = FLT_MAX;
 	if (vert_hit_distance < horz_hit_distance)
-		ray_cast(&vertical, stripId, ray_angle, vert_hit_distance);
+		ray_cast(vertical, stripId, ray_angle, vert_hit_distance);
 	else
-		ray_cast(&horizontal, stripId, ray_angle, horz_hit_distance);
+		ray_cast(horizontal, stripId, ray_angle, horz_hit_distance);
 }
 
 void	ray_cast(t_wall_hit *hit, int stripId,
