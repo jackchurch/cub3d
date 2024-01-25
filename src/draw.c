@@ -36,10 +36,10 @@ void	draw_line(t_game *game, const t_line *line)
 	t_line_math	drawn;
 	int			i;
 
-	drawn.abs_x = abs(drawn.delta_x);
-	drawn.abs_y = abs(drawn.delta_y);
 	drawn.delta_x = (line->x1 - line->x0);
 	drawn.delta_y = (line->y1 - line->y0);
+	drawn.abs_x = abs(drawn.delta_x);
+	drawn.abs_y = abs(drawn.delta_y);
 	if (drawn.abs_x >= drawn.abs_y)
 		drawn.longest_side_length = drawn.abs_x;
 	else
