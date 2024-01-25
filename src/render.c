@@ -84,4 +84,5 @@ int	color_assignment(int i)
 		return (0x00FF00FF);
 	if (g_rays[i].is_ray_facing_right && g_rays[i].was_hit_vertical)
 		return (0x0000FF00);
+	return (0x00000000);
 }

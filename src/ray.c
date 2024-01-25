@@ -32,16 +32,13 @@ void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 	}
 }
 
-void	cast_one_ray(float ray_angle, int stripId)
+void	cast_one_ray(float ray_angle, int stripId,
+			t_wall_hit *vertical, t_wall_hit *horizontal)
 {
-	t_wall_hit	vertical;
-	t_wall_hit	horizontal;
 	float		vert_hit_distance;
 	float		horz_hit_distance;
 
 	normalize_angle(&ray_angle);
-	wall_hit_params(&horizontal);
-	wall_hit_params(&vertical);
 	horizontal_intersection(&horizontal, ray_angle);
 	vertical_intersection(&vertical, ray_angle);
 	if (horizontal.found_wall_hit)
@@ -79,12 +76,18 @@ void	cast_all_rays(void)
 {
 	int		strip_id;
 	float	ray_angle;
+	t_wall_hit	horizontal;
+	t_wall_hit	vertical;
 
+	wall_hit_params(&horizontal);
+	wall_hit_params(&vertical);
 	strip_id = 0;
 	ray_angle = t_player.rotation_angle - FOV_ANGLE / 2;
 	while (strip_id < NUM_RAYS)
 	{
-		cast_one_ray(ray_angle, strip_id);
+		horizontal.found_wall_hit = false;
+		vertical.found_wall_hit = false;
+		cast_one_ray(ray_angle, strip_id, &vertical, &horizontal);
 		ray_angle += FOV_ANGLE / NUM_RAYS;
 		strip_id++;
 	}
