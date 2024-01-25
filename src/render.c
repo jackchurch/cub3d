@@ -69,12 +69,12 @@ void	generate_3d_projection(t_game *game)
 		rect.y = WINDOW_HEIGHT / 2 - projected_wall_height / 2;
 		rect.width = 1;
 		rect.height = projected_wall_height;
-		rect.color = color_assignment();
+		rect.color = color_assignment(i);
 		draw_rect(game, &rect);
 	}
 }
 
-int	color_assignment(void)
+int	color_assignment(int i)
 {
 	if (g_rays[i].is_ray_facing_down && !g_rays[i].was_hit_vertical)
 		return (0x0000FFFF);
