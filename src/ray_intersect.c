@@ -47,7 +47,7 @@ t_wall_hit	horizontal_intersection(float ray_angle)
 			y_to_check--;
 		if (map_content_at(x_to_check, y_to_check) == 1)
 		{
-			wall_found(horizontal, next_touch_x, next_touch_y, false);
+			wall_found(&horizontal, next_touch_x, next_touch_y, false);
 			horizontal.distance = distance_between_points(t_player.x, t_player.y,
 				horizontal.wall_hit_x, horizontal.wall_hit_y);
 			break ;
@@ -55,6 +55,7 @@ t_wall_hit	horizontal_intersection(float ray_angle)
 		next_touch_x += x_step;
 		next_touch_y += y_step;
 	}
+	return (horizontal);
 }
 
 //////////////////////////////////////////////
@@ -79,14 +80,14 @@ t_wall_hit	vertical_intersection(float ray_angle)
 		x_intercept += TILE_SIZE;
 	y_intercept = t_player.y + (x_intercept - t_player.x) * tan(ray_angle);
 	//calculate_steps(ray_angle, &vertical.xstep, &vertical.ystep, 'y');
-	xstep = TILE_SIZE;
+	x_step = TILE_SIZE;
 	if (is_ray_facing_left(ray_angle))
-		xstep *= -1;
-	ystep = TILE_SIZE / tan(ray_angle);
-	if (is_ray_facing_up(ray_angle) && ystep > 0)
-		ystep *= -1;
-	if (is_ray_facing_down(ray_angle) && ystep < 0)
-		ystep *= -1;
+		x_step *= -1;
+	y_step = TILE_SIZE / tan(ray_angle);
+	if (is_ray_facing_up(ray_angle) && y_step > 0)
+		y_step *= -1;
+	if (is_ray_facing_down(ray_angle) && y_step < 0)
+		y_step *= -1;
 	next_touch_x = x_intercept;
 	next_touch_y = y_intercept;
 	while (is_inside_map(next_touch_x, next_touch_y))
@@ -97,7 +98,7 @@ t_wall_hit	vertical_intersection(float ray_angle)
 			x_to_check--;
 		if (map_content_at(x_to_check, y_to_check) == 1)
 		{
-			wall_found(vertical, next_touch_x, next_touch_y, true);
+			wall_found(&vertical, next_touch_x, next_touch_y, true);
 			vertical.distance = distance_between_points(t_player.x, t_player.y,
 				vertical.wall_hit_x, vertical.wall_hit_y);
 			break ;
@@ -105,6 +106,7 @@ t_wall_hit	vertical_intersection(float ray_angle)
 		next_touch_x += x_step;
 		next_touch_y += y_step;
 	}
+	return (vertical);
 }
 
 void	wall_found(t_wall_hit *orientation, float x_to_check,
