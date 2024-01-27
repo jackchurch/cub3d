@@ -32,35 +32,23 @@ void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 	}
 }
 
-void	cast_one_ray(float ray_angle, int stripId,
-			t_wall_hit *vertical, t_wall_hit *horizontal)
+void	cast_one_ray(float ray_angle, int stripId)
 {
-	float		vert_hit_distance;
-	float		horz_hit_distance;
+	t_wall_hit	horizontal;
+	t_wall_hit	vertical;
 
 	normalize_angle(&ray_angle);
-	horizontal_intersection(horizontal, ray_angle);
-	vertical_intersection(vertical, ray_angle);
-	if (horizontal->found_wall_hit)
-		horz_hit_distance = distance_between_points(t_player.x, t_player.y,
-				horizontal->wall_hit_x, horizontal->wall_hit_y);
+	horizontal = horizontal_intersection(ray_angle);
+	vertical = vertical_intersection(ray_angle);
+	if (vertical.distance < horizontal.distance)
+		ray_cast(&vertical, stripId, ray_angle);
 	else
-		horz_hit_distance = FLT_MAX;
-	if (vertical->found_wall_hit)
-		vert_hit_distance = distance_between_points(t_player.x, t_player.y,
-				vertical->wall_hit_x, vertical->wall_hit_y);
-	else
-		vert_hit_distance = FLT_MAX;
-	if (vert_hit_distance < horz_hit_distance)
-		ray_cast(vertical, stripId, ray_angle, vert_hit_distance);
-	else
-		ray_cast(horizontal, stripId, ray_angle, horz_hit_distance);
+		ray_cast(&horizontal, stripId, ray_angle);
 }
 
-void	ray_cast(t_wall_hit *hit, int stripId,
-			float ray_angle, float hit_distance)
+void	ray_cast(t_wall_hit *hit, int stripId, float ray_angle)
 {
-	g_rays[stripId].distance = hit_distance;
+	g_rays[stripId].distance = hit->distance;
 	g_rays[stripId].wall_hit_x = hit->wall_hit_x;
 	g_rays[stripId].wall_hit_y = hit->wall_hit_y;
 	g_rays[stripId].wall_hit_content = hit->wall_content;
@@ -76,18 +64,12 @@ void	cast_all_rays(void)
 {
 	int		strip_id;
 	float	ray_angle;
-	t_wall_hit	horizontal;
-	t_wall_hit	vertical;
 
-	wall_hit_params(&horizontal);
-	wall_hit_params(&vertical);
 	strip_id = 0;
 	ray_angle = t_player.rotation_angle - FOV_ANGLE / 2;
 	while (strip_id < NUM_RAYS)
 	{
-		horizontal.found_wall_hit = false;
-		vertical.found_wall_hit = false;
-		cast_one_ray(ray_angle, strip_id, &vertical, &horizontal);
+		cast_one_ray(ray_angle, strip_id);
 		ray_angle += FOV_ANGLE / NUM_RAYS;
 		strip_id++;
 	}
