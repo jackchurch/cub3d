@@ -35,13 +35,25 @@ typedef struct s_wall_hit
 	bool	is_vertical;
 }	t_wall_hit;
 
+typedef struct s_axis
+{
+	float				x_step;
+	float				y_step;
+	float				x_intercept;
+	float				y_intercept;
+	float				next_touch_x;
+	float				next_touch_y;
+	float				x_to_check;
+	float				y_to_check;
+}	t_axis;
+
 extern t_ray	g_rays[NUM_RAYS];
 
 void		render_rays(t_game *game);
-//void	wall_hit_params(t_wall_hit *params);
 void		ray_cast(t_wall_hit *hit, int stripId, float ray_angle);
 void		wall_found(t_wall_hit *orientation, float y_to_check,
 			float x_to_check, bool is_vertical);
+void	find_intercept(t_wall_hit *orientation, t_axis *axis, float ray_angle);
 void		cast_all_rays(void);
 void		cast_one_ray(float ray_angle, int stripId);
 t_wall_hit	horizontal_intersection(float ray_angle);
