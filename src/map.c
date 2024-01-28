@@ -81,7 +81,6 @@ void	render_map(t_game *game)
 				tile.color = 0x00FFFFFF;
 			tile_rect_init(&map_tile_rect, tile);
 			draw_rect(game, &map_tile_rect);
-			usleep(1000);
 		}
 	}
 }

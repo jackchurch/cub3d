@@ -74,7 +74,6 @@ void	cast_all_rays(void)
 		strip_id++;
 	}
 }
-	// printf("FOV: %f StripId: %d ray_angle: %f\n", FOV_ANGLE, stripId, ray_angle);
 
 void	render_rays(t_game *game)
 {
