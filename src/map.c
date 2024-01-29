@@ -73,7 +73,7 @@ void	render_map(t_game *game)
 		j = -1;
 		while (++j < MAP_NUM_COLS)
 		{
-			tile.x = j * TILE_SIZE; 
+			tile.x = j * TILE_SIZE;
 			tile.y = i * TILE_SIZE;
 			if (get_map_at(i, j) != 0)
 				tile.color = 0x000000FF;
