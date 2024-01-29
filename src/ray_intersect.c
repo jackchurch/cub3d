@@ -11,12 +11,12 @@ extern t_ray	g_rays[NUM_RAYS];
 //////////////////////////////////////////////
 t_wall_hit	horizontal_intersection(float ray_angle)
 {
-	static t_wall_hit	horizontal;
+	static t_wall_hit	hori;
 	t_axis				axis;
 
-	ft_memset(&horizontal, 0, sizeof(horizontal));
+	ft_memset(&hori, 0, sizeof(hori));
 	ft_memset(&axis, 0, sizeof(axis));
-	find_intercept(&horizontal, &axis, ray_angle);
+	find_intercept(&hori, &axis, ray_angle);
 	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'x');
 	axis.next_touch_x = axis.x_intercept;
 	axis.next_touch_y = axis.y_intercept;
@@ -28,13 +28,13 @@ t_wall_hit	horizontal_intersection(float ray_angle)
 			axis.y_to_check--;
 		if (map_content_at(axis.x_to_check, axis.y_to_check) == 1)
 		{
-			wall_found(&horizontal, axis.next_touch_x, axis.next_touch_y, false);
+			wall_found(&hori, axis.next_touch_x, axis.next_touch_y, false);
 			break ;
 		}
 		axis.next_touch_x += axis.x_step;
 		axis.next_touch_y += axis.y_step;
 	}
-	return (horizontal);
+	return (hori);
 }
 
 //////////////////////////////////////////////
@@ -78,7 +78,7 @@ void	wall_found(t_wall_hit *orientation, float x_to_check,
 			(x_to_check / TILE_SIZE));
 	orientation->is_vertical = is_vertical;
 	orientation->distance = distance_between_points(t_player.x, t_player.y,
-		orientation->wall_hit_x, orientation->wall_hit_y);
+			orientation->wall_hit_x, orientation->wall_hit_y);
 }
 
 void	find_intercept(t_wall_hit *orientation, t_axis *axis, float ray_angle)
@@ -88,5 +88,5 @@ void	find_intercept(t_wall_hit *orientation, t_axis *axis, float ray_angle)
 	if (is_ray_facing_right(ray_angle))
 		axis->x_intercept += TILE_SIZE;
 	axis->y_intercept = t_player.y + (axis->x_intercept
-		- t_player.x) * tan(ray_angle);
+			- t_player.x) * tan(ray_angle);
 }

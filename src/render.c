@@ -48,8 +48,6 @@ void	generate_3d_projection(t_game *game)
 {
 	int			i;
 	int			projected_wall_height;
-	int			wall_top_pixel;
-	int			wall_bottom_pixel;
 	t_rectangle	rect;
 
 	i = -1;
@@ -59,12 +57,6 @@ void	generate_3d_projection(t_game *game)
 		projected_wall_height = (int)((TILE_SIZE / (g_rays[i].distance
 					* cos(g_rays[i].ray_angle - t_player.rotation_angle)))
 				* ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2)));
-		wall_top_pixel = (WINDOW_HEIGHT / 2) - (projected_wall_height / 2);
-		if (wall_top_pixel < 0)
-			wall_top_pixel = 0;
-		wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (projected_wall_height / 2);
-		if (wall_bottom_pixel > WINDOW_HEIGHT)
-			wall_bottom_pixel = WINDOW_HEIGHT;
 		rect.x = i;
 		rect.y = WINDOW_HEIGHT / 2 - projected_wall_height / 2;
 		rect.width = 1;
@@ -73,6 +65,18 @@ void	generate_3d_projection(t_game *game)
 		draw_rect(game, &rect);
 	}
 }
+
+/*
+int			wall_top_pixel;
+int			wall_bottom_pixel;
+
+wall_top_pixel = (WINDOW_HEIGHT / 2) - (projected_wall_height / 2);
+if (wall_top_pixel < 0)
+	wall_top_pixel = 0;
+wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (projected_wall_height / 2);
+if (wall_bottom_pixel > WINDOW_HEIGHT)
+wall_bottom_pixel = WINDOW_HEIGHT;
+*/
 
 int	color_assignment(int i)
 {
