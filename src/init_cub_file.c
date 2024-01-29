@@ -7,6 +7,11 @@
 
 
 
+/*
+Return element type only if element has a space or tab after the last valid char.
+ie C345,654,344 will fail.
+C   645,421,334 will pass
+*/
 int	discover_element_type(char *current_line)
 { 
 	int	j;
@@ -29,6 +34,7 @@ int	discover_element_type(char *current_line)
 	return (-1);
 }
 
+/*Remove the C or F from the return string and then remove any leading white space.*/
 char	*isolate_element_path(char *str, int i)
 {
 	char	*temp;
@@ -48,13 +54,16 @@ int	do_shit(char *current_line)
 	char	*str_1;
 	int		element_type;
 
+	// On this line, remove leading and tailing spaces and tabs (this will need not happen for the map part)
 	str_1 = ft_strtrim(current_line, " 	");
+	// Set element type and error if element type identifyer is invalid. 
 	element_type = discover_element_type(str_1);
 	if (element_type == -1)
 		return (-1);
+	// If a wall (shorter to use not celing and not floor than if NO and SO and WE and EA)
 	if (element_type != CELING && element_type != FLOOR)
 		celing_floor_branch(str_1, element_type);
-	else
+	else // Is celing or
 		celing_floor_branch(str_1, element_type);
 	free(str_1);
 }
@@ -69,12 +78,12 @@ bool	init_cub_file(char *file_name)
 	while (current_line != NULL)
 	{
 		current_line = get_next_line(fd);
+		// Skip over any blank lines
 		if (current_line[0] == '\n')
 			continue ;
+		// Do things if the line isn't blank
 		do_shit(current_line);
 	}
-	find_first_line(&fd, current_line);
-	get_elements(&fd, current_line);
-	current_line = get_next_line(fd);
+
 	return (true);
 }
