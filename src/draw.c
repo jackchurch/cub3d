@@ -7,7 +7,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	if (x < 0 || y < 0 || x >= WINDOW_WIDTH || y >= WINDOW_HEIGHT)
 		return ;
-	// vvvvvv this is the color buffer in your notes vvvvvvv
 	dst = (data->addr + (y * data->line_length + x * data->bpp / 8));
 	*(unsigned int *)dst = color;
 }

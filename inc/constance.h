@@ -37,7 +37,6 @@
 # define LINUX_W 25
 # define LINUX_ESC 9
 
-
 # define NORTH 1
 # define EAST 2
 # define SOUTH 3
