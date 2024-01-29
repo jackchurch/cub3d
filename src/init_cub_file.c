@@ -18,7 +18,7 @@ int	discover_element_type(char *current_line)
 	int	*i;
 
 	j = 0;
-	*i = &j;
+	i = &j;
 	if (current_line[*i] == 'C' && is_white_space(current_line[*i + 1]))
 		return (CELING);
 	else if (current_line[*i] == 'F' && is_white_space(current_line[*i + 1]))
@@ -66,6 +66,7 @@ int	do_shit(char *current_line)
 	else // Is celing or
 		celing_floor_branch(str_1, element_type);
 	free(str_1);
+	return (0);
 }
 
 bool	init_cub_file(char *file_name)

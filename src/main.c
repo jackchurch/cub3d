@@ -23,7 +23,8 @@ void	setup(char **argv1)
 {
 	// Add wall textrues here?
 	init_t_player();
-	init_texture_and_map(argv1);
+	(void)argv1;
+//	init_texture_and_map(argv1);
 }
 
 void	safe_exit(t_game *game)
@@ -86,9 +87,9 @@ int	main(int argc, char **argv)
 
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	
-
+	(void)argc;
 	init_window(game);
-	setup(argv[1]);
+	setup(&argv[1]);
 	game->data = (t_data){0};
 	game->data.img = mlx_new_image(game->mlx, WINDOW_WIDTH,  WINDOW_HEIGHT);
 	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bits_per_pixel, &game->data.line_length, &game->data.endian);
