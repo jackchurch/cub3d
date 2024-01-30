@@ -14,22 +14,17 @@ C   645,421,334 will pass
 */
 int	discover_element_type(char *current_line)
 { 
-	int	j;
-	int	*i;
-
-	j = 0;
-	i = &j;
-	if (current_line[*i] == 'C' && is_white_space(current_line[*i + 1]))
+	if (current_line[0] == 'C' && is_white_space(current_line[1]))
 		return (CELING);
-	else if (current_line[*i] == 'F' && is_white_space(current_line[*i + 1]))
+	else if (current_line[0] == 'F' && is_white_space(current_line[1]))
 		return (FLOOR);
-	else if (current_line[*i] == 'N' && current_line[*i + 1] == 'O'	&& is_white_space(current_line[*i + 2]))
+	else if (current_line[0] == 'N' && current_line[1] == 'O' && is_white_space(current_line[2]))
 		return (NORTH);
-	else if (current_line[*i] == 'S' && current_line[*i + 1] == 'O' && is_white_space(current_line[*i + 2]))
+	else if (current_line[0] == 'S' && current_line[1] == 'O' && is_white_space(current_line[2]))
 		return (SOUTH);
-	else if (current_line[*i] == 'E' && current_line[*i + 1] == 'A' && is_white_space(current_line[*i + 2]))
+	else if (current_line[0] == 'E' && current_line[1] == 'A' && is_white_space(current_line[2]))
 		return (EAST);
-	else if (current_line[*i] == 'W' && current_line[*i + 1] == 'E' && is_white_space(current_line[*i + 2]))
+	else if (current_line[0] == 'W' && current_line[1] == 'E' && is_white_space(current_line[2]))
 		return (WEST);
 	return (-1);
 }
