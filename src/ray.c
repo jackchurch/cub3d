@@ -24,7 +24,7 @@ void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 		*xstep = TILE_SIZE;
 		if (is_ray_facing_left(ray_angle))
 			*xstep *= -1;
-		*ystep = TILE_SIZE / tan(ray_angle);
+		*ystep = TILE_SIZE * tan(ray_angle);
 		if (is_ray_facing_up(ray_angle) && *ystep > 0)
 			*ystep *= -1;
 		if (is_ray_facing_down(ray_angle) && *ystep < 0)
