@@ -20,6 +20,7 @@ t_wall_hit	horizontal_intersection(float ray_angle)
 	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'x');
 	axis.next_touch_x = axis.x_intercept;
 	axis.next_touch_y = axis.y_intercept;
+	// printf("Horz x_step: %f and y_step: %f\n", axis.x_step, axis.y_step);
 	while (is_inside_map(axis.next_touch_x, axis.next_touch_y))
 	{
 		axis.x_to_check = axis.next_touch_x;
@@ -51,6 +52,7 @@ t_wall_hit	vertical_intersection(float ray_angle)
 	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'y');
 	axis.next_touch_x = axis.x_intercept;
 	axis.next_touch_y = axis.y_intercept;
+	// printf("Vert x_step: %f and y_step: %f\n", axis.x_step, axis.y_step);
 	while (is_inside_map(axis.next_touch_x, axis.next_touch_y))
 	{
 		axis.x_to_check = axis.next_touch_x;

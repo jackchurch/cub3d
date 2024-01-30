@@ -23,13 +23,26 @@ void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 	{
 		*xstep = TILE_SIZE;
 		if (is_ray_facing_left(ray_angle))
+		if (is_ray_facing_left(ray_angle))
+		{
 			*xstep *= -1;
-		*ystep = TILE_SIZE / tan(ray_angle);
+			//printf("Facing left xstep * -1:\t\t\t\t\t%f\n", *xstep);
+		}
+		*ystep = TILE_SIZE * tan(ray_angle);
+		//printf("ystep is now TILE_SIZE / tan(rayangle):\t\t\t%f\n", *ystep);
 		if (is_ray_facing_up(ray_angle) && *ystep > 0)
+		{
 			*ystep *= -1;
+			//printf("Facing up ystep * -1:\t\t\t\t\t%f\n", *ystep);
+		}
 		if (is_ray_facing_down(ray_angle) && *ystep < 0)
+		{
 			*ystep *= -1;
+			//printf("Facing down ystep * -1:\t\t\t\t\t%f\n", *ystep);
+		}
+		//printf("\n\n");
 	}
+	// sleep(1);
 }
 
 void	cast_one_ray(float ray_angle, int stripId)
@@ -41,9 +54,15 @@ void	cast_one_ray(float ray_angle, int stripId)
 	horizontal = horizontal_intersection(ray_angle);
 	vertical = vertical_intersection(ray_angle);
 	if (vertical.distance < horizontal.distance)
+	{
+		// printf("%d\t0\n", stripId);
 		ray_cast(&vertical, stripId, ray_angle);
+	}
 	else
+	{
+		// printf("%d\t1\n", stripId);
 		ray_cast(&horizontal, stripId, ray_angle);
+	}
 }
 
 void	ray_cast(t_wall_hit *hit, int stripId, float ray_angle)
@@ -71,6 +90,7 @@ void	cast_all_rays(void)
 	{
 		cast_one_ray(ray_angle, strip_id);
 		ray_angle += FOV_ANGLE / NUM_RAYS;
+		printf("id: %i\tdistance: %f\n", strip_id, g_rays[strip_id].distance);
 		strip_id++;
 	}
 }
