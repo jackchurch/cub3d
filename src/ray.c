@@ -4,6 +4,7 @@
 #include "../inc/constance.h"
 #include "../inc/map.h"
 
+extern t_player	player;
 t_ray	g_rays[NUM_RAYS];
 
 void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
@@ -24,7 +25,7 @@ void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 		*xstep = TILE_SIZE;
 		if (is_ray_facing_left(ray_angle))
 			*xstep *= -1;
-		*ystep = TILE_SIZE / tan(ray_angle);
+		*ystep = TILE_SIZE * tan(ray_angle);
 		if (is_ray_facing_up(ray_angle) && *ystep > 0)
 			*ystep *= -1;
 		if (is_ray_facing_down(ray_angle) && *ystep < 0)
@@ -40,6 +41,13 @@ void	cast_one_ray(float ray_angle, int stripId)
 	normalize_angle(&ray_angle);
 	horizontal = horizontal_intersection(ray_angle);
 	vertical = vertical_intersection(ray_angle);
+	if (horizontal.found_wall_hit)
+		horizontal.distance = distance_between_points(player.x, player.y,
+			horizontal.wall_hit_x, horizontal.wall_hit_y);
+	if (vertical.found_wall_hit)
+		vertical.distance = distance_between_points(player.x, player.y,
+			vertical.wall_hit_x, vertical.wall_hit_y);
+	//printf("Vert Distance: %f\nHori Distance: %f\n", vertical.distance, horizontal.distance);
 	if (vertical.distance < horizontal.distance)
 		ray_cast(&vertical, stripId, ray_angle);
 	else
@@ -66,7 +74,7 @@ void	cast_all_rays(void)
 	float	ray_angle;
 
 	strip_id = 0;
-	ray_angle = t_player.rotation_angle - FOV_ANGLE / 2;
+	ray_angle = player.rotation_angle - FOV_ANGLE / 2;
 	while (strip_id < NUM_RAYS)
 	{
 		cast_one_ray(ray_angle, strip_id);
@@ -80,14 +88,15 @@ void	render_rays(t_game *game)
 	int		i;
 	t_line	line;
 
-	i = -1;
-	while (++i < NUM_RAYS)
+	i = 0;
+	while (i < NUM_RAYS)
 	{
-		line.x0 = t_player.x * MINIMAP_SCALE;
-		line.y0 = t_player.y * MINIMAP_SCALE;
+		line.x0 = player.x * MINIMAP_SCALE;
+		line.y0 = player.y * MINIMAP_SCALE;
 		line.x1 = g_rays[i].wall_hit_x * MINIMAP_SCALE;
 		line.y1 = g_rays[i].wall_hit_y * MINIMAP_SCALE;
 		line.color = 0x00FFC8D7;
 		draw_line(game, &line);
+		i++;
 	}
 }

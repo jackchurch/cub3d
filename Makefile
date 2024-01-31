@@ -1,16 +1,15 @@
 NAME		= a.out cub3d
 
+OS			= $(shell uname)
 FT_PATH		= ./libft
-MLX_PATH	= ./mlx
+# MLX_PATH	= ./mlx
 MLX_LIB		= libmlx.a
 FT_LIB		= libft.a
 INC_PATH	= ./inc
 SRC_PATH	= ./src
 OBJ_PATH	= ./obj
 
-INC_DIRS	= $(INC_PATH) $(MLX_PATH) $(FT_PATH)
-INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
-MLX_MAC_THINGS = -framework OpenGL -framework AppKit
+# MLX_MAC_THINGS = -framework OpenGL -framework AppKit
 
 SRCS	= $(SRC_PATH)/main.c \
 $(SRC_PATH)/ft_mlx.c \
@@ -19,21 +18,32 @@ $(SRC_PATH)/map.c \
 $(SRC_PATH)/draw.c \
 $(SRC_PATH)/render.c \
 $(SRC_PATH)/ray.c \
+$(SRC_PATH)/ray_intersect.c \
 $(SRC_PATH)/ray_facing.c \
-$(SRC_PATH)/ray_intersect.c
-
+#$(SRC_PATH)/init_cub_file.c
 
 CC		= gcc
 DFLAGS  = -fsanitize=address -g 
-CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) -MP -MD
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 DEPFILES = $(patsubst %.c,%.d,$(SRCS))
+
+ifeq ($(OS),Darwin)
+	MLX_PATH = ./mlx_mac
+	MLX_FLAGS =-framework OpenGL -framework AppKit
+else ifeq ($(OS),Linux)
+	MLX_PATH = ./mlx_linux
+	MLX_FLAGS =-lXext -lX11 -lm
+endif
+
+INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
+CFLAGS		+=-I$(MLX_PATH)
 
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(MLX_LIB) $(FT_LIB)
-	$(CC) $(DFLAGS) $(OBJECTS) $(INC_LIBS) $(MLX_MAC_THINGS) -o $@
+	$(CC) $(DFLAGS) $(CFLAGS) $(OBJECTS) $(INC_LIBS) $(MLX_FLAGS) -o $@
 
 %.o: $(SRC_PATH)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<

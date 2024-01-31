@@ -4,7 +4,12 @@
 # include <math.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
+# include "../mlx_linux/mlx.h"
+# include "../mlx_mac/mlx.h"
+
+# ifndef M_PI
+#  define M_PI 3.13159265358979323846
+# endif
 
 # define FLT_MAX 340282346638528859811704183484516925440.000000
 
@@ -31,11 +36,11 @@
 # define LEFT_ARROW 0
 # define RIGHT_ARROW 2
 # define ESC 53
-# define LINUX_A 38
-# define LINUX_S 39
-# define LINUX_D 40
-# define LINUX_W 25
-# define LINUX_ESC 9
+# define LINUX_A 97
+# define LINUX_S 115
+# define LINUX_D 100
+# define LINUX_W 119
+# define LINUX_ESC 65307
 
 # define NORTH 1
 # define EAST 2

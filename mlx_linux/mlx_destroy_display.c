@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchurch <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 12:16:57 by jchurch           #+#    #+#             */
-/*   Updated: 2022/02/23 12:16:58 by jchurch          ###   ########.fr       */
+/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
+/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "mlx_int.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+int	mlx_destroy_display(t_xvar *xvar)
 {
-	unsigned int	i;
-
-	i = 0;
-	if (s != 0 && f != 0)
-	{
-		while (s[i] != 0)
-		{
-			f(i, &s[i]);
-			i++;
-		}
-	}
+	XCloseDisplay(xvar->display);
 }
