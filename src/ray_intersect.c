@@ -88,5 +88,5 @@ void	find_intercept(t_wall_hit *orientation, t_axis *axis, float ray_angle)
 	if (is_ray_facing_right(ray_angle))
 		axis->x_intercept += TILE_SIZE;
 	axis->y_intercept = t_player.y + (axis->x_intercept
-			- t_player.x) * tan(ray_angle);
+			- t_player.x) / tan(ray_angle);
 }
