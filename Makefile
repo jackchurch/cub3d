@@ -21,7 +21,6 @@ $(SRC_PATH)/cub_file_utils.c \
 $(SRC_PATH)/init_cub_file.c \
 $(SRC_PATH)/set_ceiling_floor.c
 
-
 CC		= gcc
 DFLAGS  = -fsanitize=address -g 
 CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) -MP -MD
