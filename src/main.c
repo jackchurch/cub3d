@@ -85,6 +85,7 @@ int	main(void)
 	game->win_height = MAP_NUM_ROWS * TILE_SIZE;
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};
+	game->rays = (t_ray){0};
 	game->data.img = mlx_new_image(game->mlx, game->win_width, game->win_height);
 	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bpp,
 			&game->data.line_length, &game->data.endian);
