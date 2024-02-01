@@ -8,6 +8,7 @@
 # include "../mlx_mac/mlx.h"
 # include "cub3d.h"
 # include "constance.h"
+# include "draw.h"
 
 typedef struct s_tile
 {
