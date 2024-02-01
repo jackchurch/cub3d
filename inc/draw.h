@@ -4,7 +4,8 @@
 # include <math.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
+# include "../mlx_linux/mlx.h"
+# include "../mlx_mac/mlx.h"
 # include "cub3d.h"
 
 typedef struct s_rectangle

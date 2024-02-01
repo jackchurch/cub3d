@@ -15,6 +15,7 @@ $(SRC_PATH)/map.c \
 $(SRC_PATH)/draw.c \
 $(SRC_PATH)/render.c \
 $(SRC_PATH)/ray.c \
+$(SRC_PATH)/ray_intersect.c \
 $(SRC_PATH)/ray_facing.c \
 $(SRC_PATH)/ray_intersect.c \
 $(SRC_PATH)/cub_file_utils.c \
@@ -23,7 +24,7 @@ $(SRC_PATH)/set_ceiling_floor.c
 
 CC		= gcc
 DFLAGS  = -fsanitize=address -g 
-CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) -MP -MD
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 DEPFILES = $(patsubst %.c,%.d,$(SRCS))
 

@@ -5,19 +5,21 @@
 #include "../inc/maths.h"
 #include "../inc/ray.h"
 #include "../inc/constance.h"
+#include <math.h>
 
+t_player	player;
 	// Add wall textrues here?
 void	setup(void)
 {
-	t_player.x = WINDOW_WIDTH / 2;
-	t_player.y = WINDOW_HEIGHT / 2;
-	t_player.width = 1;
-	t_player.height = 1;
-	t_player.turn_direction = 0;
-	t_player.walk_direction = 0;
-	t_player.rotation_angle = M_PI / 2;
-	t_player.walk_speed = 10;
-	t_player.turn_speed = M_PI / 180 * t_player.walk_speed;
+	player.x = WINDOW_WIDTH / 2;
+	player.y = WINDOW_HEIGHT / 2;
+	player.width = 1;
+	player.height = 1;
+	player.turn_direction = 0;
+	player.walk_direction = 0;
+	player.rotation_angle = M_PI / 2;
+	player.walk_speed = 10;
+	player.turn_speed = M_PI / 180 * player.walk_speed;
 }
 
 void	safe_exit(t_game *game)
@@ -39,14 +41,14 @@ void	move_player(t_game *game)
 
 	if (!game)
 		return ;
-	t_player.rotation_angle += t_player.turn_direction * t_player.turn_speed;
-	move_step = t_player.walk_direction * t_player.walk_speed;
-	new_player_x = t_player.x + cos(t_player.rotation_angle) * move_step;
-	new_player_y = t_player.y + sin(t_player.rotation_angle) * move_step;
+	player.rotation_angle += player.turn_direction * player.turn_speed;
+	move_step = player.walk_direction * player.walk_speed;
+	new_player_x = player.x + cos(player.rotation_angle) * move_step;
+	new_player_y = player.y + sin(player.rotation_angle) * move_step;
 	if (map_content_at(new_player_x, new_player_y) != 1)
 	{
-		t_player.x = new_player_x;
-		t_player.y = new_player_y;
+		player.x = new_player_x;
+		player.y = new_player_y;
 	}
 }
 

@@ -4,22 +4,24 @@
 #include "../inc/cub3d.h"
 #include "../inc/ray.h"
 
+extern t_player	player;
+
 void	render_player(t_game *game)
 {
 	t_rectangle	player_rect;
 	t_line		player_line;
 
-	player_rect.x = t_player.x * MINIMAP_SCALE;
-	player_rect.y = t_player.y * MINIMAP_SCALE;
-	player_rect.width = t_player.width * MINIMAP_SCALE;
-	player_rect.height = t_player.height * MINIMAP_SCALE;
+	player_rect.x = player.x * MINIMAP_SCALE;
+	player_rect.y = player.y * MINIMAP_SCALE;
+	player_rect.width = player.width * MINIMAP_SCALE;
+	player_rect.height = player.height * MINIMAP_SCALE;
 	player_rect.color = 0x00E0B0FF;
 	draw_rect(game, &player_rect);
-	player_line.x0 = t_player.x * MINIMAP_SCALE;
-	player_line.y0 = t_player.y * MINIMAP_SCALE;
-	player_line.x1 = (t_player.x + cos(t_player.rotation_angle) * 40)
+	player_line.x0 = player.x * MINIMAP_SCALE;
+	player_line.y0 = player.y * MINIMAP_SCALE;
+	player_line.x1 = (player.x + cos(player.rotation_angle) * 40)
 		* MINIMAP_SCALE;
-	player_line.y1 = (t_player.y + sin(t_player.rotation_angle) * 40)
+	player_line.y1 = (player.y + sin(player.rotation_angle) * 40)
 		* MINIMAP_SCALE;
 	player_line.color = 0x00E0B0FF;
 	draw_line(game, &player_line);
@@ -55,7 +57,7 @@ void	generate_3d_projection(t_game *game)
 	while (++i < NUM_RAYS)
 	{
 		projected_wall_height = (int)((TILE_SIZE / (g_rays[i].distance
-						* cos(g_rays[i].ray_angle - t_player.rotation_angle)))
+						* cos(g_rays[i].ray_angle - player.rotation_angle)))
 				* ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2)));
 		rect.x = i;
 		rect.y = WINDOW_HEIGHT / 2 - projected_wall_height / 2;
