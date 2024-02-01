@@ -83,9 +83,9 @@ int	main(void)
 
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	init_window(game);
-	setup();
 	game->win_width = MAP_NUM_COLS * TILE_SIZE;
 	game->win_height = MAP_NUM_ROWS * TILE_SIZE;
+	setup();
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
