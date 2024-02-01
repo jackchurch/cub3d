@@ -24,12 +24,9 @@
 # define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 // move to variable, or use actual values
 
-# define FOV_ANGLE_WORKINGS_OUT (60 * (M_PI / 180))
-// move to variable, or use actual values
-
 # define FOV_ANGLE 1.047197666666667
 
-# define NUM_RAYS WINDOW_WIDTH
+// # define NUM_RAYS WINDOW_WIDTH
 
 # define UP_ARROW 13
 # define S_KEY 1

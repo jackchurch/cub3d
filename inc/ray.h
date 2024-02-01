@@ -48,7 +48,7 @@ typedef struct s_axis
 	float				y_to_check;
 }	t_axis;
 
-extern t_ray	g_rays[NUM_RAYS];
+//extern t_ray	rays[game->num_rays];
 
 void		render_rays(t_game *game);
 void		ray_cast(t_wall_hit *hit, int stripId, float ray_angle);

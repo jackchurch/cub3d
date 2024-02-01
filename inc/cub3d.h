@@ -7,6 +7,7 @@
 # include "../mlx_linux/mlx.h"
 # include "../mlx_mac/mlx.h"
 # include "constance.h"
+# include "ray.h"
 
 typedef struct	s_player
 {
@@ -36,6 +37,10 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
+	int		win_width;
+	int		win_height;
+	int		num_rays;
+	t_ray	rays;
 	t_data	data;
 }	t_game;
 

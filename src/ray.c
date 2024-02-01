@@ -5,7 +5,7 @@
 #include "../inc/map.h"
 
 extern t_player	player;
-t_ray	g_rays[NUM_RAYS];
+//t_ray	rays[game->num_rays];
 
 void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 {
@@ -56,29 +56,29 @@ void	cast_one_ray(float ray_angle, int stripId)
 
 void	ray_cast(t_wall_hit *hit, int stripId, float ray_angle)
 {
-	g_rays[stripId].distance = hit->distance;
-	g_rays[stripId].wall_hit_x = hit->wall_hit_x;
-	g_rays[stripId].wall_hit_y = hit->wall_hit_y;
-	g_rays[stripId].wall_hit_content = hit->wall_content;
-	g_rays[stripId].was_hit_vertical = hit->is_vertical;
-	g_rays[stripId].ray_angle = ray_angle;
-	g_rays[stripId].is_ray_facing_down = is_ray_facing_down(ray_angle);
-	g_rays[stripId].is_ray_facing_up = is_ray_facing_up(ray_angle);
-	g_rays[stripId].is_ray_facing_left = is_ray_facing_left(ray_angle);
-	g_rays[stripId].is_ray_facing_right = is_ray_facing_right(ray_angle);
+	rays[stripId].distance = hit->distance;
+	rays[stripId].wall_hit_x = hit->wall_hit_x;
+	rays[stripId].wall_hit_y = hit->wall_hit_y;
+	rays[stripId].wall_hit_content = hit->wall_content;
+	rays[stripId].was_hit_vertical = hit->is_vertical;
+	rays[stripId].ray_angle = ray_angle;
+	rays[stripId].is_ray_facing_down = is_ray_facing_down(ray_angle);
+	rays[stripId].is_ray_facing_up = is_ray_facing_up(ray_angle);
+	rays[stripId].is_ray_facing_left = is_ray_facing_left(ray_angle);
+	rays[stripId].is_ray_facing_right = is_ray_facing_right(ray_angle);
 }
 
-void	cast_all_rays(void)
+void	cast_all_rays(t_game *game)
 {
 	int		strip_id;
 	float	ray_angle;
 
 	strip_id = 0;
 	ray_angle = player.rotation_angle - FOV_ANGLE / 2;
-	while (strip_id < NUM_RAYS)
+	while (strip_id < game->num_rays)
 	{
 		cast_one_ray(ray_angle, strip_id);
-		ray_angle += FOV_ANGLE / NUM_RAYS;
+		ray_angle += FOV_ANGLE / game->num_rays;
 		strip_id++;
 	}
 }
@@ -89,12 +89,12 @@ void	render_rays(t_game *game)
 	t_line	line;
 
 	i = 0;
-	while (i < NUM_RAYS)
+	while (i < game->num_rays)
 	{
 		line.x0 = player.x * MINIMAP_SCALE;
 		line.y0 = player.y * MINIMAP_SCALE;
-		line.x1 = g_rays[i].wall_hit_x * MINIMAP_SCALE;
-		line.y1 = g_rays[i].wall_hit_y * MINIMAP_SCALE;
+		line.x1 = rays[i].wall_hit_x * MINIMAP_SCALE;
+		line.y1 = rays[i].wall_hit_y * MINIMAP_SCALE;
 		line.color = 0x00FFC8D7;
 		draw_line(game, &line);
 		i++;

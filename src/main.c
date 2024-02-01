@@ -66,7 +66,7 @@ void	move_player(t_game *game)
 void	render(t_game *game)
 {
 	move_player(game);
-	cast_all_rays();
+	cast_all_rays(game);
 	generate_3d_projection(game);
 	render_map(game);
 	render_rays(game);
@@ -81,12 +81,15 @@ int	main(void)
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	init_window(game);
 	setup();
+	game->win_width = MAP_NUM_COLS * TILE_SIZE;
+	game->win_height = MAP_NUM_ROWS * TILE_SIZE;
+	game->num_rays = game->win_width;
 	game->data = (t_data){0};
-	game->data.img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	game->data.img = mlx_new_image(game->mlx, game->win_width, game->win_height);
 	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bpp,
 			&game->data.line_length, &game->data.endian);
 	// process_input(); // See keyhooks
-	// update(game); // Add FPS if have time. 
+	// update(game); // Add FPS if have time.
 	render(game);
 	mlx_loop(game->mlx);
 	return (0);
