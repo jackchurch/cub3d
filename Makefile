@@ -16,9 +16,8 @@ $(SRC_PATH)/draw.c \
 $(SRC_PATH)/render.c \
 $(SRC_PATH)/ray.c \
 $(SRC_PATH)/ray_intersect.c \
-$(SRC_PATH)/ray_facing.c \
-$(SRC_PATH)/ray_intersect.c \
-$(SRC_PATH)/cub_file_utils.c \
+$(SRC_PATH)/ray_facing.c 
+#$(SRC_PATH)/cub_file_utils.c \
 $(SRC_PATH)/init_cub_file.c \
 $(SRC_PATH)/set_ceiling_floor.c
 

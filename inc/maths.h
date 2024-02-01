@@ -2,6 +2,7 @@
 # define MATHS_H
 
 # include <math.h>
+# include "draw.h"
 
 // maths.c
 void	normalize_angle(float *ray_angle);
