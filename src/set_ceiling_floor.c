@@ -73,33 +73,43 @@ bool	valid_range(int i)
 	return (false);
 }
 
-int	for_each_value(char *value, int i, t_map *map, int element_type)
+void	input_path(t_input *input, char *path, int element_type)
+{
+	if (element_type == NORTH)
+		input->north_path = ft_strdup(path);
+	if (element_type == SOUTH)
+		input->south_path = ft_strdup(path);
+	if (element_type == EAST)
+		input->east_path = ft_strdup(path);
+	if (element_type == WEST)
+		input->west_path = ft_strdup(path);
+}
+
+int	for_each_value(t_input *input, char *value, int i, int element_type)
 {
 	char	*str;
-
+	int		color;
 
 	// Remove leading and tailing whitespace for each number (R G B)
 	str = ft_strtrim(value, " 	");
 	// If no numbers error; and also if number at index [0] and index [2] but white space at index [1], error as the number has a space in it. 
 	if (any_invalid_chars(str) == true)
 		return (-1);
-	if (element_type == CELING)
+	color = ft_atoi(str);
+	if (element_type == CEILING || element_type == FLOOR)
 	{
-		// Set struct with colour for R G Or B
-		map->celing[i] = ft_atoi(str);
-		if (valid_range(map->celing[i]) == false)
+		if (color < 0 || color > 255)
 			return (-1);
+		if (element_type == CEILING)
+			input->ceiling_color[i] = color;
+		else
+			input->floor_color[i] = color;
 	}
 	else
-	{
-		// WTF, can I use function pointers to set celing or floor
-		map->celing[i] = ft_atoi(str);
-		if (valid_range(map->celing[i]) == false)
-		return (-1);
-	}
+		input_path(input, str, element_type);
 }
 
-int	ceiling_floor_branch(char *current_line, int element_type)
+int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 {
 	char	*str;
 	char	**values;
@@ -117,8 +127,9 @@ int	ceiling_floor_branch(char *current_line, int element_type)
 		// TODO: if it is 0 or 1 we also need to error before the while loop starts. ie `If number of strings is != 2` error
 		if (i == 3)
 			return (-1);
-		if (for_each_value(values[i], i, map, element_type) == -1)
+		if (for_each_value(&input, values[i], i, element_type) == -1)
 			return (-1);
+		i++;
 	}
 	return (0);
 }

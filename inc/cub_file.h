@@ -8,6 +8,13 @@
 # include "cub3d.h"
 # include "constance.h"
 
+typedef struct s_map
+{
+	char	**map;
+	int		longest_row;
+	int		rows;
+}	t_map;
+
 typedef struct s_input
 {
 	char	*north_path;
@@ -16,7 +23,7 @@ typedef struct s_input
 	char	*west_path;
 	int		*ceiling_color;
 	int		*floor_color;
-	char	**map;
+	t_map	map;
 }	t_input;
 
 bool	init_cub_file(char *file_name);

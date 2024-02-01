@@ -25,12 +25,20 @@ void	setup()
 
 void	safe_exit(t_game *game)
 {
+	int	i;
+
+	i = 0;
 	if (game->win)
 		free(game->win);
 	if (game->mlx)
 		free(game->mlx);
 	if (game->rays)
 		free(game->rays);
+	while (game->input.map[i])
+	{
+		free(game->input.map[i]);
+		i++;
+	}
 	if (game)
 		free(game);
 	exit(0);

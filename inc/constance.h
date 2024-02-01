@@ -45,5 +45,6 @@
 # define WEST 4
 # define CEILING 5
 # define FLOOR 6
+# define MAP 7
 
 #endif

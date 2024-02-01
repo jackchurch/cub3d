@@ -110,6 +110,7 @@ typedef struct s_game
 	int		win_width;
 	int		win_height;
 	int		num_rays;
+	t_input	input;
 	t_ray	*rays;
 	t_data	data;
 }	t_game;
