@@ -10,7 +10,7 @@
 t_player	player;
 
 	// Add wall textrues here?
-void	setup(void)
+void	setup(t_game *game)
 {
 	player.x = game->win_width / 2;
 	player.y = game->win_height / 2;
@@ -85,7 +85,7 @@ int	main(void)
 	init_window(game);
 	game->win_width = MAP_NUM_COLS * TILE_SIZE;
 	game->win_height = MAP_NUM_ROWS * TILE_SIZE;
-	setup();
+	setup(game);
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
