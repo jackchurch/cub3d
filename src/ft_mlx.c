@@ -45,7 +45,7 @@ bool	init_window(t_game *game)
 			"Legally Distinct Slï'mę Game");
 	if (!game->win)
 		safe_exit(game);
-	mlx_hook(game->win, 2, 1L<<0, key_hook, game);
-	mlx_hook(game->win, 3, 1L<<1, key_release, game);
+	mlx_hook(game->win, 2, 1L << 0, key_hook, game);
+	mlx_hook(game->win, 3, 1L << 1, key_release, game);
 	return (true);
 }

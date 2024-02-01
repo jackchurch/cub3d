@@ -32,7 +32,7 @@ ifeq ($(OS),Darwin)
 	MLX_FLAGS = -framework OpenGL -framework AppKit
 else ifeq ($(OS),Linux)
 	MLX_PATH = ./mlx_linux
-	MLX_FLAGS = -lXext -lX11
+	MLX_FLAGS = -lXext -lX11 -lm
 endif
 
 INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
