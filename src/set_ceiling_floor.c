@@ -99,7 +99,7 @@ int	for_each_value(char *value, int i, t_map *map, int element_type)
 	}
 }
 
-int	celing_floor_branch(char *current_line, int element_type)
+int	ceiling_floor_branch(char *current_line, int element_type)
 {
 	char	*str;
 	char	**values;
