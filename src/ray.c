@@ -5,7 +5,6 @@
 #include "../inc/map.h"
 
 extern t_player	player;
-//t_ray	rays[game->num_rays];
 
 void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 {
