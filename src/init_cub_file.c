@@ -15,7 +15,7 @@ C   645,421,334 will pass
 int	discover_element_type(char *current_line)
 { 
 	if (current_line[0] == 'C' && is_white_space(current_line[1]))
-		return (CELING);
+		return (CEILING);
 	else if (current_line[0] == 'F' && is_white_space(current_line[1]))
 		return (FLOOR);
 	else if (current_line[0] == 'N' && current_line[1] == 'O' && is_white_space(current_line[2]))
@@ -42,8 +42,6 @@ char	*isolate_element_path(char *str, int i)
 	return (ret);
 }
 
-
-
 int	do_shit(char *current_line)
 {
 	char	*str_1;
@@ -56,10 +54,10 @@ int	do_shit(char *current_line)
 	if (element_type == -1)
 		return (-1);
 	// If a wall (shorter to use not celing and not floor than if NO and SO and WE and EA)
-	if (element_type != CELING && element_type != FLOOR)
-		celing_floor_branch(str_1, element_type);
+	if (element_type != CEILING && element_type != FLOOR)
+		ceiling_floor_branch(str_1, element_type);
 	else // Is celing or
-		celing_floor_branch(str_1, element_type);
+		ceiling_floor_branch(str_1, element_type);
 	free(str_1);
 	return (0);
 }

@@ -1,6 +1,7 @@
 #include <fcntl.h>
 
-#include "../inc/map.h"
+#include "map.h"
+#include "structs.h"
 #include "cub_file.h"
 #include "constance.h"
 #include "cub3d.h"

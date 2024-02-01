@@ -43,5 +43,7 @@
 # define EAST 2
 # define SOUTH 3
 # define WEST 4
+# define CEILING 5
+# define FLOOR 6
 
 #endif
