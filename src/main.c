@@ -11,8 +11,8 @@ t_player	player;
 	// Add wall textrues here?
 void	setup(void)
 {
-	player.x = WINDOW_WIDTH / 2;
-	player.y = WINDOW_HEIGHT / 2;
+	player.x = game->win_width / 2;
+	player.y = game->win_height / 2;
 	player.width = 1;
 	player.height = 1;
 	player.turn_direction = 0;

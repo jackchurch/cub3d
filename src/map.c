@@ -41,7 +41,7 @@ bool	is_inside_map(float x, float y)
 // bool mapHasWallAt(float x, float y)
 // {
 // 	// IF out of bounds return true. 
-// 	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
+// 	if (x < 0 || x > game->win_width || y < 0 || y > game->win_height)
 // 		return (true);
 // 	int mapGridIndexX = floor(x / TILE_SIZE);
 // 	int mapGridIndexY = floor(y / TILE_SIZE);
