@@ -56,14 +56,14 @@ void	generate_3d_projection(t_game *game)
 	draw_ceiling(game);
 	while (++i < game->num_rays)
 	{
-		projected_wall_height = (int)((TILE_SIZE / (rays[i].distance
-						* cos(rays[i].ray_angle - player.rotation_angle)))
+		projected_wall_height = (int)((TILE_SIZE / (game->rays[i].distance
+						* cos(game->rays[i].ray_angle - player.rotation_angle)))
 				* ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2)));
 		rect.x = i;
 		rect.y = WINDOW_HEIGHT / 2 - projected_wall_height / 2;
 		rect.width = 1;
 		rect.height = projected_wall_height;
-		rect.color = color_assignment(i);
+		rect.color = color_assignment(game, i);
 		draw_rect(game, &rect);
 	}
 }
@@ -80,15 +80,15 @@ if (wall_bottom_pixel > WINDOW_HEIGHT)
 wall_bottom_pixel = WINDOW_HEIGHT;
 */
 
-int	color_assignment(int i)
+int	color_assignment(t_game *game, int i)
 {
-	if (rays[i].is_ray_facing_down && !rays[i].was_hit_vertical)
+	if (game->rays[i].is_ray_facing_down && !game->rays[i].was_hit_vertical)
 		return (0x0000FFFF);
-	if (rays[i].is_ray_facing_up && !rays[i].was_hit_vertical)
+	if (game->rays[i].is_ray_facing_up && !game->rays[i].was_hit_vertical)
 		return (0x00FFFF00);
-	if (rays[i].is_ray_facing_left && rays[i].was_hit_vertical)
+	if (game->rays[i].is_ray_facing_left && game->rays[i].was_hit_vertical)
 		return (0x00FF00FF);
-	if (rays[i].is_ray_facing_right && rays[i].was_hit_vertical)
+	if (game->rays[i].is_ray_facing_right && game->rays[i].was_hit_vertical)
 		return (0x0000FF00);
 	return (0x00000000);
 }

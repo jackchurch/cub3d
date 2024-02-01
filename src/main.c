@@ -8,6 +8,7 @@
 #include <math.h>
 
 t_player	player;
+
 	// Add wall textrues here?
 void	setup(void)
 {
@@ -28,6 +29,8 @@ void	safe_exit(t_game *game)
 		free(game->win);
 	if (game->mlx)
 		free(game->mlx);
+	if (game->rays)
+		free(game->rays);
 	if (game)
 		free(game);
 	exit(0);
@@ -85,8 +88,9 @@ int	main(void)
 	game->win_height = MAP_NUM_ROWS * TILE_SIZE;
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};
-	game->rays = (t_ray){0};
-	game->data.img = mlx_new_image(game->mlx, game->win_width, game->win_height);
+	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
+	game->data.img = mlx_new_image(game->mlx,
+			game->win_width, game->win_height);
 	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bpp,
 			&game->data.line_length, &game->data.endian);
 	// process_input(); // See keyhooks

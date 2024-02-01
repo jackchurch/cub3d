@@ -1,48 +1,14 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <math.h>
 # include <stdbool.h>
+# include "structs.h"
+# include <math.h>
 # include "../libft/libft.h"
 # include "../mlx_linux/mlx.h"
 # include "../mlx_mac/mlx.h"
 # include "constance.h"
 # include "ray.h"
-
-typedef struct	s_player
-{
-	float	x;
-	float	y;
-	float	width;
-	float	height;
-	int		turn_direction;
-	int		walk_direction;
-	float	rotation_angle;
-	float	walk_speed;
-	float	turn_speed;
-}	t_player;
-
-typedef struct s_data
-{
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-}	t_data;
-
-typedef struct s_game
-{
-	void	*mlx;
-	void	*win;
-	int		win_width;
-	int		win_height;
-	int		num_rays;
-	t_ray	rays;
-	t_data	data;
-}	t_game;
 
 bool	init_window(t_game *game);
 
