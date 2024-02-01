@@ -5,7 +5,7 @@
 #include "../inc/map.h"
 
 extern t_player	player;
-extern t_ray	g_rays[NUM_RAYS];
+//extern t_ray	rays[game->num_rays];
 
 //////////////////////////////////////////////
 // Horizintal ray grid intersection code.

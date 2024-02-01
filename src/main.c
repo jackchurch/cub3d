@@ -8,8 +8,9 @@
 #include <math.h>
 
 t_player	player;
+
 	// Add wall textrues here?
-void	setup(void)
+void	setup()
 {
 	player.x = WINDOW_WIDTH / 2;
 	player.y = WINDOW_HEIGHT / 2;
@@ -28,6 +29,8 @@ void	safe_exit(t_game *game)
 		free(game->win);
 	if (game->mlx)
 		free(game->mlx);
+	if (game->rays)
+		free(game->rays);
 	if (game)
 		free(game);
 	exit(0);
@@ -66,7 +69,7 @@ void	move_player(t_game *game)
 void	render(t_game *game)
 {
 	move_player(game);
-	cast_all_rays();
+	cast_all_rays(game);
 	generate_3d_projection(game);
 	render_map(game);
 	render_rays(game);
@@ -80,13 +83,18 @@ int	main(void)
 
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	init_window(game);
-	setup();
+	//WINDOW_WIDTH = MAP_NUM_COLS * TILE_SIZE;
+	//WINDOW_HEIGHT = MAP_NUM_ROWS * TILE_SIZE;
+	setup(game);
+	game->num_rays = WINDOW_WIDTH;
 	game->data = (t_data){0};
-	game->data.img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
+	game->data.img = mlx_new_image(game->mlx,
+			WINDOW_WIDTH, WINDOW_HEIGHT);
 	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bpp,
 			&game->data.line_length, &game->data.endian);
 	// process_input(); // See keyhooks
-	// update(game); // Add FPS if have time. 
+	// update(game); // Add FPS if have time.
 	render(game);
 	mlx_loop(game->mlx);
 	return (0);
