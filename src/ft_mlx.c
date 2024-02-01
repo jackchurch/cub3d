@@ -7,11 +7,11 @@ int	key_release(int keycode)
 {
 	if (keycode == LEFT_ARROW || keycode == LINUX_A)
 		player.turn_direction = 0;
-	else if (keycode == RIGHT_ARROW || keycode == LINUX_D)
+	if (keycode == RIGHT_ARROW || keycode == LINUX_D)
 		player.turn_direction = 0;
-	else if (keycode == UP_ARROW || keycode == LINUX_W)
+	if (keycode == UP_ARROW || keycode == LINUX_W)
 		player.walk_direction = 0;
-	else if (keycode == S_KEY || keycode == LINUX_S)
+	if (keycode == S_KEY || keycode == LINUX_S)
 		player.walk_direction = 0;
 	return (0);
 }
@@ -20,13 +20,13 @@ int	key_hook(int keycode, t_game *game)
 {
 	if (keycode == LEFT_ARROW || keycode == LINUX_A)
 		player.turn_direction = -1;
-	else if (keycode == RIGHT_ARROW || keycode == LINUX_D)
+	if (keycode == RIGHT_ARROW || keycode == LINUX_D)
 		player.turn_direction = 1;
-	else if (keycode == UP_ARROW || keycode == LINUX_W)
+	if (keycode == UP_ARROW || keycode == LINUX_W)
 		player.walk_direction = 1;
-	else if (keycode == S_KEY || keycode == LINUX_S)
+	if (keycode == S_KEY || keycode == LINUX_S)
 		player.walk_direction = -1;
-	else if (keycode == ESC || keycode == LINUX_ESC)
+	if (keycode == ESC || keycode == LINUX_ESC)
 		safe_exit(game);
 	// render_player(game);
 	// move_player(game);
