@@ -41,7 +41,7 @@ void	safe_exit(t_game *game)
 			free(game->input.map.map[i]);
 			i++;
 		}
-		free(game->input.map.map)
+		free(game->input.map.map);
 	}
 	if (game)
 		free(game);
@@ -60,7 +60,7 @@ void	move_player(t_game *game)
 	move_step = player.walk_direction * player.walk_speed;
 	new_player_x = player.x + cos(player.rotation_angle) * move_step;
 	new_player_y = player.y + sin(player.rotation_angle) * move_step;
-	if (map_content_at(new_player_x, new_player_y) != 1)
+	if (map_content_at(game, new_player_x, new_player_y) != 1)
 	{
 		player.x = new_player_x;
 		player.y = new_player_y;

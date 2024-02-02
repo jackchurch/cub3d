@@ -38,8 +38,8 @@ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
 	t_wall_hit	vertical;
 
 	normalize_angle(&ray_angle);
-	horizontal = horizontal_intersection(ray_angle);
-	vertical = vertical_intersection(ray_angle);
+	horizontal = horizontal_intersection(game, ray_angle);
+	vertical = vertical_intersection(game, ray_angle);
 	if (horizontal.found_wall_hit)
 		horizontal.distance = distance_between_points(player.x, player.y,
 				horizontal.wall_hit_x, horizontal.wall_hit_y);

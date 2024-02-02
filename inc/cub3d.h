@@ -9,6 +9,7 @@
 # include "../mlx_mac/mlx.h"
 # include "constance.h"
 # include "ray.h"
+# include "cub_file.h"
 
 bool	init_window(t_game *game);
 

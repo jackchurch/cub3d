@@ -9,7 +9,7 @@
 # include "constance.h"
 # include "structs.h"
 
-bool	init_cub_file(char *file_name);
+t_input	init_cub_file(char *file_name);
 int		open_cub_file(char *file_name);
 bool	is_xpm_file(char *file_name);
 char	*remove_tail_whitespace(char *in_string);

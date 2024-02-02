@@ -14,8 +14,8 @@ typedef struct s_input
 	char	*south_path;
 	char	*east_path;
 	char	*west_path;
-	int		*ceiling_color;
-	int		*floor_color;
+	int		ceiling_color;
+	int		floor_color;
 	t_map	map;
 }	t_input;
 
