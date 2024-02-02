@@ -145,6 +145,6 @@ int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 		i++;
 	}
 	ceiling_floor_color(input, element_type, color);
-	//free(color);
+	free(color);
 	return (0);
 }

@@ -6,6 +6,7 @@ typedef struct s_map
 	char	**map;
 	int		longest_row;
 	int		rows;
+	int		in_map;
 }	t_map;
 
 typedef struct s_input
@@ -16,6 +17,7 @@ typedef struct s_input
 	char	*west_path;
 	int		ceiling_color;
 	int		floor_color;
+	int		element_type;
 	t_map	map;
 }	t_input;
 
