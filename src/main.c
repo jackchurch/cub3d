@@ -34,10 +34,14 @@ void	safe_exit(t_game *game)
 		free(game->mlx);
 	if (game->rays)
 		free(game->rays);
-	while (game->input.map[i])
+	if (game->input.map.map)
 	{
-		free(game->input.map[i]);
-		i++;
+		while (game->input.map.map[i])
+		{
+			free(game->input.map.map[i]);
+			i++;
+		}
+		free(game->input.map.map)
 	}
 	if (game)
 		free(game);
@@ -96,7 +100,7 @@ int	main(int argc, char **argv)
 	init_window(game);
 	//WINDOW_WIDTH = MAP_NUM_COLS * TILE_SIZE;
 	//WINDOW_HEIGHT = MAP_NUM_ROWS * TILE_SIZE;
-	setup(game);
+	setup();
 	game->num_rays = WINDOW_WIDTH;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
