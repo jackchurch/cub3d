@@ -13,7 +13,7 @@ void	*reallocate(void *ptr, int size)
 		return (NULL);
 	ret = malloc(size);
 	ret = ft_memcpy(ret, ptr, size);
-	free(ptr);
+//	free(ptr);
 	return (ret);
 }
 
@@ -91,7 +91,7 @@ int	init_map(t_map *map, char *line)
 	if (!map->map)
 		map->map = malloc(sizeof(char *));
 	else
-		map->map = reallocate();
+		reallocate(&map->map, sizeof(char *) + sizeof(&map->map));
 	length = ft_strlen(line);
 	if (length > map->longest_row)
 		map->longest_row = length;

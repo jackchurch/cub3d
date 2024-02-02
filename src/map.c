@@ -22,8 +22,10 @@ char	map_content_at(t_game *game, float x, float y)
 	int	map_grid_index_y;
 	int	map_grid_index_x;
 
+	printf("x = %f, y = %f\n", x, y);
 	map_grid_index_y = (int)floor(y / TILE_SIZE);
 	map_grid_index_x = (int)floor(x / TILE_SIZE);
+	printf("map content at %f:%f is %d\n", x, y, game->input.map.map[map_grid_index_y][map_grid_index_x]);
 	return (game->input.map.map[map_grid_index_y][map_grid_index_x]);
 }
 
