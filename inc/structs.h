@@ -1,6 +1,24 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+typedef struct s_map
+{
+	char	**map;
+	int		longest_row;
+	int		rows;
+}	t_map;
+
+typedef struct s_input
+{
+	char	*north_path;
+	char	*south_path;
+	char	*east_path;
+	char	*west_path;
+	int		*ceiling_color;
+	int		*floor_color;
+	t_map	map;
+}	t_input;
+
 typedef struct s_rectangle
 {
 	int	x;

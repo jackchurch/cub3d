@@ -66,6 +66,7 @@ int	init_map(t_map *map, char *line, int i)
 	int	length;
 	int	j;
 
+	j = 0;
 	length = ft_strlen(line);
 	map->map[i] = malloc(length + 1);
 	if (length > map->longest_row)
@@ -86,7 +87,8 @@ int	do_shit(t_input *input, char *current_line, int i)
 	char	*str_1;
 	int		element_type;
 
-	// Set element type and error if element type identifyer is invalid. 
+	// Set element type and error if element type identifyer is invalid.
+	str_1 = ft_strdup(current_line);
 	element_type = discover_element_type(str_1);
 	if (element_type == -1)
 		return (-1);
@@ -97,9 +99,9 @@ int	do_shit(t_input *input, char *current_line, int i)
 			return (0);
 	}
 	else if (element_type != CEILING && element_type != FLOOR)
-		ceiling_floor_branch(str_1, element_type);
+		ceiling_floor_branch(input, str_1, element_type);
 	else // Is ceiling or
-		ceiling_floor_branch(str_1, element_type);
+		ceiling_floor_branch(input, str_1, element_type);
 	free(str_1);
 	return (0);
 }

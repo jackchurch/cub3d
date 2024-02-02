@@ -16,7 +16,7 @@ int	num_of_strs(char **str)
 	return (i);
 }
 
-int	valid_spacing(char **str)
+/* int	valid_spacing(char **str)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ int	valid_spacing(char **str)
 	{
 		
 	}
-}
+} */
 
 /*
 This needs some work. 
@@ -107,6 +107,7 @@ int	for_each_value(t_input *input, char *value, int i, int element_type)
 	}
 	else
 		input_path(input, str, element_type);
+	return (0);
 }
 
 int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
@@ -127,7 +128,7 @@ int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 		// TODO: if it is 0 or 1 we also need to error before the while loop starts. ie `If number of strings is != 2` error
 		if (i == 3)
 			return (-1);
-		if (for_each_value(&input, values[i], i, element_type) == -1)
+		if (for_each_value(input, values[i], i, element_type) == -1)
 			return (-1);
 		i++;
 	}

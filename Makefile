@@ -16,8 +16,8 @@ $(SRC_PATH)/draw.c \
 $(SRC_PATH)/render.c \
 $(SRC_PATH)/ray.c \
 $(SRC_PATH)/ray_intersect.c \
-$(SRC_PATH)/ray_facing.c 
-#$(SRC_PATH)/cub_file_utils.c \
+$(SRC_PATH)/ray_facing.c \
+$(SRC_PATH)/cub_file_utils.c \
 $(SRC_PATH)/init_cub_file.c \
 $(SRC_PATH)/set_ceiling_floor.c
 
@@ -28,7 +28,7 @@ OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 DEPFILES = $(patsubst %.c,%.d,$(SRCS))
 
 ifeq ($(OS),Darwin)
-	MLX_PATH = ./MLX_MAC_THINGS
+	MLX_PATH = ./mlx_mac
 	MLX_FLAGS = -framework OpenGL -framework AppKit
 else ifeq ($(OS),Linux)
 	MLX_PATH = ./mlx_linux
