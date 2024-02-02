@@ -127,5 +127,6 @@ t_input	init_cub_file(char *file_name)
 		do_shit(&input, current_line, i);
 		i++;
 	}
+	close(fd);
 	return (input);
 }
