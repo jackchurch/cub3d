@@ -85,11 +85,14 @@ void	render(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->data.img, 0, 0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_game	*game;
 
+	if (argc != 2)
+		return (printf("Error: Please execute with only 1 argument.\n"));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
+	game->input = init_cub_file(argv[1]);
 	init_window(game);
 	//WINDOW_WIDTH = MAP_NUM_COLS * TILE_SIZE;
 	//WINDOW_HEIGHT = MAP_NUM_ROWS * TILE_SIZE;

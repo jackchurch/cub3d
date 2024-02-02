@@ -104,7 +104,7 @@ int	do_shit(t_input *input, char *current_line, int i)
 	return (0);
 }
 
-bool	init_cub_file(char *file_name)
+t_input	init_cub_file(char *file_name)
 {
 	int		fd;
 	char	*current_line;
@@ -125,5 +125,5 @@ bool	init_cub_file(char *file_name)
 		do_shit(&input, current_line, i);
 		i++;
 	}
-	return (true);
+	return (input);
 }
