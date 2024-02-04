@@ -13,8 +13,8 @@ char	**reallocate(char ***old, int i)
 	j = -1;
 	new = malloc(sizeof(char *) * (i + 1));
 	while (++j < i)
-		new[j] = *old[j];
-//	free(old);
+		new[j] = (*old)[j];
+	free(*old);
 	return (new);
 }
 
@@ -149,3 +149,68 @@ t_input	init_cub_file(char *file_name)
 	close(fd);
 	return (input);
 }
+
+/*
+=================================================================
+==10701==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000378 at pc 0x5567320ce880 bp 0x7ffcb6181f30 sp 0x7ffcb6181f20
+WRITE of size 8 at 0x602000000378 thread T0
+    #0 0x5567320ce87f in init_map src/init_cub_file.c:93
+    #1 0x5567320cec1f in do_shit src/init_cub_file.c:119
+    #2 0x5567320cef37 in init_cub_file src/init_cub_file.c:146
+    #3 0x5567320c8073 in main src/main.c:99
+    #4 0x7f4040a29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #5 0x7f4040a29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #6 0x5567320c79c4 in _start (/home/reuben/Desktop/cub3d/a.out+0x39c4)
+
+0x602000000378 is located 0 bytes to the right of 8-byte region [0x602000000370,0x602000000378)
+freed by thread T0 here:
+    #0 0x7f4040eb4537 in __interceptor_free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:127
+    #1 0x5567320ce01e in reallocate src/init_cub_file.c:17
+    #2 0x5567320ce7be in init_map src/init_cub_file.c:89
+    #3 0x5567320cec1f in do_shit src/init_cub_file.c:119
+    #4 0x5567320cef37 in init_cub_file src/init_cub_file.c:146
+    #5 0x5567320c8073 in main src/main.c:99
+    #6 0x7f4040a29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+
+previously allocated by thread T0 here:
+    #0 0x7f4040eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5567320ce7a1 in init_map src/init_cub_file.c:87
+    #2 0x5567320cec1f in do_shit src/init_cub_file.c:119
+    #3 0x5567320cef37 in init_cub_file src/init_cub_file.c:146
+    #4 0x5567320c8073 in main src/main.c:99
+    #5 0x7f4040a29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow src/init_cub_file.c:93 in init_map
+Shadow bytes around the buggy address:
+  0x0c047fff8010: fa fa 00 00 fa fa 00 04 fa fa 00 00 fa fa 00 04
+  0x0c047fff8020: fa fa 00 00 fa fa fd fd fa fa 00 07 fa fa 00 04
+  0x0c047fff8030: fa fa fd fd fa fa fd fd fa fa 07 fa fa fa 03 fa
+  0x0c047fff8040: fa fa 05 fa fa fa 07 fa fa fa fd fd fa fa 00 00
+  0x0c047fff8050: fa fa 00 04 fa fa fd fd fa fa fd fd fa fa 00 fa
+=>0x0c047fff8060: fa fa 04 fa fa fa 04 fa fa fa 00 fa fa fa fd[fa]
+  0x0c047fff8070: fa fa 00 00 fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8090: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff80a0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff80b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==10701==ABORTING*/
