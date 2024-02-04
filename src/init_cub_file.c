@@ -138,14 +138,14 @@ int	do_shit(t_input *input, char *current_line)
 
 	printf("Current Line: %s\n", current_line);
 	str_1 = ft_strdup(current_line);
-	if (input->map.loading_map < 0)
+	if (input->map.loading_map == false)
 		input->element_type = discover_element_type(str_1);
 	if (input->element_type == -1)
 		return (-1);
 	if (input->element_type == MAP)
 	{
-		if (input->map.loading_map < 0)
-			input->map.loading_map *= -1;
+		if (input->map.loading_map == false)
+			input->map.loading_map = true;
 		init_map(&input->map, current_line);
 	}
 	else if (input->element_type != CEILING && input->element_type != FLOOR)
@@ -164,18 +164,19 @@ t_input	init_cub_file(char *file_name)
 
 	ft_memset(&input, 0, sizeof(t_input));
 	ft_memset(&input.map, 0, sizeof(t_map));
-	input.map.loading_map = -1;
+	input.map.loading_map = false;
 	fd = open_cub_file(file_name);
 	current_line = get_next_line(fd);
 	while (current_line != NULL)
 	{
 		while (current_line[0] == '\n')
 			current_line = get_next_line(fd);
-		if (input.map.loading_map == 1 && is_only_one(current_line))
-			input.map.loading_map *= -1;
+		if (input.map.loading_map == true && is_only_one(current_line))
+			input.map.loading_map = false;
 		do_shit(&input, current_line);
 		current_line = get_next_line(fd);
 	}
+	free(current_line);
 	close(fd);
 	return (input);
 }

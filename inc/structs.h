@@ -6,7 +6,7 @@ typedef struct s_map
 	char	**content;
 	int		longest_row;
 	int		rows;
-	int		loading_map;
+	bool	loading_map;
 }	t_map;
 
 typedef struct s_input

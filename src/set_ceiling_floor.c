@@ -105,6 +105,7 @@ int	for_each_value(t_input *input, char *value, int element_type)
 	}
 	else
 		input_path(input, str, element_type);
+	free(str);
 	return (0);
 }
 
@@ -127,7 +128,6 @@ int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 	int		*color;
 
 	i = 0;
-	color = malloc(sizeof(int) * 3);
 	// str = Remove the C or F from the return string and then remove any leading white space.
 	str = isolate_element_path(current_line, 1);
 	// Split the string based on commas, this also removes the commas
@@ -139,12 +139,18 @@ int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 		// TODO: if it is 0 or 1 we also need to error before the while loop starts. ie `If number of strings is != 2` error
 		if (i == 3)
 			return (-1);
+		color = malloc(sizeof(int) * 3);
 		color[i] = for_each_value(input, values[i], element_type);
 		if (color[i] == -1)
 			return (color[i]);
 		i++;
 	}
 	ceiling_floor_color(input, element_type, color);
-	free(color);
+	i = -1;
+	while (values[++i] != NULL)
+		free(values[i]);
+	free(values);
+	if (color)
+		free(color);
 	return (0);
 }
