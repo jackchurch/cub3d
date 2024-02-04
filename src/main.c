@@ -34,14 +34,14 @@ void	safe_exit(t_game *game)
 		free(game->mlx);
 	if (game->rays)
 		free(game->rays);
-	if (game->input.map.map)
+	if (game->input.map.content)
 	{
-		while (game->input.map.map[i])
+		while (game->input.map.content[i])
 		{
-			free(game->input.map.map[i]);
+			free(game->input.map.content[i]);
 			i++;
 		}
-		free(game->input.map.map);
+		free(game->input.map.content);
 	}
 	if (game)
 		free(game);

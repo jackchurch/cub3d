@@ -25,13 +25,13 @@ char	map_content_at(t_game *game, float x, float y)
 	printf("x = %f, y = %f\n", x, y);
 	map_grid_index_y = (int)floor(y / TILE_SIZE);
 	map_grid_index_x = (int)floor(x / TILE_SIZE);
-	printf("map content at %f:%f is %d\n", x, y, game->input.map.map[map_grid_index_y][map_grid_index_x]);
-	return (game->input.map.map[map_grid_index_y][map_grid_index_x]);
+	printf("map content at %f:%f is %d\n", x, y, game->input.map.content[map_grid_index_y][map_grid_index_x]);
+	return (game->input.map.content[map_grid_index_y][map_grid_index_x]);
 }
 
 char	get_map_at(t_game *game, int i, int j)
 {
-	return (game->input.map.map[i][j]);
+	return (game->input.map.content[i][j]);
 }
 
 bool	is_inside_map(float x, float y)

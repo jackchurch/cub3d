@@ -80,29 +80,24 @@ int	init_map(t_map *map, char *line)
 	int		i;
 
 	length = ft_strlen(line);
-	i = 0;
-	/*		We cannot count the rows beforehand because it is moving the pointer within the fd		*/
-	/*		which fucks up the get_next_line later.		*/
+	i = map->rows;
 	printf("rows: %d\n", map->rows);
-	/*		The Seg Fault is here.		*/
-	/*		Memory needs to be reallocated		*/
-	/*		for each new line added		*/
-	/*		to the map array.		*/
-	if (!map->map)
-		map->map = malloc(sizeof(char *));
+	if (!map->content)
+		map->content = malloc(sizeof(char *));
 	else
-		reallocate(&map->map, sizeof(char *) + sizeof(&map->map));
+		reallocate(&map->content, sizeof(char *) + sizeof(&map->content));
 	length = ft_strlen(line);
 	if (length > map->longest_row)
 		map->longest_row = length;
-	map->map[i] = malloc(length + 1);
+	map->content[i] = malloc(length + 1);
 	j = 0;
 	while (j < length)
 	{
-		map->map[i][j] = line[j];
+		map->content[i][j] = line[j];
 		j++;
 	}
-	map->map[i][j] = '\0';
+	map->content[i][j] = '\0';
+	map->rows++;
 	return (1);
 }
 
@@ -112,14 +107,14 @@ int	do_shit(t_input *input, char *current_line)
 
 	printf("Current Line: %s\n", current_line);
 	str_1 = ft_strdup(current_line);
-	if (input->map.in_map < 0)
+	if (input->map.loading_map < 0)
 		input->element_type = discover_element_type(str_1);
 	if (input->element_type == -1)
 		return (-1);
 	if (input->element_type == MAP)
 	{
-		if (input->map.in_map < 0)
-			input->map.in_map *= -1;
+		if (input->map.loading_map < 0)
+			input->map.loading_map *= -1;
 		init_map(&input->map, current_line);
 	}
 	else if (input->element_type != CEILING && input->element_type != FLOOR)
@@ -138,15 +133,15 @@ t_input	init_cub_file(char *file_name)
 
 	ft_memset(&input, 0, sizeof(t_input));
 	ft_memset(&input.map, 0, sizeof(t_map));
-	input.map.in_map = -1;
+	input.map.loading_map = -1;
 	fd = open_cub_file(file_name);
 	current_line = get_next_line(fd);
 	while (current_line != NULL)
 	{
 		while (current_line[0] == '\n')
 			current_line = get_next_line(fd);
-		if (input.map.in_map == 1 && is_only_one(current_line))
-			input.map.in_map *= -1;
+		if (input.map.loading_map == 1 && is_only_one(current_line))
+			input.map.loading_map *= -1;
 		do_shit(&input, current_line);
 		current_line = get_next_line(fd);
 	}

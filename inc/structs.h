@@ -3,10 +3,10 @@
 
 typedef struct s_map
 {
-	char	**map;
+	char	**content;
 	int		longest_row;
 	int		rows;
-	int		in_map;
+	int		loading_map;
 }	t_map;
 
 typedef struct s_input
