@@ -5,16 +5,17 @@
 #include "constance.h"
 #include "cub3d.h"
 
-void	*reallocate(void *ptr, int size)
+char	**reallocate(char ***old, int i)
 {
-	void	*ret;
+	char	**new;
+	int		j;
 
-	if (!ptr)
-		return (NULL);
-	ret = malloc(size);
-	ret = ft_memcpy(ret, ptr, size);
-//	free(ptr);
-	return (ret);
+	j = -1;
+	new = malloc(sizeof(char *) * (i + 1));
+	while (++j < i)
+		new[j] = *old[j];
+//	free(old);
+	return (new);
 }
 
 int	is_only_one(char *line)
@@ -85,7 +86,7 @@ int	init_map(t_map *map, char *line)
 	if (!map->content)
 		map->content = malloc(sizeof(char *));
 	else
-		reallocate(&map->content, sizeof(char *) + sizeof(&map->content));
+		reallocate(&map->content, i);
 	length = ft_strlen(line);
 	if (length > map->longest_row)
 		map->longest_row = length;
