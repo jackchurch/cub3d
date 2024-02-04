@@ -5,19 +5,6 @@
 #include "constance.h"
 #include "cub3d.h"
 
-char	**reallocate(char ***old, int i)
-{
-	char	**new;
-	int		j;
-
-	j = -1;
-	new = malloc(sizeof(char *) * (i + 2));
-	while (++j < i)
-		new[j] = (*old)[j];
-	free(*old);
-	return (new);
-}
-
 void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
 {
 	void *new_ptr;
@@ -106,12 +93,13 @@ int	init_map(t_map *map, char *line)
 	i = map->rows;
 	printf("rows: %d\n", map->rows);
 	if (!map->content)
-		map->content = malloc(sizeof(char *));
+		map->content = malloc(sizeof(char *) + 1);
 	else
-		map->content = ft_realloc(map->content, i * sizeof(char *), (i + 1) * sizeof(char *));
+		map->content = ft_realloc(map->content, sizeof(char *) * i, sizeof(char *) * (i + 1));
 	length = ft_strlen(line);
 	if (length > map->longest_row)
 	{
+		j = 0;
 		while (j < i)
 		{
 			map->content[j] = ft_realloc(map->content[j], map->longest_row, length + 1);

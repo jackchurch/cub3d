@@ -10,10 +10,10 @@
 t_player	player;
 
 	// Add wall textrues here?
-void	setup()
+void	setup(t_game *game)
 {
-	player.x = WINDOW_WIDTH / 2;
-	player.y = WINDOW_HEIGHT / 2;
+	player.x = game->win_width / 2;
+	player.y = game->win_height / 2;
 	player.width = 1;
 	player.height = 1;
 	player.turn_direction = 0;
@@ -101,12 +101,14 @@ int	main(int argc, char **argv)
 	init_window(game);
 	//WINDOW_WIDTH = MAP_NUM_COLS * TILE_SIZE;
 	//WINDOW_HEIGHT = MAP_NUM_ROWS * TILE_SIZE;
-	setup();
-	game->num_rays = WINDOW_WIDTH;
+	game->win_width = game->input.map.longest_row * TILE_SIZE;
+	game->win_height = game->input.map.rows * TILE_SIZE;
+	setup(game);
+	game->num_rays = game->win_width;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
 	game->data.img = mlx_new_image(game->mlx,
-			WINDOW_WIDTH, WINDOW_HEIGHT);
+			game->win_width, game->win_height);
 	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bpp,
 			&game->data.line_length, &game->data.endian);
 	// process_input(); // See keyhooks

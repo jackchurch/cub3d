@@ -70,14 +70,15 @@ void	render_map(t_game *game)
 	t_rectangle	map_tile_rect;
 
 	i = -1;
-	while (++i < MAP_NUM_ROWS)
+	while (++i < game->input.map.rows)
 	{
 		j = -1;
-		while (++j < MAP_NUM_COLS)
+		while (++j < game->input.map.longest_row)
 		{
 			tile.x = j * TILE_SIZE;
 			tile.y = i * TILE_SIZE;
-			if (get_map_at(game, i, j) != '0')
+			printf("i = %d\nj = %d\n", i, j);
+			if (get_map_at(game, i, j) == '1')
 				tile.color = 0x000000FF;
 			else
 				tile.color = 0x00FFFFFF;
