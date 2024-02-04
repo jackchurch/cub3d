@@ -18,6 +18,28 @@ char	**reallocate(char ***old, int i)
 	return (new);
 }
 
+void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
+{
+	void *new_ptr;
+
+	if (new_len == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	if (ptr == NULL)
+		return (malloc(new_len));
+	if (new_len <= old_len)
+		return (ptr);
+	new_ptr = malloc(new_len);
+	if (new_ptr)
+	{
+		ft_memcpy(new_ptr, ptr, old_len);
+		free(ptr);
+	}
+	return (new_ptr);
+}
+
 int	is_only_one(char *line)
 {
 	int	i;
@@ -86,10 +108,18 @@ int	init_map(t_map *map, char *line)
 	if (!map->content)
 		map->content = malloc(sizeof(char *));
 	else
-		map->content = reallocate(&map->content, i);
+		map->content = ft_realloc(map->content, i * sizeof(char *), (i + 1) * sizeof(char *));
 	length = ft_strlen(line);
 	if (length > map->longest_row)
+	{
+		while (j < i)
+		{
+			map->content[j] = ft_realloc(map->content[j], map->longest_row, length + 1);
+			ft_memset(map->content[j] + map->longest_row, 32, length - map->longest_row + 1);
+			j++;
+		}
 		map->longest_row = length;
+	}
 	map->content[i] = malloc(length + 1);
 	j = 0;
 	while (j < length)
