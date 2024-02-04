@@ -11,7 +11,7 @@ char	**reallocate(char ***old, int i)
 	int		j;
 
 	j = -1;
-	new = malloc(sizeof(char *) * (i + 1));
+	new = malloc(sizeof(char *) * (i + 2));
 	while (++j < i)
 		new[j] = (*old)[j];
 	free(*old);
@@ -86,7 +86,7 @@ int	init_map(t_map *map, char *line)
 	if (!map->content)
 		map->content = malloc(sizeof(char *));
 	else
-		reallocate(&map->content, i);
+		map->content = reallocate(&map->content, i);
 	length = ft_strlen(line);
 	if (length > map->longest_row)
 		map->longest_row = length;
@@ -151,66 +151,25 @@ t_input	init_cub_file(char *file_name)
 }
 
 /*
+AddressSanitizer:DEADLYSIGNAL
 =================================================================
-==10701==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000378 at pc 0x5567320ce880 bp 0x7ffcb6181f30 sp 0x7ffcb6181f20
-WRITE of size 8 at 0x602000000378 thread T0
-    #0 0x5567320ce87f in init_map src/init_cub_file.c:93
-    #1 0x5567320cec1f in do_shit src/init_cub_file.c:119
-    #2 0x5567320cef37 in init_cub_file src/init_cub_file.c:146
-    #3 0x5567320c8073 in main src/main.c:99
-    #4 0x7f4040a29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
-    #5 0x7f4040a29e3f in __libc_start_main_impl ../csu/libc-start.c:392
-    #6 0x5567320c79c4 in _start (/home/reuben/Desktop/cub3d/a.out+0x39c4)
+==10873==ERROR: AddressSanitizer: SEGV on unknown address (pc 0x7ff86ec28b46 bp 0xbebebebebebebebe sp 0x7ffefaefd700 T0)
+==10873==The signal is caused by a READ memory access.
+==10873==Hint: this fault was caused by a dereference of a high value address (see register values below).  Dissassemble the provided pc to learn which register was used.
+    #0 0x7ff86ec28b46 in bool __sanitizer::atomic_compare_exchange_strong<__sanitizer::atomic_uint8_t>(__sanitizer::atomic_uint8_t volatile*, __sanitizer::atomic_uint8_t::Type*, __sanitizer::atomic_uint8_t::Type, __sanitizer::memory_order) ../../../../src/libsanitizer/sanitizer_common/sanitizer_atomic_clang.h:80
+    #1 0x7ff86ec28b46 in __asan::Allocator::AtomicallySetQuarantineFlagIfAllocated(__asan::AsanChunk*, void*, __sanitizer::BufferedStackTrace*) ../../../../src/libsanitizer/asan/asan_allocator.cpp:621
+    #2 0x7ff86ec28b46 in __asan::Allocator::Deallocate(void*, unsigned long, unsigned long, __sanitizer::BufferedStackTrace*, __asan::AllocType) ../../../../src/libsanitizer/asan/asan_allocator.cpp:697
+    #3 0x7ff86ec28b46 in __asan::asan_free(void*, __sanitizer::BufferedStackTrace*, __asan::AllocType) ../../../../src/libsanitizer/asan/asan_allocator.cpp:971
+    #4 0x7ff86ecb44f4 in __interceptor_free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:128
+    #5 0x56414888cca2 in safe_exit src/main.c:41
+    #6 0x56414888d648 in key_hook src/ft_mlx.c:30
+    #7 0x564148894f45 in mlx_loop (/home/reuben/Desktop/cub3d/a.out+0xbf45)
+    #8 0x56414888d31f in main src/main.c:114
+    #9 0x7ff86e629d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #10 0x7ff86e629e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #11 0x56414888c9c4 in _start (/home/reuben/Desktop/cub3d/a.out+0x39c4)
 
-0x602000000378 is located 0 bytes to the right of 8-byte region [0x602000000370,0x602000000378)
-freed by thread T0 here:
-    #0 0x7f4040eb4537 in __interceptor_free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:127
-    #1 0x5567320ce01e in reallocate src/init_cub_file.c:17
-    #2 0x5567320ce7be in init_map src/init_cub_file.c:89
-    #3 0x5567320cec1f in do_shit src/init_cub_file.c:119
-    #4 0x5567320cef37 in init_cub_file src/init_cub_file.c:146
-    #5 0x5567320c8073 in main src/main.c:99
-    #6 0x7f4040a29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
-
-previously allocated by thread T0 here:
-    #0 0x7f4040eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
-    #1 0x5567320ce7a1 in init_map src/init_cub_file.c:87
-    #2 0x5567320cec1f in do_shit src/init_cub_file.c:119
-    #3 0x5567320cef37 in init_cub_file src/init_cub_file.c:146
-    #4 0x5567320c8073 in main src/main.c:99
-    #5 0x7f4040a29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
-
-SUMMARY: AddressSanitizer: heap-buffer-overflow src/init_cub_file.c:93 in init_map
-Shadow bytes around the buggy address:
-  0x0c047fff8010: fa fa 00 00 fa fa 00 04 fa fa 00 00 fa fa 00 04
-  0x0c047fff8020: fa fa 00 00 fa fa fd fd fa fa 00 07 fa fa 00 04
-  0x0c047fff8030: fa fa fd fd fa fa fd fd fa fa 07 fa fa fa 03 fa
-  0x0c047fff8040: fa fa 05 fa fa fa 07 fa fa fa fd fd fa fa 00 00
-  0x0c047fff8050: fa fa 00 04 fa fa fd fd fa fa fd fd fa fa 00 fa
-=>0x0c047fff8060: fa fa 04 fa fa fa 04 fa fa fa 00 fa fa fa fd[fa]
-  0x0c047fff8070: fa fa 00 00 fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c047fff8080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c047fff8090: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c047fff80a0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c047fff80b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-Shadow byte legend (one shadow byte represents 8 application bytes):
-  Addressable:           00
-  Partially addressable: 01 02 03 04 05 06 07 
-  Heap left redzone:       fa
-  Freed heap region:       fd
-  Stack left redzone:      f1
-  Stack mid redzone:       f2
-  Stack right redzone:     f3
-  Stack after return:      f5
-  Stack use after scope:   f8
-  Global redzone:          f9
-  Global init order:       f6
-  Poisoned by user:        f7
-  Container overflow:      fc
-  Array cookie:            ac
-  Intra object redzone:    bb
-  ASan internal:           fe
-  Left alloca redzone:     ca
-  Right alloca redzone:    cb
-  Shadow gap:              cc
-==10701==ABORTING*/
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV ../../../../src/libsanitizer/sanitizer_common/sanitizer_atomic_clang.h:80 in bool __sanitizer::atomic_compare_exchange_strong<__sanitizer::atomic_uint8_t>(__sanitizer::atomic_uint8_t volatile*, __sanitizer::atomic_uint8_t::Type*, __sanitizer::atomic_uint8_t::Type, __sanitizer::memory_order)
+==10873==ABORTING
+*/
