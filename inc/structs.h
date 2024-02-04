@@ -1,12 +1,20 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+typedef struct s_coords
+{
+	int	x;
+	int	y;
+}	t_coords;
+
 typedef struct s_map
 {
-	char	**content;
-	int		longest_row;
-	int		rows;
-	bool	loading_map;
+	char		**content;
+	int			longest_row;
+	int			rows;
+	bool		loading_map;
+	char		spawn_dir;
+	t_coords	spawn_loc;
 }	t_map;
 
 typedef struct s_input

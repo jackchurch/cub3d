@@ -27,6 +27,17 @@ void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
 	return (new_ptr);
 }
 
+char	player_spawn(t_map *map, int i, int j, char line)
+{
+	if (line == 'N' || line == 'W' || line == 'E' || line == 'S')
+	{
+		map->spawn_loc.y = i;
+		map->spawn_loc.x = j;
+		return (line);
+	}
+	return (0);
+}
+
 int	is_only_one(char *line)
 {
 	int	i;
@@ -91,7 +102,6 @@ int	init_map(t_map *map, char *line)
 
 	length = ft_strlen(line);
 	i = map->rows;
-	printf("rows: %d\n", map->rows);
 	if (!map->content)
 		map->content = malloc(sizeof(char *) + 1);
 	else
@@ -113,6 +123,7 @@ int	init_map(t_map *map, char *line)
 	while (j < length)
 	{
 		map->content[i][j] = line[j];
+		map->spawn_dir = player_spawn(map, i, j, line[j]);
 		j++;
 	}
 	map->content[i][j] = '\0';
@@ -124,7 +135,6 @@ int	do_shit(t_input *input, char *current_line)
 {
 	char	*str_1;
 
-	printf("Current Line: %s\n", current_line);
 	str_1 = ft_strdup(current_line);
 	if (input->map.loading_map == false)
 		input->element_type = discover_element_type(str_1);
@@ -146,13 +156,17 @@ int	do_shit(t_input *input, char *current_line)
 
 t_input	init_cub_file(char *file_name)
 {
-	int		fd;
-	char	*current_line;
-	t_input input;
+	int			fd;
+	char		*current_line;
+	t_input 	input;
+	t_coords	loc;
 
 	ft_memset(&input, 0, sizeof(t_input));
 	ft_memset(&input.map, 0, sizeof(t_map));
+	ft_memset(&loc, 0, sizeof(t_coords));
+	input.map.spawn_loc = loc;
 	input.map.loading_map = false;
+	input.map.spawn_dir = 0;
 	fd = open_cub_file(file_name);
 	current_line = get_next_line(fd);
 	while (current_line != NULL)

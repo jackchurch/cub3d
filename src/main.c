@@ -12,8 +12,9 @@ t_player	player;
 	// Add wall textrues here?
 void	setup(t_game *game)
 {
-	player.x = game->win_width / 2;
-	player.y = game->win_height / 2;
+	player.x = game->win_width / 2; //game->input.map.spawn_loc.x;
+	player.y = game->win_height / 2; //game->input.map.spawn_loc.y;
+	printf("spawn loc x: %d\nspawn loc y: %d\n", game->input.map.spawn_loc.x, game->input.map.spawn_loc.y);
 	player.width = 1;
 	player.height = 1;
 	player.turn_direction = 0;
