@@ -15,7 +15,7 @@ bool	is_xpm_file(char *file_name);
 char	*remove_tail_whitespace(char *in_string);
 //void	find_first_char(char *current_line, int *i);
 bool	is_white_space(char c);
-char	*isolate_element_path(char *str, int i);
+char	*isolate_element_path(char *str);
 int		ceiling_floor_branch(t_input *input, char *current_line, int element_type);
 
 #endif

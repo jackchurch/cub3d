@@ -22,10 +22,8 @@ char	map_content_at(t_game *game, float x, float y)
 	int	map_grid_index_y;
 	int	map_grid_index_x;
 
-	printf("x = %f, y = %f\n", x, y);
 	map_grid_index_y = (int)floor(y / TILE_SIZE);
 	map_grid_index_x = (int)floor(x / TILE_SIZE);
-	printf("map content at %f:%f is %d\n", x, y, game->input.map.content[map_grid_index_y][map_grid_index_x]);
 	return (game->input.map.content[map_grid_index_y][map_grid_index_x]);
 }
 
@@ -34,10 +32,10 @@ char	get_map_at(t_game *game, int i, int j)
 	return (game->input.map.content[i][j]);
 }
 
-bool	is_inside_map(float x, float y)
+bool	is_inside_map(t_game *game, float x, float y)
 {
-	return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE
-		&& y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
+	return (x >= 0 && x <= game->input.map.longest_row * TILE_SIZE
+		&& y >= 0 && y <= game->input.map.rows * TILE_SIZE);
 }
 
 // bool mapHasWallAt(float x, float y)
@@ -77,7 +75,6 @@ void	render_map(t_game *game)
 		{
 			tile.x = j * TILE_SIZE;
 			tile.y = i * TILE_SIZE;
-			printf("i = %d\nj = %d\n", i, j);
 			if (get_map_at(game, i, j) == '1')
 				tile.color = 0x000000FF;
 			else
