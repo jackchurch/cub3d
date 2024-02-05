@@ -34,8 +34,8 @@ char	get_map_at(t_game *game, int i, int j)
 
 bool	is_inside_map(t_game *game, float x, float y)
 {
-	return (x >= 0 && x <= game->input.map.longest_row * TILE_SIZE
-		&& y >= 0 && y <= game->input.map.rows * TILE_SIZE);
+	return (x >= 0 && x <= game->win_width
+		&& y >= 0 && y <= game->win_height * TILE_SIZE);
 }
 
 // bool mapHasWallAt(float x, float y)
