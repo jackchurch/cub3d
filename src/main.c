@@ -12,9 +12,8 @@ t_player	player;
 	// Add wall textrues here?
 void	setup(t_game *game)
 {
-	player.x = game->win_width / 2; //game->input.map.spawn_loc.x;
-	player.y = game->win_height / 2; //game->input.map.spawn_loc.y;
-	printf("spawn loc x: %d\nspawn loc y: %d\n", game->input.map.spawn_loc.x, game->input.map.spawn_loc.y);
+	player.x = game->input.map.spawn_loc.x * TILE_SIZE;
+	player.y = game->input.map.spawn_loc.y * TILE_SIZE;
 	player.width = 1;
 	player.height = 1;
 	player.turn_direction = 0;
@@ -99,11 +98,11 @@ int	main(int argc, char **argv)
 		return (printf("Error: Please execute with only 1 argument.\n"));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(argv[1]);
-	init_window(game);
 	//WINDOW_WIDTH = MAP_NUM_COLS * TILE_SIZE;
 	//WINDOW_HEIGHT = MAP_NUM_ROWS * TILE_SIZE;
 	game->win_width = game->input.map.longest_row * TILE_SIZE;
 	game->win_height = game->input.map.rows * TILE_SIZE;
+	init_window(game);
 	setup(game);
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};

@@ -22,7 +22,7 @@ void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
 	if (new_ptr)
 	{
 		ft_memcpy(new_ptr, ptr, old_len);
-		free(ptr);
+//		free(ptr);
 	}
 	return (new_ptr);
 }
@@ -82,14 +82,25 @@ int	discover_element_type(char *current_line)
 }
 
 /*Remove the C or F from the return string and then remove any leading white space.*/
-char	*isolate_element_path(char *str, int i)
+char	*isolate_element_path(char *str)
 {
-	char	*temp;
 	char	*ret;
+	int		i;
+	int		start;
 	
-	temp = ft_substr(str, i, ft_strlen(str));
-	ret = ft_strtrim(str, " 	");
-	free(temp);
+	i = 0;
+	while (!(is_white_space(str[i])))
+		i++;
+	while (is_white_space(str[i]))
+		i++;
+	start = i;
+	while (str[i] && !(is_white_space(str[i])))
+		i++;
+	ret = malloc(i - start);
+	i = 0;
+	while (str[start] != '\n' && str[start])
+		ret[i++] = str[start++];
+	ret[i] = '\0';
 	free(str);
 	return (ret);
 }

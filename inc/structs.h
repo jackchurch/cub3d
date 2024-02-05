@@ -19,14 +19,14 @@ typedef struct s_map
 
 typedef struct s_input
 {
-	char	*north_path;
-	char	*south_path;
-	char	*east_path;
-	char	*west_path;
-	int		ceiling_color;
-	int		floor_color;
-	int		element_type;
-	t_map	map;
+	char			*north_path;
+	char			*south_path;
+	char			*east_path;
+	char			*west_path;
+	unsigned int	ceiling_color;
+	unsigned int	floor_color;
+	int				element_type;
+	t_map			map;
 }	t_input;
 
 typedef struct s_rectangle

@@ -109,48 +109,47 @@ int	for_each_value(t_input *input, char *value, int element_type)
 	return (0);
 }
 
-void	ceiling_floor_color(t_input *input, int element_type, int *color)
+unsigned int	ceiling_floor_color(char *str)
 {
-	int	rgb;
+	char	**values;
+	int		r;
+	int		g;
+	int		b;
 
-	rgb = (color[0] << 16) | (color[1] << 8) | color[2];
-	if (element_type == FLOOR)
-		input->floor_color = rgb;
-	else
-		input->ceiling_color = rgb;
+	values = ft_split(str, ',');
+	r = ft_atoi(values[0]);
+	g = ft_atoi(values[1]);
+	b = ft_atoi(values[2]);
+	while (*values)
+		free(*values++);
+	if (r > 255 || g > 255 || b > 255)
+		return (0);
+	return (r * 256 * 256 + g * 256 + b);
 }
 
 int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 {
 	char	*str;
-	char	**values;
 	int		i;
-	int		*color;
+	int		count;
 
 	i = 0;
-	// str = Remove the C or F from the return string and then remove any leading white space.
-	str = isolate_element_path(current_line, 1);
-	// Split the string based on commas, this also removes the commas
-	values = ft_split(str, ',');
-	free(str);
-	while (values[i] != NULL)
+	count = 0;
+	str = isolate_element_path(current_line);
+	while (str[i] != '\0')
 	{
-		// if there are more than 3 value, then the RGB is invalid
-		// TODO: if it is 0 or 1 we also need to error before the while loop starts. ie `If number of strings is != 2` error
-		if (i == 3)
+		if (str[i] == ',')
+			count++;
+		if (count > 2)
 			return (-1);
-		color = malloc(sizeof(int) * 3);
-		color[i] = for_each_value(input, values[i], element_type);
-		if (color[i] == -1)
-			return (color[i]);
 		i++;
 	}
-	ceiling_floor_color(input, element_type, color);
-	i = -1;
-	while (values[++i] != NULL)
-		free(values[i]);
-	free(values);
-	if (color)
-		free(color);
+	if (element_type != FLOOR && element_type != CEILING)
+		for_each_value(input, str, element_type);
+	else if (element_type == FLOOR)
+		input->floor_color = ceiling_floor_color(str);
+	else if (element_type == CEILING)
+		input->ceiling_color = ceiling_floor_color(str);
+	free(str);
 	return (0);
 }
