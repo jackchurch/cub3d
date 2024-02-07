@@ -34,14 +34,14 @@ void	draw_ceiling(t_game *game)
 
 	ceiling.x = 0;
 	ceiling.y = 0;
-	ceiling.width = game->win_width; //WINDOW_WIDTH;
-	ceiling.height = game->win_height / 2; //WINDOW_HEIGHT / 2;
+	ceiling.width = game->win_width;
+	ceiling.height = game->win_height / 2;
 	ceiling.color = game->input.ceiling_color;
 	draw_rect(game, &ceiling);
 	floor.x = 0;
-	floor.y = game->win_height / 2; //WINDOW_HEIGHT / 2;
-	floor.width = game->win_width; //WINDOW_WIDTH;
-	floor.height = game->win_height / 2; //WINDOW_HEIGHT / 2;
+	floor.y = game->win_height / 2;
+	floor.width = game->win_width;
+	floor.height = game->win_height / 2;
 	floor.color = game->input.floor_color;
 	draw_rect(game, &floor);
 }

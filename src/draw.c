@@ -1,13 +1,13 @@
 #include "../inc/cub3d.h"
 #include "../inc/draw.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_game *game, int x, int y, unsigned int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x >= WINDOW_WIDTH || y >= WINDOW_HEIGHT)
+	if (x < 0 || y < 0 || x >= game->win_width || y >= game->win_height)
 		return ;
-	dst = (data->addr + (y * data->line_length + x * data->bpp / 8));
+	dst = (game->data.addr + (y * game->data.line_length + x * game->data.bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -22,7 +22,7 @@ void	draw_rect(t_game *game, t_rectangle *rect)
 		j = rect->y;
 		while (j <= (rect->y + rect->height))
 		{
-			my_mlx_pixel_put(&game->data, i, j, rect->color);
+			my_mlx_pixel_put(game, i, j, rect->color);
 			j++;
 		}
 		i++;
@@ -50,7 +50,7 @@ void	draw_line(t_game *game, const t_line *line)
 	i = -1;
 	while (++i < drawn.longest_side_length)
 	{
-		my_mlx_pixel_put(&game->data, round(drawn.current_x),
+		my_mlx_pixel_put(game, round(drawn.current_x),
 			round(drawn.current_y), line->color);
 		drawn.current_x += drawn.x_increment;
 		drawn.current_y += drawn.y_increment;
