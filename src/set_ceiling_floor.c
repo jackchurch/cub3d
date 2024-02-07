@@ -88,23 +88,11 @@ void	input_path(t_input *input, char *path, int element_type)
 int	for_each_value(t_input *input, char *value, int element_type)
 {
 	char	*str;
-	int		color;
 
-	// Remove leading and tailing whitespace for each number (R G B)
 	str = ft_strtrim(value, " 	");
-	// If no numbers error; and also if number at index [0] and index [2] but white space at index [1], error as the number has a space in it. 
 	if (any_invalid_chars(str) == true)
 		return (-1);
-	color = ft_atoi(str);
-	if (element_type == CEILING || element_type == FLOOR)
-	{
-		if (color < 0 || color > 255)
-			return (-1);
-		else
-			return (color);
-	}
-	else
-		input_path(input, str, element_type);
+	input_path(input, str, element_type);
 	free(str);
 	return (0);
 }

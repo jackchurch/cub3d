@@ -20,7 +20,7 @@ t_wall_hit	horizontal_intersection(t_game *game, float ray_angle)
 	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'x');
 	axis.next_touch_x = axis.x_intercept;
 	axis.next_touch_y = axis.y_intercept;
-	while (is_inside_map(axis.next_touch_x, axis.next_touch_y))
+	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
 	{
 		axis.x_to_check = axis.next_touch_x;
 		axis.y_to_check = axis.next_touch_y;
@@ -54,7 +54,7 @@ t_wall_hit	vertical_intersection(t_game *game, float ray_angle)
 	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'y');
 	axis.next_touch_x = axis.x_intercept;
 	axis.next_touch_y = axis.y_intercept;
-	while (is_inside_map(axis.next_touch_x, axis.next_touch_y))
+	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
 	{
 		axis.x_to_check = axis.next_touch_x;
 		axis.y_to_check = axis.next_touch_y;
