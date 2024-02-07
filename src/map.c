@@ -22,8 +22,13 @@ char	map_content_at(t_game *game, float x, float y)
 	int	map_grid_index_y;
 	int	map_grid_index_x;
 
+	if (x < 0 || y < 0)
+		return (0);
 	map_grid_index_y = (int)floor(y / TILE_SIZE);
 	map_grid_index_x = (int)floor(x / TILE_SIZE);
+	if (map_grid_index_y >= game->input.map.rows
+		|| map_grid_index_x >= game->input.map.longest_row)
+		return (0);
 	return (game->input.map.content[map_grid_index_y][map_grid_index_x]);
 }
 
@@ -34,8 +39,8 @@ char	get_map_at(t_game *game, int i, int j)
 
 bool	is_inside_map(t_game *game, float x, float y)
 {
-	return (x >= 0 && x <= game->win_width * TILE_SIZE
-		&& y >= 0 && y <= game->win_height * TILE_SIZE);
+	return (x >= 0 && x <= game->input.map.longest_row * TILE_SIZE
+		&& y >= 0 && y <= game->input.map.rows * TILE_SIZE);
 }
 
 // bool mapHasWallAt(float x, float y)

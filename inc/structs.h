@@ -31,20 +31,20 @@ typedef struct s_input
 
 typedef struct s_rectangle
 {
-	int	x;
-	int	y;
-	int	width;
-	int	height;
-	int	color;
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+	unsigned int	color;
 }	t_rectangle;
 
 typedef struct s_line
 {
-	int	x0;
-	int	y0;
-	int	x1;
-	int	y1;
-	int	color;
+	int				x0;
+	int				y0;
+	int				x1;
+	int				y1;
+	unsigned int	color;
 }	t_line;
 
 typedef struct s_line_math
@@ -62,9 +62,9 @@ typedef struct s_line_math
 
 typedef struct s_tile
 {
-	int	x;
-	int	y;
-	int	color;
+	int				x;
+	int				y;
+	unsigned int	color;
 }	t_tile;
 
 typedef struct s_ray
@@ -97,14 +97,14 @@ typedef struct s_wall_hit
 
 typedef struct s_axis
 {
-	float				x_step;
-	float				y_step;
-	float				x_intercept;
-	float				y_intercept;
-	float				next_touch_x;
-	float				next_touch_y;
-	float				x_to_check;
-	float				y_to_check;
+	float	x_step;
+	float	y_step;
+	float	x_intercept;
+	float	y_intercept;
+	float	next_touch_x;
+	float	next_touch_y;
+	float	x_to_check;
+	float	y_to_check;
 }	t_axis;
 
 typedef struct s_player

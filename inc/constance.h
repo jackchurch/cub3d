@@ -19,9 +19,9 @@
 
 # define MINIMAP_SCALE 0.2
 
-# define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
+# define WINDOW_WIDTH 15
 // move to variable, or use actual values
-# define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+# define WINDOW_HEIGHT 10
 // move to variable, or use actual values
 
 # define FOV_ANGLE 1.047197666666667

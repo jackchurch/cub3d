@@ -48,7 +48,6 @@ bool	any_invalid_chars(char *str)
 	i = 0;
 	white_space_found = false;
 	digit_found = false;
-	// While string exists
 	while (str[i] != '\0')
 	{
 		if (ft_isdigit(str[i]))
