@@ -27,10 +27,18 @@ void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
 
 char	player_spawn(t_map *map, int i, int j, char line)
 {
-	if (line == 'N' || line == 'W' || line == 'E' || line == 'S')
+	if (line == 'N' || line == 'S' || line == 'E' || line == 'W')
 	{
 		map->spawn_loc.y = i;
 		map->spawn_loc.x = j;
+		if (line == 'S')
+			map->rot_angle = M_PI / 2;
+		else if (line == 'N')
+			map->rot_angle = M_PI * 1.5;
+		else if (line == 'E')
+			map->rot_angle = M_PI * 2;
+		else if (line == 'W')
+			map->rot_angle = M_PI;
 		return (line);
 	}
 	return (0);
@@ -88,6 +96,8 @@ char	*isolate_element_path(char *str)
 	i = 0;
 	while (!(is_white_space(str[i])))
 		i++;
+	if (str[i] == '\n' || str[i] == '\0')
+		return (NULL);
 	while (is_white_space(str[i]))
 		i++;
 	start = i;

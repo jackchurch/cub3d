@@ -91,6 +91,8 @@ void	find_intercept(t_wall_hit *orientation, t_axis *axis, float ray_angle, char
 		axis->x_intercept = floor(player.x / TILE_SIZE) * TILE_SIZE;
 		if (is_ray_facing_right(ray_angle))
 			axis->x_intercept += TILE_SIZE;
+				printf("about to tan ray_intercet.c\n");
+
 		axis->y_intercept = player.y + (axis->x_intercept
 				- player.x) * tan(ray_angle);
 	}
@@ -99,6 +101,8 @@ void	find_intercept(t_wall_hit *orientation, t_axis *axis, float ray_angle, char
 		axis->y_intercept = floor(player.y / TILE_SIZE) * TILE_SIZE;
 		if (is_ray_facing_down(ray_angle))
 			axis->y_intercept += TILE_SIZE;
+				printf("about to tan 2ray_intercet.c\n");
+
 		axis->x_intercept = player.x + (axis->y_intercept
 				- player.y) / tan(ray_angle);
 	}

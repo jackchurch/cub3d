@@ -15,6 +15,7 @@ typedef struct s_map
 	bool		loading_map;
 	char		spawn_dir;
 	t_coords	spawn_loc;
+	float		rot_angle;
 }	t_map;
 
 typedef struct s_input

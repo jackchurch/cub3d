@@ -13,6 +13,7 @@ void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 		*ystep = TILE_SIZE;
 		if (is_ray_facing_up(ray_angle))
 			*ystep *= -1;
+		printf("about to tan 'x' ray.c\n");
 		*xstep = TILE_SIZE / tan(ray_angle);
 		if (is_ray_facing_left(ray_angle) && *xstep > 0)
 			*xstep *= -1;
@@ -24,6 +25,7 @@ void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
 		*xstep = TILE_SIZE;
 		if (is_ray_facing_left(ray_angle))
 			*xstep *= -1;
+		printf("about to tan 'y' ray.c\n");
 		*ystep = TILE_SIZE * tan(ray_angle);
 		if (is_ray_facing_up(ray_angle) && *ystep > 0)
 			*ystep *= -1;
