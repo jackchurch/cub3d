@@ -14,19 +14,10 @@
 # define FLT_MAX 340282346638528859811704183484516925440.000000
 
 # define TILE_SIZE 64
-# define MAP_NUM_ROWS 11
-# define MAP_NUM_COLS 15
 
 # define MINIMAP_SCALE 0.2
 
-# define WINDOW_WIDTH 15
-// move to variable, or use actual values
-# define WINDOW_HEIGHT 10
-// move to variable, or use actual values
-
 # define FOV_ANGLE 1.047197666666667
-
-// # define NUM_RAYS WINDOW_WIDTH
 
 # define MAC_W 13
 # define MAC_S 1

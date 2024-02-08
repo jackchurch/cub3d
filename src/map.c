@@ -2,21 +2,6 @@
 #include "../inc/draw.h"
 #include "../inc/map.h"
 
-// this is a temporary global variable, used for testing instead of input maps.
-/*static const int	map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-	{1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
-	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-};*/
-
 char	map_content_at(t_game *game, float x, float y)
 {
 	int	map_grid_index_y;
@@ -42,19 +27,6 @@ bool	is_inside_map(t_game *game, float x, float y)
 	return (x >= 0 && x <= game->input.map.longest_row * TILE_SIZE
 		&& y >= 0 && y <= game->input.map.rows * TILE_SIZE);
 }
-
-// bool mapHasWallAt(float x, float y)
-// {
-// 	// IF out of bounds return true. 
-// 	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
-// 		return (true);
-// 	int mapGridIndexX = floor(x / TILE_SIZE);
-// 	int mapGridIndexY = floor(y / TILE_SIZE);
-// 	// IF wall collision, return true
-// 	if (map[mapGridIndexY][mapGridIndexX] != 0)
-// 		return (true);
-// 	return (false);
-// }
 
 void	tile_rect_init(t_rectangle *map_tile_rect, const t_tile tile)
 {

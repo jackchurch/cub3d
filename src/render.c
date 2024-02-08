@@ -68,18 +68,6 @@ void	generate_3d_projection(t_game *game)
 	}
 }
 
-/*
-int			wall_top_pixel;
-int			wall_bottom_pixel;
-
-wall_top_pixel = (WINDOW_HEIGHT / 2) - (projected_wall_height / 2);
-if (wall_top_pixel < 0)
-	wall_top_pixel = 0;
-wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (projected_wall_height / 2);
-if (wall_bottom_pixel > WINDOW_HEIGHT)
-wall_bottom_pixel = WINDOW_HEIGHT;
-*/
-
 int	color_assignment(t_game *game, int i)
 {
 	if (game->rays[i].is_ray_facing_down && !game->rays[i].was_hit_vertical)
