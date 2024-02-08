@@ -166,13 +166,10 @@ int	do_shit(t_input *input, char *current_line)
 			input->map.loading_map = true;
 		init_map(&input->map, current_line);
 	}
-	else if (input->element_type != CEILING && input->element_type != FLOOR)
-		ceiling_floor_branch(input, str_1, input->element_type);
 	else
 		ceiling_floor_branch(input, str_1, input->element_type);
 	return (0);
 }
-
 
 t_input	init_cub_file(char *file_name)
 {
@@ -195,6 +192,7 @@ t_input	init_cub_file(char *file_name)
 		while (current_line[0] == '\n')
 			current_line = get_next_line(fd);
 		do_shit(&input, current_line);
+		printf("%s", current_line);
 		current_line = get_next_line(fd);
 		if (input.map.loading_map == true && is_only_one(current_line))
 			input.map.loading_map = false;
