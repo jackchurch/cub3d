@@ -19,11 +19,8 @@ void	render_player(t_game *game)
 	draw_rect(game, &player_rect);
 	player_line.x0 = player.x * MINIMAP_SCALE;
 	player_line.y0 = player.y * MINIMAP_SCALE;
-	printf("about to cos render.c\n");
-
 	player_line.x1 = (player.x + cos(player.rotation_angle) * 40)
 		* MINIMAP_SCALE;
-	printf("about to sin render.c\n");
 	player_line.y1 = (player.y + sin(player.rotation_angle) * 40)
 		* MINIMAP_SCALE;
 	player_line.color = 0x00E0B0FF;
@@ -59,8 +56,6 @@ void	generate_3d_projection(t_game *game)
 	draw_ceiling(game);
 	while (++i < game->num_rays)
 	{
-		printf("about to cos2 render.c\n");
-		printf("about to tan render.c\n");
 		projected_wall_height = (int)((TILE_SIZE / (game->rays[i].distance
 						* cos(game->rays[i].ray_angle - player.rotation_angle)))
 				* ((game->win_width / 2) / tan(FOV_ANGLE / 2)));

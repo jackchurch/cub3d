@@ -18,6 +18,7 @@ void	setup(t_game *game)
 	player.height = 1;
 	player.turn_direction = 0;
 	player.walk_direction = 0;
+	player.strafe_direction = 0;
 	player.rotation_angle = game->input.map.rot_angle;
 	player.walk_speed = 10;
 	player.turn_speed = M_PI / 180 * player.walk_speed;
@@ -52,17 +53,31 @@ void	safe_exit(t_game *game)
 void	move_player(t_game *game)
 {
 	float	move_step;
+	float	side_step;
 	float	new_player_x;
 	float	new_player_y;
 
 	if (!game)
 		return ;
-	player.rotation_angle += player.turn_direction * player.turn_speed;
 	move_step = player.walk_direction * player.walk_speed;
-	printf("about to cos main.c\n");
+	side_step = player.strafe_direction * player.walk_speed;
+	player.rotation_angle += player.turn_direction * player.turn_speed;
 	new_player_x = player.x + cos(player.rotation_angle) * move_step;
-	printf("about to sin main.c\n");
 	new_player_y = player.y + sin(player.rotation_angle) * move_step;
+	if (side_step > 0)
+	{
+		player.rotation_angle += player.strafe_direction * player.turn_speed * 9;
+		new_player_x = player.x + cos(player.rotation_angle) * side_step;
+		new_player_y = player.y + sin(player.rotation_angle) * side_step;
+		player.rotation_angle -= player.strafe_direction * player.turn_speed * 9;
+	}
+	if (side_step < 0)
+	{
+		player.rotation_angle += player.strafe_direction * player.turn_speed * 27;
+		new_player_x = player.x + cos(player.rotation_angle) * side_step;
+		new_player_y = player.y + sin(player.rotation_angle) * side_step;
+		player.rotation_angle -= player.strafe_direction * player.turn_speed * 27;
+	}
 	if (map_content_at(game, new_player_x, new_player_y) != '1')
 	{
 		player.x = new_player_x;

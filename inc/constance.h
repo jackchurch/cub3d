@@ -28,11 +28,13 @@
 
 // # define NUM_RAYS WINDOW_WIDTH
 
-# define UP_ARROW 13
-# define S_KEY 1
-# define LEFT_ARROW 0
-# define RIGHT_ARROW 2
-# define ESC 53
+# define MAC_W 13
+# define MAC_S 1
+# define MAC_A 0
+# define MAC_D 2
+# define MAC_LEFT 123
+# define MAC_RIGHT 124
+# define MAC_ESC 53
 # define LINUX_A 97
 # define LINUX_S 115
 # define LINUX_D 100
