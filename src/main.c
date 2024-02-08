@@ -66,17 +66,13 @@ void	move_player(t_game *game)
 	new_player_y = player.y + sin(player.rotation_angle) * move_step;
 	if (side_step > 0)
 	{
-		player.rotation_angle += player.strafe_direction * player.turn_speed * 9;
-		new_player_x = player.x + cos(player.rotation_angle) * side_step;
-		new_player_y = player.y + sin(player.rotation_angle) * side_step;
-		player.rotation_angle -= player.strafe_direction * player.turn_speed * 9;
+		new_player_x = player.x + cos(player.rotation_angle + (player.strafe_direction * player.turn_speed * 9)) * side_step;
+		new_player_y = player.y + sin(player.rotation_angle + (player.strafe_direction * player.turn_speed * 9)) * side_step;
 	}
 	if (side_step < 0)
 	{
-		player.rotation_angle += player.strafe_direction * player.turn_speed * 27;
-		new_player_x = player.x + cos(player.rotation_angle) * side_step;
-		new_player_y = player.y + sin(player.rotation_angle) * side_step;
-		player.rotation_angle -= player.strafe_direction * player.turn_speed * 27;
+		new_player_x = player.x + cos(player.rotation_angle + (player.strafe_direction * player.turn_speed * 27)) * side_step;
+		new_player_y = player.y + sin(player.rotation_angle + (player.strafe_direction * player.turn_speed * 27)) * side_step;
 	}
 	if (map_content_at(game, new_player_x, new_player_y) != '1')
 	{
