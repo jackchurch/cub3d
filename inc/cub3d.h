@@ -19,4 +19,6 @@ void	safe_exit(t_game *game);
 // To sort
 void	render(t_game *game);
 
+int		update(t_game *game);
+
 #endif

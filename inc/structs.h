@@ -133,16 +133,24 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_update
+{
+	float	refresh_rate;
+	int		end_game;
+	int		animate;
+}	t_update;
+
 typedef struct s_game
 {
-	void	*mlx;
-	void	*win;
-	int		win_width;
-	int		win_height;
-	int		num_rays;
-	t_input	input;
-	t_ray	*rays;
-	t_data	data;
+	void		*mlx;
+	void		*win;
+	int			win_width;
+	int			win_height;
+	int			num_rays;
+	t_update	update;
+	t_input		input;
+	t_ray		*rays;
+	t_data		data;
 }	t_game;
 
 #endif

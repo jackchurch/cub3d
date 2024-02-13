@@ -22,6 +22,7 @@ void	setup(t_game *game)
 	player.rotation_angle = game->input.map.rot_angle;
 	player.walk_speed = 10;
 	player.turn_speed = M_PI / 180 * player.walk_speed;
+	ft_memset(&game->update, 0, sizeof(t_update));
 }
 
 void	safe_exit(t_game *game)
@@ -66,13 +67,17 @@ void	move_player(t_game *game)
 	new_player_y = player.y + sin(player.rotation_angle) * move_step;
 	if (side_step > 0)
 	{
-		new_player_x = player.x + cos(player.rotation_angle + (player.strafe_direction * player.turn_speed * 9)) * side_step;
-		new_player_y = player.y + sin(player.rotation_angle + (player.strafe_direction * player.turn_speed * 9)) * side_step;
+		new_player_x = player.x + cos(player.rotation_angle
+			+ (player.strafe_direction * player.turn_speed * 9)) * side_step;
+		new_player_y = player.y + sin(player.rotation_angle
+			+ (player.strafe_direction * player.turn_speed * 9)) * side_step;
 	}
 	if (side_step < 0)
 	{
-		new_player_x = player.x + cos(player.rotation_angle + (player.strafe_direction * player.turn_speed * 27)) * side_step;
-		new_player_y = player.y + sin(player.rotation_angle + (player.strafe_direction * player.turn_speed * 27)) * side_step;
+		new_player_x = player.x + cos(player.rotation_angle
+			+ (player.strafe_direction * player.turn_speed * 27)) * side_step;
+		new_player_y = player.y + sin(player.rotation_angle 
+		+ (player.strafe_direction * player.turn_speed * 27)) * side_step;
 	}
 	if (map_content_at(game, new_player_x, new_player_y) != '1')
 	{
@@ -111,8 +116,8 @@ int	main(int argc, char **argv)
 		return (printf("Error: Please execute with only 1 argument.\n"));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(argv[1]);
-	game->win_width = game->input.map.longest_row * TILE_SIZE;
-	game->win_height = game->input.map.rows * TILE_SIZE;
+	game->win_width = 1920; //game->input.map.longest_row * TILE_SIZE;
+	game->win_height = 1080; //game->input.map.rows * TILE_SIZE;
 	init_window(game);
 	setup(game);
 	game->num_rays = game->win_width;
@@ -125,6 +130,7 @@ int	main(int argc, char **argv)
 	// process_input(); // See keyhooks
 	// update(game); // Add FPS if have time.
 	render(game);
+	//mlx_loop_hook(game->mlx, update, &game);
 	mlx_loop(game->mlx);
 	return (0);
 }
