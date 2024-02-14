@@ -120,6 +120,7 @@ int	init_map(t_map *map, char *line)
 
 	length = ft_strlen(line);
 	i = map->rows;
+	printf("%p\n", map->content);
 	if (!map->content)
 		map->content = malloc(sizeof(char *));
 	else
@@ -178,6 +179,7 @@ t_input	init_cub_file(char *file_name)
 	t_input 	input;
 	t_coords	loc;
 
+	// input = (t_input){0};
 	ft_memset(&input, 0, sizeof(t_input));
 	ft_memset(&input.map, 0, sizeof(t_map));
 	ft_memset(&loc, 0, sizeof(t_coords));
@@ -192,7 +194,6 @@ t_input	init_cub_file(char *file_name)
 		while (current_line[0] == '\n')
 			current_line = get_next_line(fd);
 		do_shit(&input, current_line);
-		printf("%s", current_line);
 		current_line = get_next_line(fd);
 		if (input.map.loading_map == true && is_only_one(current_line))
 			input.map.loading_map = false;

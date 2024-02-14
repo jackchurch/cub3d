@@ -116,8 +116,8 @@ int	main(int argc, char **argv)
 		return (printf("Error: Please execute with only 1 argument.\n"));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(argv[1]);
-	game->win_width = 1920; //game->input.map.longest_row * TILE_SIZE;
-	game->win_height = 1080; //game->input.map.rows * TILE_SIZE;
+	game->win_width = 800; //game->input.map.longest_row * TILE_SIZE;
+	game->win_height = 600; //game->input.map.rows * TILE_SIZE;
 	init_window(game);
 	setup(game);
 	game->num_rays = game->win_width;

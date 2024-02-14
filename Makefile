@@ -24,7 +24,7 @@ $(SRC_PATH)/set_ceiling_floor.c
 
 CC		= gcc
 DFLAGS  = -fsanitize=address -g
-CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD -O0
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 DEPFILES = $(patsubst %.c,%.d,$(SRCS))
 

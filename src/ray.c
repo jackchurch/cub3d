@@ -46,7 +46,7 @@ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
 			horizontal.wall_hit_x, horizontal.wall_hit_y);
 	vertical.distance = distance_between_points(player.x, player.y,
 			vertical.wall_hit_x, vertical.wall_hit_y);
-	printf("Ray: %d\nVert Distance: %f\nHori Distance: %f\n\n", stripId, vertical.distance, horizontal.distance);
+	//printf("Ray: %d\nVert Distance: %f\nHori Distance: %f\n\n", stripId, vertical.distance, horizontal.distance);
 	if (vertical.distance > horizontal.distance)
 		ray_cast(game, &horizontal, stripId, ray_angle);
 	else
