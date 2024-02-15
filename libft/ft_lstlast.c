@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchurch <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rkabzins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/27 17:20:23 by jchurch           #+#    #+#             */
-/*   Updated: 2022/02/27 17:20:50 by jchurch          ###   ########.fr       */
+/*   Created: 2024/02/15 15:30:56 by rkabzins          #+#    #+#             */
+/*   Updated: 2024/02/15 15:31:59 by rkabzins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*p;
-
-	if (!lst)
+	if (lst == NULL)
 		return (0);
-	p = lst;
-	while ((*p).next != NULL)
-		p = (*p).next;
-	return (p);
+	while (lst)
+	{
+		if (lst->next == NULL)
+			return (lst);
+		lst = lst->next;
+	}
+	return (lst);
 }
+

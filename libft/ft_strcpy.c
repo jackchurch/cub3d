@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkabzins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 15:24:46 by rkabzins          #+#    #+#             */
-/*   Updated: 2024/02/15 15:24:47 by rkabzins         ###   ########.fr       */
+/*   Created: 2022/02/27 23:38:43 by rkabzins          #+#    #+#             */
+/*   Updated: 2022/02/27 23:41:34 by rkabzins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+char	*ft_strcpy(char *destination, const char *source)
 {
-	t_list	*t;
-	t_list	*tmp;
+	char	*copied;
 
-	t = *lst;
-	while (t)
+	copied = destination;
+	while (source++)
 	{
-		tmp = t->next;
-		ft_lstdelone(t, del);
-		t = tmp;
+		*copied++ = *source;
 	}
-	*lst = NULL;
+	copied = 0;
+	return (copied);
 }

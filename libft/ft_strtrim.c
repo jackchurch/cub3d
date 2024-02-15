@@ -3,53 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchurch <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rkabzins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 16:25:54 by jchurch           #+#    #+#             */
-/*   Updated: 2022/02/06 16:25:59 by jchurch          ###   ########.fr       */
+/*   Created: 2022/03/24 08:16:02 by rkabzins          #+#    #+#             */
+/*   Updated: 2022/03/24 08:16:17 by rkabzins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_setstart(char c, char const *set)
+/*static size_t	trimmed_size(char const *s1, char const *set)
 {
-	int	i;
+	size_t	len;
+	int		index;
+	int		active;
 
-	i = 0;
-	while (set[i])
+	active = 0;
+	len = 0;
+	index = 0;
+	while (s1[index])
 	{
-		if (set[i++] == c)
-			return (1);
+		if (s1[index] != set && active == 1)
+			len++;
+		index++;
 	}
-	return (0);
+	index--;
+	while (s1[index] == set)
+	{
+		len--;
+		index--;
+	}
+	return (len);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*str;
+	size_t			s1_size;
+	unsigned int	s1_index;
+	unsigned int	trimmed_index;
+	char			*trimmed_str;
+
+	s1_size = trimmed_size(s1, set);
+	s1_index = 0;
+	trimmed_index = 0;
+	trimmed_str = malloc((sizeof(char) * s1_size + 1));
+	if (!trimmed_str)
+		return (NULL);
+	while (s1[s1_index] == set)
+		s1_index++;
+	while (s1[s1_index] != '\0' && s1_index <= s1_size)
+		trimmed_str[trimmed_index++] = s1[s1_index++];
+	trimmed_str[trimmed_index] = '\0';
+	return (trimmed_str);
+}
+*/
+static int	ft_getstart(const char *s1, const char *set)
+{
+	size_t	len;
+	size_t	i;
+
+	len = ft_strlen(s1);
+	i = 0;
+	while (i < len)
+	{
+		if (ft_strchr(set, s1[i]) == 0)
+			break ;
+		i++;
+	}
+	return (i);
+}
+
+static int	ft_getend(const char *s1, const char *set)
+{
+	size_t	len;
+	size_t	i;
+
+	len = ft_strlen(s1);
+	i = 0;
+	while (i < len)
+	{
+		if (ft_strchr(set, s1[len - i - 1]) == 0)
+			break ;
+		i++;
+	}
+	return (len - i);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
 	int		start;
 	int		end;
-	int		i;
+	char	*newstr;
 
-	i = 0;
-	start = 0;
-	if (s1 == 0)
-		return (0);
-	end = (int)ft_strlen(s1);
-	while (s1[start] && ft_setstart(s1[start], set))
-		start++;
-	while (end > start && ft_setstart(s1[end - 1], set))
-		end--;
-	str = (char *)malloc(sizeof(char) * (end - start + 1));
-	if (!str)
-		return (0);
-	while (start < end)
-	{
-		str[i] = s1[start];
-		i++;
-		start++;
-	}
-	str[i] = '\0';
-	return (str);
+	if (s1 == NULL)
+		return (NULL);
+	if (set == NULL)
+		return (ft_strdup(s1));
+	start = ft_getstart(s1, set);
+	end = ft_getend(s1, set);
+	if (start >= end)
+		return (ft_strdup(""));
+	newstr = (char *)malloc(sizeof(char) * (end - start + 1));
+	if (newstr == NULL)
+		return (NULL);
+	ft_strlcpy(newstr, s1 + start, end - start + 1);
+	return (newstr);
 }

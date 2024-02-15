@@ -67,6 +67,7 @@ t_wall_hit	vertical_intersection(t_game *game, float ray_angle)
 void	wall_found(t_game *game, t_wall_hit *orientation, t_axis axis, bool is_vertical)
 {
 	orientation->found_wall_hit = true;
+	orientation->distance = game->win_width + game->win_height;
 	orientation->wall_hit_x = axis.next_touch_x;
 	orientation->wall_hit_y = axis.next_touch_y;
 	orientation->wall_content = map_content_at(game, axis.next_touch_y / TILE_SIZE,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchurch <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rkabzins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 16:45:37 by jchurch           #+#    #+#             */
-/*   Updated: 2022/02/14 19:11:32 by jchurch          ###   ########.fr       */
+/*   Created: 2022/03/01 01:35:00 by rkabzins          #+#    #+#             */
+/*   Updated: 2022/03/01 01:35:08 by rkabzins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,27 @@
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	negative;
+	int	sum;
+	int	sign;
+	int	found;
 
-	i = 0;
-	negative = 1;
-	while (*str && ((*str >= '\t' && *str <= '\r') || *str == ' '))
-		str++;
-	if (*str == '+' && *(str + 1) >= '0' && *(str + 1) <= '9')
+	sum = 0;
+	sign = 1;
+	found = 1;
+	while (*str == ' ' || *str == '\n' || *str == '\t'
+		|| *str == '\r' || *str == '\v' || *str == '\f')
 		str++;
 	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str && found)
 	{
-		negative = -1;
+		if (*str >= '0' && *str <= '9')
+			sum = sum * 10 + *str - '0';
+		else
+			found = 0;
 		str++;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		i = i * 10;
-		i = i + (*str - 48);
-		str++;
-	}
-	i = i * negative;
-	return (i);
+	return (sign * sum);
 }

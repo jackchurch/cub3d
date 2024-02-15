@@ -3,85 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchurch <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rkabzins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 16:15:00 by jchurch           #+#    #+#             */
-/*   Updated: 2022/02/21 16:15:01 by jchurch          ###   ########.fr       */
+/*   Created: 2022/03/01 01:35:29 by rkabzins          #+#    #+#             */
+/*   Updated: 2022/03/01 01:35:34 by rkabzins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_isneg(int *n, int *neg, int *tmp)
+static size_t	num_length(int n)
 {
-	if (*n == -2147483648)
+	size_t	length;
+
+	if (!n)
+		return (1);
+	if (n < 0)
+		n *= -1;
+	length = 0;
+	while (n)
 	{
-		*neg = -1;
-		*tmp = 1;
-		*n = (*n + 1) * -1;
+		n /= 10;
+		length++;
 	}
-	else if (*n < 0)
-	{
-		*neg = -1;
-		*n = *n * -1;
-		*tmp = 0;
-	}
-	else if (*n >= 0)
-	{
-		*neg = 1;
-		*tmp = 0;
-	}
+	return (length);
 }
 
-static int	ft_itoa_len(int n)
+static char	*putnumber(char *dest, int n, int len)
 {
-	int	len;
+	unsigned int	number;
 
-	len = 0;
-	while (n > 9)
+	number = n;
+	if (n < 0)
+		number = -n;
+	while (len--)
 	{
-		n = n / 10;
-		len++;
+		dest[len] = (number % 10) + '0';
+		if (number > 9)
+			number /= 10;
 	}
-	len++;
-	return (len);
-}
-
-static void	ft_itoa_write(char *str, int len, int n, int tmp)
-{
-	while (n > 9)
-	{
-		str[len--] = (n % 10) + '0' + tmp;
-		n = n / 10;
-		tmp = 0;
-	}
-	str[len] = n + '0';
+	if (n < 0)
+		dest[0] = '-';
+	return (dest);
 }
 
 char	*ft_itoa(int n)
 {
-	int		neg;
-	int		tmp;
-	int		len;
 	char	*str;
+	size_t	len;
 
-	ft_isneg(&n, &neg, &tmp);
-	len = ft_itoa_len(n);
-	if (neg == -1)
-	{
-		str = malloc((len + 2) * sizeof(char));
-		if (!str)
-			return (0);
+	len = num_length(n);
+	if (n < 0)
 		len++;
-		str[0] = '-';
-	}
-	else
-	{
-		str = malloc((len + 1) * sizeof(char));
-		if (!str)
-			return (0);
-	}
-	str[len--] = '\0';
-	ft_itoa_write(str, len, n, tmp);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	putnumber(str, n, len);
+	str[len] = '\0';
 	return (str);
 }
