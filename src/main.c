@@ -14,8 +14,8 @@ void	setup(t_game *game)
 {
 	player.x = game->input.map.spawn_loc.x * TILE_SIZE;
 	player.y = game->input.map.spawn_loc.y * TILE_SIZE;
-	player.width = 1;
-	player.height = 1;
+	player.width = 10;
+	player.height = 10;
 	player.turn_direction = 0;
 	player.walk_direction = 0;
 	player.strafe_direction = 0;
@@ -84,6 +84,7 @@ void	move_player(t_game *game)
 		player.x = new_player_x;
 		player.y = new_player_y;
 	}
+	printf("Player Position:\n\tx:\t%f\n\ty:\t%f\n\n", player.x, player.y);
 }
 
 // 320 pixls window width

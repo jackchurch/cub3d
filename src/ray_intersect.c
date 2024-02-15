@@ -14,10 +14,14 @@ t_wall_hit	horizontal_intersection(t_game *game, float ray_angle)
 	static t_wall_hit	hori;
 	t_axis				axis;
 
-	ft_memset(&hori, 0, sizeof(hori));
-	ft_memset(&axis, 0, sizeof(axis));
+	// ft_memset(&hori, 0, sizeof(hori));
+	// ft_memset(&axis, 0, sizeof(axis));
+	hori = (t_wall_hit){0};
+	axis = (t_axis){0};
 	find_intercept(&axis, ray_angle, 'x');
-	calculate_steps(ray_angle, &axis, 'x');
+	calculate_steps(game, ray_angle, &axis, 'x');
+	printf("horiz.next_touch_x = %f\n",axis.next_touch_x);
+	printf("horiz.next_touch_y = %f\n",axis.next_touch_y);
 	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
 	{
 		axis.x_to_check = axis.next_touch_x;
@@ -31,6 +35,8 @@ t_wall_hit	horizontal_intersection(t_game *game, float ray_angle)
 		}
 		axis.next_touch_x += axis.x_step;
 		axis.next_touch_y += axis.y_step;
+		printf("horiz.next_touch_x = %f\n",axis.next_touch_x);
+		printf("horiz.next_touch_y = %f\n",axis.next_touch_y);
 	}
 	return (hori);
 }
@@ -43,10 +49,14 @@ t_wall_hit	vertical_intersection(t_game *game, float ray_angle)
 	static t_wall_hit	vertical;
 	t_axis				axis;
 
-	ft_memset(&vertical, 0, sizeof(vertical));
-	ft_memset(&axis, 0, sizeof(axis));
+	// ft_memset(&vertical, 0, sizeof(vertical));
+	// ft_memset(&axis, 0, sizeof(axis));
+	vertical = (t_wall_hit){0};
+	axis = (t_axis){0};
 	find_intercept(&axis, ray_angle, 'y');
-	calculate_steps(ray_angle, &axis, 'y');
+	calculate_steps(game, ray_angle, &axis, 'y');
+	printf("vert.next_touch_x = %f\n",axis.next_touch_x);
+	printf("vert.next_touch_y = %f\n",axis.next_touch_y);
 	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
 	{
 		axis.x_to_check = axis.next_touch_x;
@@ -60,6 +70,8 @@ t_wall_hit	vertical_intersection(t_game *game, float ray_angle)
 		}
 		axis.next_touch_x += axis.x_step;
 		axis.next_touch_y += axis.y_step;
+		printf("vert.next_touch_x = %f\n",axis.next_touch_x);
+		printf("vert.next_touch_y = %f\n",axis.next_touch_y);
 	}
 	return (vertical);
 }

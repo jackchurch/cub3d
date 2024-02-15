@@ -1,4 +1,4 @@
-NAME		= a.out cub3d
+NAME		= a.out #cub3d
 
 OS			= $(shell uname)
 FT_PATH		= ./libft
@@ -24,7 +24,7 @@ $(SRC_PATH)/set_ceiling_floor.c
 
 CC		= gcc
 DFLAGS  = -fsanitize=address -g
-CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD -O0
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD -O3
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 DEPFILES = $(patsubst %.c,%.d,$(SRCS))
 
@@ -40,7 +40,6 @@ INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
 CFLAGS		+= -I $(MLX_PATH)
 
 all: $(NAME)
-
 $(NAME): $(OBJECTS) $(MLX_LIB) $(FT_LIB)
 	$(CC) $(DFLAGS) $(CFLAGS) $(OBJECTS) $(INC_LIBS) $(MLX_FLAGS) -o $@
 

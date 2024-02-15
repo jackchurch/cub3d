@@ -6,7 +6,7 @@
 
 extern t_player	player;
 
-void	calculate_steps(float ray_angle, t_axis *axis, char dir)
+void	calculate_steps(t_game *game, float ray_angle, t_axis *axis, char dir)
 {
 	if (dir == 'x')
 	{
@@ -30,8 +30,7 @@ void	calculate_steps(float ray_angle, t_axis *axis, char dir)
 		if (is_ray_facing_down(ray_angle) && axis->y_step < 0)
 			axis->y_step *= -1;
 	}
-	axis->next_touch_x = axis->x_intercept;
-	axis->next_touch_y = axis->y_intercept;
+	game->num_rays = game->num_rays;
 }
 
 void	cast_one_ray(t_game *game, float ray_angle, int stripId)
@@ -46,7 +45,10 @@ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
 			horizontal.wall_hit_x, horizontal.wall_hit_y);
 	vertical.distance = distance_between_points(player.x, player.y,
 			vertical.wall_hit_x, vertical.wall_hit_y);
-	//printf("Ray: %d\nVert Distance: %f\nHori Distance: %f\n\n", stripId, vertical.distance, horizontal.distance);
+	printf("Ray: %d\nVert Distance: %f\nHori Distance: %f\n\n", stripId, vertical.distance, horizontal.distance);
+	printf("Vert Wall Hit:\t%f/%f\n", vertical.wall_hit_x, vertical.wall_hit_y);
+	printf("Hori Wall Hit:\t%f/%f\n", horizontal.wall_hit_x, horizontal.wall_hit_y);
+	printf("Angle: %f\n\n", ray_angle);
 	if (vertical.distance > horizontal.distance)
 		ray_cast(game, &horizontal, stripId, ray_angle);
 	else

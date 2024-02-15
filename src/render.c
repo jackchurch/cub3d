@@ -19,9 +19,9 @@ void	render_player(t_game *game)
 	draw_rect(game, &player_rect);
 	player_line.x0 = player.x * MINIMAP_SCALE;
 	player_line.y0 = player.y * MINIMAP_SCALE;
-	player_line.x1 = (player.x + cos(player.rotation_angle) * 40)
+	player_line.x1 = (player.x + cos(player.rotation_angle) * 400)
 		* MINIMAP_SCALE;
-	player_line.y1 = (player.y + sin(player.rotation_angle) * 40)
+	player_line.y1 = (player.y + sin(player.rotation_angle) * 400)
 		* MINIMAP_SCALE;
 	player_line.color = 0x00E0B0FF;
 	draw_line(game, &player_line);
@@ -58,7 +58,7 @@ void	generate_3d_projection(t_game *game)
 	{
 		projected_wall_height = (int)((TILE_SIZE / (game->rays[i].distance
 						* cos(game->rays[i].ray_angle - player.rotation_angle)))
-				* ((game->win_width / 2) / tan(FOV_ANGLE / 2)));
+				* ((game->win_width) / tan(FOV_ANGLE / 2)));
 		rect.x = i;
 		rect.y = game->win_height / 2 - projected_wall_height / 2;
 		rect.width = 1;

@@ -15,7 +15,7 @@
 
 # define TILE_SIZE 64
 
-# define MINIMAP_SCALE 0.1
+# define MINIMAP_SCALE 0.3
 
 # define FOV_ANGLE 1.047197666666667
 

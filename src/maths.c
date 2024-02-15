@@ -6,6 +6,8 @@ void	normalize_angle(float *ray_angle)
 	*ray_angle = remainder(*ray_angle, M_PI * 2);
 	if (*ray_angle < 0)
 		*ray_angle = M_PI * 2 + *ray_angle;
+	else if (*ray_angle > 2 * M_PI)
+		*ray_angle = M_PI * 2 - *ray_angle;
 }
 
 float	distance_between_points(float x1, float y1, float x2, float y2)
