@@ -1,0 +1,700 @@
+diff --git a/12345678.cub b/12345678.cub
+new file mode 100644
+index 0000000..2651b65
+--- /dev/null
++++ b/12345678.cub
+@@ -0,0 +1,28 @@
++NO  textures/north.xpm
++EA  textures/east.xpm
++SO  textures/south.xpm
++WE  textures/west.xpm
++F   0,0,210
++C   200,0,2
++
++            11111111
++            10001001
++            10001001
++            10000001
++            10000011
++            10000010
++            10000011
++11111111111110000010
++10000000000000000001
++100000000000000000011
++100001111000111000001111111
++100001  1001100000000000001
++100001  10000000N0000000001
++100001  1000000000000000001
++100001  1000000000000000001
++111111  1111111111110000001
++                   10010001
++                   10010001
++                   10010001
++                   10000001
++                   11111111
+\ No newline at end of file
+diff --git a/Makefile b/Makefile
+index 9218466..e137a97 100644
+--- a/Makefile
++++ b/Makefile
+@@ -20,10 +20,11 @@ $(SRC_PATH)/ray_facing.c \
+ $(SRC_PATH)/cub_file_utils.c \
+ $(SRC_PATH)/init_cub_file.c \
+ $(SRC_PATH)/set_ceiling_floor.c
++#$(SRC_PATH)/update.c \
+ 
+ CC		= gcc
+-DFLAGS  = -fsanitize=address #-g
+-CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD
++DFLAGS  = -fsanitize=address -g
++CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD -O0
+ OBJECTS = $(patsubst %.c,%.o, $(SRCS))
+ DEPFILES = $(patsubst %.c,%.d,$(SRCS))
+ 
+diff --git a/cub3d b/cub3d
+index 0913ee9..4fd48e0 100755
+Binary files a/cub3d and b/cub3d differ
+diff --git a/inc/constance.h b/inc/constance.h
+index 3e22d93..65a1ccd 100644
+--- a/inc/constance.h
++++ b/inc/constance.h
+@@ -14,25 +14,18 @@
+ # define FLT_MAX 340282346638528859811704183484516925440.000000
+ 
+ # define TILE_SIZE 64
+-# define MAP_NUM_ROWS 11
+-# define MAP_NUM_COLS 15
+ 
+-# define MINIMAP_SCALE 0.2
+-
+-# define WINDOW_WIDTH 15
+-// move to variable, or use actual values
+-# define WINDOW_HEIGHT 10
+-// move to variable, or use actual values
++# define MINIMAP_SCALE 0.1
+ 
+ # define FOV_ANGLE 1.047197666666667
+ 
+-// # define NUM_RAYS WINDOW_WIDTH
+-
+-# define UP_ARROW 13
+-# define S_KEY 1
+-# define LEFT_ARROW 0
+-# define RIGHT_ARROW 2
+-# define ESC 53
++# define MAC_W 13
++# define MAC_S 1
++# define MAC_A 0
++# define MAC_D 2
++# define MAC_LEFT 123
++# define MAC_RIGHT 124
++# define MAC_ESC 53
+ # define LINUX_A 97
+ # define LINUX_S 115
+ # define LINUX_D 100
+diff --git a/inc/cub3d.h b/inc/cub3d.h
+index 21a3be2..b89c6d3 100644
+--- a/inc/cub3d.h
++++ b/inc/cub3d.h
+@@ -19,4 +19,6 @@ void	safe_exit(t_game *game);
+ // To sort
+ void	render(t_game *game);
+ 
++int		update(t_game *game);
++
+ #endif
+\ No newline at end of file
+diff --git a/inc/ray.h b/inc/ray.h
+index 7f198d5..b364b3a 100644
+--- a/inc/ray.h
++++ b/inc/ray.h
+@@ -14,8 +14,7 @@ void		render_rays(t_game *game);
+ void		ray_cast(t_game *game, t_wall_hit *hit,
+ 				int stripId, float ray_angle);
+ void		wall_found(t_game *game, t_wall_hit *orientation, t_axis axis, bool is_vertical);
+-void		find_intercept(t_wall_hit *orientation, t_axis *axis,
+-				float ray_angle, char dir);
++void		find_intercept(t_axis *axis, float ray_angle, char dir);
+ void		cast_all_rays(t_game *game);
+ void		cast_one_ray(t_game *game, float ray_angle, int stripId);
+ t_wall_hit	horizontal_intersection(t_game *game, float ray_angle);
+@@ -24,7 +23,6 @@ int			is_ray_facing_down(float angle);
+ int			is_ray_facing_up(float angle);
+ int			is_ray_facing_right(float angle);
+ int			is_ray_facing_left(float angle);
+-void		calculate_steps(float ray_angle, float *xstep,
+-				float *ystep, char axis);
++void		calculate_steps(float ray_angle, t_axis *axis, char dir);
+ 
+ #endif
+\ No newline at end of file
+diff --git a/inc/structs.h b/inc/structs.h
+index 0e908d5..d7c2b30 100644
+--- a/inc/structs.h
++++ b/inc/structs.h
+@@ -15,6 +15,7 @@ typedef struct s_map
+ 	bool		loading_map;
+ 	char		spawn_dir;
+ 	t_coords	spawn_loc;
++	float		rot_angle;
+ }	t_map;
+ 
+ typedef struct s_input
+@@ -115,6 +116,7 @@ typedef struct s_player
+ 	float	height;
+ 	int		turn_direction;
+ 	int		walk_direction;
++	int		strafe_direction;
+ 	float	rotation_angle;
+ 	float	walk_speed;
+ 	float	turn_speed;
+@@ -131,16 +133,24 @@ typedef struct s_data
+ 	int		endian;
+ }	t_data;
+ 
++typedef struct s_update
++{
++	float	refresh_rate;
++	int		end_game;
++	int		animate;
++}	t_update;
++
+ typedef struct s_game
+ {
+-	void	*mlx;
+-	void	*win;
+-	int		win_width;
+-	int		win_height;
+-	int		num_rays;
+-	t_input	input;
+-	t_ray	*rays;
+-	t_data	data;
++	void		*mlx;
++	void		*win;
++	int			win_width;
++	int			win_height;
++	int			num_rays;
++	t_update	update;
++	t_input		input;
++	t_ray		*rays;
++	t_data		data;
+ }	t_game;
+ 
+ #endif
+\ No newline at end of file
+diff --git a/libft/ft_memset.c b/libft/ft_memset.c
+index 71996df..668587a 100644
+--- a/libft/ft_memset.c
++++ b/libft/ft_memset.c
+@@ -20,6 +20,6 @@ void	*ft_memset(void *ptr, int c, size_t n)
+ 	str = ptr;
+ 	value = (unsigned char)c;
+ 	while (n--)
+-		*str = value;
++		str[n] = value;
+ 	return (ptr);
+ }
+diff --git a/map.cub b/map.cub
+index d73322d..2651b65 100644
+--- a/map.cub
++++ b/map.cub
+@@ -2,26 +2,27 @@ NO  textures/north.xpm
+ EA  textures/east.xpm
+ SO  textures/south.xpm
+ WE  textures/west.xpm
+-F   2,72,210
+-C   200,25,52
++F   0,0,210
++C   200,0,2
+ 
+             11111111
+             10001001
+             10001001
+             10000001
+             10000011
++            10000010
+             10000011
+-            10000011
+-11111111111110000011
++11111111111110000010
+ 10000000000000000001
+ 100000000000000000011
+ 100001111000111000001111111
+-100000000011100000000000001
+-1000000000000000N0000000001
+-100000000000000000000000001
+-100000000000000000000000001
+-111111111111111111110000001
++100001  1001100000000000001
++100001  10000000N0000000001
++100001  1000000000000000001
++100001  1000000000000000001
++111111  1111111111110000001
+                    10010001
+                    10010001
+                    10010001
++                   10000001
+                    11111111
+\ No newline at end of file
+diff --git a/map_reuben.cub b/map_reuben.cub
+new file mode 100644
+index 0000000..3ee6761
+--- /dev/null
++++ b/map_reuben.cub
+@@ -0,0 +1,18 @@
++NO  textures/north.xpm
++EA  textures/east.xpm
++SO  textures/south.xpm
++WE  textures/west.xpm
++F   2,72,210
++C   200,25,52
++
++   1111111111111111
++   1000000000000011
++   1000111111110011
++111100011   1110011
++10001111111100111
++1000000E00000011
++1000111111001111
++100011  110011
++10011  1100111111
++110011  1100000011
++111111  1111111111
+\ No newline at end of file
+diff --git a/map_simple.cub b/map_simple.cub
+new file mode 100644
+index 0000000..7feb0ac
+--- /dev/null
++++ b/map_simple.cub
+@@ -0,0 +1,14 @@
++NO  textures/north.xpm
++EA  textures/east.xpm
++SO  textures/south.xpm
++WE  textures/west.xpm
++F   0,0,210
++C   200,0,2
++
++1111111111
++1000000001
++1000000001
++10000N0001
++1000000001
++1000000001
++1111111111
+\ No newline at end of file
+diff --git a/src/ft_mlx.c b/src/ft_mlx.c
+index 75aab20..61e31b0 100644
+--- a/src/ft_mlx.c
++++ b/src/ft_mlx.c
+@@ -5,28 +5,31 @@ extern t_player	player;
+ 
+ int	key_release(int keycode)
+ {
+-	if (keycode == LEFT_ARROW || keycode == LINUX_A)
++	if (keycode == MAC_LEFT || keycode == MAC_RIGHT)
+ 		player.turn_direction = 0;
+-	if (keycode == RIGHT_ARROW || keycode == LINUX_D)
+-		player.turn_direction = 0;
+-	if (keycode == UP_ARROW || keycode == LINUX_W)
+-		player.walk_direction = 0;
+-	if (keycode == S_KEY || keycode == LINUX_S)
++	if (keycode == MAC_W || keycode == LINUX_W
++			|| keycode == MAC_S || keycode == LINUX_S)
+ 		player.walk_direction = 0;
++	if (keycode == MAC_A || keycode == MAC_D)
++		player.strafe_direction = 0;
+ 	return (0);
+ }
+ 
+ int	key_hook(int keycode, t_game *game)
+ {
+-	if (keycode == LEFT_ARROW || keycode == LINUX_A)
++	if (keycode == MAC_LEFT)
+ 		player.turn_direction = -1;
+-	if (keycode == RIGHT_ARROW || keycode == LINUX_D)
++	if (keycode == MAC_RIGHT)
+ 		player.turn_direction = 1;
+-	if (keycode == UP_ARROW || keycode == LINUX_W)
++	if (keycode == MAC_A || keycode == LINUX_A)
++		player.strafe_direction = -1;
++	if (keycode == MAC_D || keycode == LINUX_D)
++		player.strafe_direction = 1;
++	if (keycode == MAC_W || keycode == LINUX_W)
+ 		player.walk_direction = 1;
+-	if (keycode == S_KEY || keycode == LINUX_S)
++	if (keycode == MAC_S || keycode == LINUX_S)
+ 		player.walk_direction = -1;
+-	if (keycode == ESC || keycode == LINUX_ESC)
++	if (keycode == MAC_ESC || keycode == LINUX_ESC)
+ 		safe_exit(game);
+ 	// render_player(game);
+ 	// move_player(game);
+diff --git a/src/init_cub_file.c b/src/init_cub_file.c
+index 4b2b76f..99db815 100644
+--- a/src/init_cub_file.c
++++ b/src/init_cub_file.c
+@@ -27,10 +27,18 @@ void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
+ 
+ char	player_spawn(t_map *map, int i, int j, char line)
+ {
+-	if (line == 'N' || line == 'W' || line == 'E' || line == 'S')
++	if (line == 'N' || line == 'S' || line == 'E' || line == 'W')
+ 	{
+ 		map->spawn_loc.y = i;
+ 		map->spawn_loc.x = j;
++		if (line == 'S')
++			map->rot_angle = M_PI / 2;
++		else if (line == 'N')
++			map->rot_angle = M_PI * 1.5;
++		else if (line == 'E')
++			map->rot_angle = M_PI * 2;
++		else if (line == 'W')
++			map->rot_angle = M_PI;
+ 		return (line);
+ 	}
+ 	return (0);
+@@ -88,6 +96,8 @@ char	*isolate_element_path(char *str)
+ 	i = 0;
+ 	while (!(is_white_space(str[i])))
+ 		i++;
++	if (str[i] == '\n' || str[i] == '\0')
++		return (NULL);
+ 	while (is_white_space(str[i]))
+ 		i++;
+ 	start = i;
+@@ -110,6 +120,7 @@ int	init_map(t_map *map, char *line)
+ 
+ 	length = ft_strlen(line);
+ 	i = map->rows;
++	printf("%p\n", map->content);
+ 	if (!map->content)
+ 		map->content = malloc(sizeof(char *));
+ 	else
+@@ -156,14 +167,11 @@ int	do_shit(t_input *input, char *current_line)
+ 			input->map.loading_map = true;
+ 		init_map(&input->map, current_line);
+ 	}
+-	else if (input->element_type != CEILING && input->element_type != FLOOR)
+-		ceiling_floor_branch(input, str_1, input->element_type);
+ 	else
+ 		ceiling_floor_branch(input, str_1, input->element_type);
+ 	return (0);
+ }
+ 
+-
+ t_input	init_cub_file(char *file_name)
+ {
+ 	int			fd;
+@@ -171,6 +179,7 @@ t_input	init_cub_file(char *file_name)
+ 	t_input 	input;
+ 	t_coords	loc;
+ 
++	// input = (t_input){0};
+ 	ft_memset(&input, 0, sizeof(t_input));
+ 	ft_memset(&input.map, 0, sizeof(t_map));
+ 	ft_memset(&loc, 0, sizeof(t_coords));
+diff --git a/src/main.c b/src/main.c
+index b3c5415..677f4ba 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -18,9 +18,11 @@ void	setup(t_game *game)
+ 	player.height = 1;
+ 	player.turn_direction = 0;
+ 	player.walk_direction = 0;
+-	player.rotation_angle = M_PI / 2;
++	player.strafe_direction = 0;
++	player.rotation_angle = game->input.map.rot_angle;
+ 	player.walk_speed = 10;
+ 	player.turn_speed = M_PI / 180 * player.walk_speed;
++	ft_memset(&game->update, 0, sizeof(t_update));
+ }
+ 
+ void	safe_exit(t_game *game)
+@@ -52,15 +54,31 @@ void	safe_exit(t_game *game)
+ void	move_player(t_game *game)
+ {
+ 	float	move_step;
++	float	side_step;
+ 	float	new_player_x;
+ 	float	new_player_y;
+ 
+ 	if (!game)
+ 		return ;
+-	player.rotation_angle += player.turn_direction * player.turn_speed;
+ 	move_step = player.walk_direction * player.walk_speed;
++	side_step = player.strafe_direction * player.walk_speed;
++	player.rotation_angle += player.turn_direction * player.turn_speed;
+ 	new_player_x = player.x + cos(player.rotation_angle) * move_step;
+ 	new_player_y = player.y + sin(player.rotation_angle) * move_step;
++	if (side_step > 0)
++	{
++		new_player_x = player.x + cos(player.rotation_angle
++			+ (player.strafe_direction * player.turn_speed * 9)) * side_step;
++		new_player_y = player.y + sin(player.rotation_angle
++			+ (player.strafe_direction * player.turn_speed * 9)) * side_step;
++	}
++	if (side_step < 0)
++	{
++		new_player_x = player.x + cos(player.rotation_angle
++			+ (player.strafe_direction * player.turn_speed * 27)) * side_step;
++		new_player_y = player.y + sin(player.rotation_angle 
++		+ (player.strafe_direction * player.turn_speed * 27)) * side_step;
++	}
+ 	if (map_content_at(game, new_player_x, new_player_y) != '1')
+ 	{
+ 		player.x = new_player_x;
+@@ -98,8 +116,8 @@ int	main(int argc, char **argv)
+ 		return (printf("Error: Please execute with only 1 argument.\n"));
+ 	game = (t_game *)ft_calloc(1, sizeof(t_game));
+ 	game->input = init_cub_file(argv[1]);
+-	game->win_width = game->input.map.longest_row * TILE_SIZE;
+-	game->win_height = game->input.map.rows * TILE_SIZE;
++	game->win_width = 800; //game->input.map.longest_row * TILE_SIZE;
++	game->win_height = 600; //game->input.map.rows * TILE_SIZE;
+ 	init_window(game);
+ 	setup(game);
+ 	game->num_rays = game->win_width;
+@@ -112,6 +130,7 @@ int	main(int argc, char **argv)
+ 	// process_input(); // See keyhooks
+ 	// update(game); // Add FPS if have time.
+ 	render(game);
++	//mlx_loop_hook(game->mlx, update, &game);
+ 	mlx_loop(game->mlx);
+ 	return (0);
+ }
+diff --git a/src/map.c b/src/map.c
+index 0110a9c..8a717c0 100644
+--- a/src/map.c
++++ b/src/map.c
+@@ -2,21 +2,6 @@
+ #include "../inc/draw.h"
+ #include "../inc/map.h"
+ 
+-// this is a temporary global variable, used for testing instead of input maps.
+-/*static const int	map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+-	{1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
+-	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
+-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
+-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1},
+-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+-	{1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1},
+-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+-};*/
+-
+ char	map_content_at(t_game *game, float x, float y)
+ {
+ 	int	map_grid_index_y;
+@@ -43,19 +28,6 @@ bool	is_inside_map(t_game *game, float x, float y)
+ 		&& y >= 0 && y <= game->input.map.rows * TILE_SIZE);
+ }
+ 
+-// bool mapHasWallAt(float x, float y)
+-// {
+-// 	// IF out of bounds return true. 
+-// 	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
+-// 		return (true);
+-// 	int mapGridIndexX = floor(x / TILE_SIZE);
+-// 	int mapGridIndexY = floor(y / TILE_SIZE);
+-// 	// IF wall collision, return true
+-// 	if (map[mapGridIndexY][mapGridIndexX] != 0)
+-// 		return (true);
+-// 	return (false);
+-// }
+-
+ void	tile_rect_init(t_rectangle *map_tile_rect, const t_tile tile)
+ {
+ 	map_tile_rect->x = tile.x * MINIMAP_SCALE;
+diff --git a/src/ray.c b/src/ray.c
+index 6a7ea63..bd71a6b 100644
+--- a/src/ray.c
++++ b/src/ray.c
+@@ -6,30 +6,32 @@
+ 
+ extern t_player	player;
+ 
+-void	calculate_steps(float ray_angle, float *xstep, float *ystep, char axis)
++void	calculate_steps(float ray_angle, t_axis *axis, char dir)
+ {
+-	if (axis == 'x')
++	if (dir == 'x')
+ 	{
+-		*ystep = TILE_SIZE;
++		axis->y_step = TILE_SIZE;
+ 		if (is_ray_facing_up(ray_angle))
+-			*ystep *= -1;
+-		*xstep = TILE_SIZE / tan(ray_angle);
+-		if (is_ray_facing_left(ray_angle) && *xstep > 0)
+-			*xstep *= -1;
+-		if (is_ray_facing_right(ray_angle) && *xstep < 0)
+-			*xstep *= -1;
++			axis->y_step *= -1;
++		axis->x_step = TILE_SIZE / tan(ray_angle);
++		if (is_ray_facing_left(ray_angle) && axis->x_step > 0)
++			axis->x_step *= -1;
++		if (is_ray_facing_right(ray_angle) && axis->x_step < 0)
++			axis->x_step *= -1;
+ 	}
+-	if (axis == 'y')
++	if (dir == 'y')
+ 	{
+-		*xstep = TILE_SIZE;
++		axis->x_step = TILE_SIZE;
+ 		if (is_ray_facing_left(ray_angle))
+-			*xstep *= -1;
+-		*ystep = TILE_SIZE * tan(ray_angle);
+-		if (is_ray_facing_up(ray_angle) && *ystep > 0)
+-			*ystep *= -1;
+-		if (is_ray_facing_down(ray_angle) && *ystep < 0)
+-			*ystep *= -1;
++			axis->x_step *= -1;
++		axis->y_step = TILE_SIZE * tan(ray_angle);
++		if (is_ray_facing_up(ray_angle) && axis->y_step > 0)
++			axis->y_step *= -1;
++		if (is_ray_facing_down(ray_angle) && axis->y_step < 0)
++			axis->y_step *= -1;
+ 	}
++	axis->next_touch_x = axis->x_intercept;
++	axis->next_touch_y = axis->y_intercept;
+ }
+ 
+ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
+@@ -40,17 +42,15 @@ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
+ 	normalize_angle(&ray_angle);
+ 	horizontal = horizontal_intersection(game, ray_angle);
+ 	vertical = vertical_intersection(game, ray_angle);
+-	if (horizontal.found_wall_hit)
+-		horizontal.distance = distance_between_points(player.x, player.y,
+-				horizontal.wall_hit_x, horizontal.wall_hit_y);
+-	if (vertical.found_wall_hit)
+-		vertical.distance = distance_between_points(player.x, player.y,
+-				vertical.wall_hit_x, vertical.wall_hit_y);
+-	//printf("Vert Distance: %f\nHori Distance: %f\n", vertical.distance, horizontal.distance);
+-	if (vertical.distance < horizontal.distance)
+-		ray_cast(game, &vertical, stripId, ray_angle);
+-	else
++	horizontal.distance = distance_between_points(player.x, player.y,
++			horizontal.wall_hit_x, horizontal.wall_hit_y);
++	vertical.distance = distance_between_points(player.x, player.y,
++			vertical.wall_hit_x, vertical.wall_hit_y);
++	//printf("Ray: %d\nVert Distance: %f\nHori Distance: %f\n\n", stripId, vertical.distance, horizontal.distance);
++	if (vertical.distance > horizontal.distance)
+ 		ray_cast(game, &horizontal, stripId, ray_angle);
++	else
++		ray_cast(game, &vertical, stripId, ray_angle);
+ }
+ 
+ void	ray_cast(t_game *game, t_wall_hit *hit, int stripId, float ray_angle)
+diff --git a/src/ray_intersect.c b/src/ray_intersect.c
+index 63406cf..08ffea3 100644
+--- a/src/ray_intersect.c
++++ b/src/ray_intersect.c
+@@ -16,10 +16,8 @@ t_wall_hit	horizontal_intersection(t_game *game, float ray_angle)
+ 
+ 	ft_memset(&hori, 0, sizeof(hori));
+ 	ft_memset(&axis, 0, sizeof(axis));
+-	find_intercept(&hori, &axis, ray_angle, 'x');
+-	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'x');
+-	axis.next_touch_x = axis.x_intercept;
+-	axis.next_touch_y = axis.y_intercept;
++	find_intercept(&axis, ray_angle, 'x');
++	calculate_steps(ray_angle, &axis, 'x');
+ 	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
+ 	{
+ 		axis.x_to_check = axis.next_touch_x;
+@@ -31,11 +29,8 @@ t_wall_hit	horizontal_intersection(t_game *game, float ray_angle)
+ 			wall_found(game, &hori, axis, false);
+ 			break ;
+ 		}
+-		else
+-		{
+ 		axis.next_touch_x += axis.x_step;
+ 		axis.next_touch_y += axis.y_step;
+-		}
+ 	}
+ 	return (hori);
+ }
+@@ -50,10 +45,8 @@ t_wall_hit	vertical_intersection(t_game *game, float ray_angle)
+ 
+ 	ft_memset(&vertical, 0, sizeof(vertical));
+ 	ft_memset(&axis, 0, sizeof(axis));
+-	find_intercept(&vertical, &axis, ray_angle, 'y');
+-	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'y');
+-	axis.next_touch_x = axis.x_intercept;
+-	axis.next_touch_y = axis.y_intercept;
++	find_intercept(&axis, ray_angle, 'y');
++	calculate_steps(ray_angle, &axis, 'y');
+ 	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
+ 	{
+ 		axis.x_to_check = axis.next_touch_x;
+@@ -76,16 +69,13 @@ void	wall_found(t_game *game, t_wall_hit *orientation, t_axis axis, bool is_vert
+ 	orientation->found_wall_hit = true;
+ 	orientation->wall_hit_x = axis.next_touch_x;
+ 	orientation->wall_hit_y = axis.next_touch_y;
+-	orientation->wall_content = map_content_at(game, (axis.next_touch_y / TILE_SIZE),
+-			(axis.next_touch_x / TILE_SIZE));
++	orientation->wall_content = map_content_at(game, axis.next_touch_y / TILE_SIZE,
++			axis.next_touch_x / TILE_SIZE);
+ 	orientation->is_vertical = is_vertical;
+-//	orientation->distance = distance_between_points(player.x, player.y,
+-//			orientation->wall_hit_x, orientation->wall_hit_y);
+ }
+ 
+-void	find_intercept(t_wall_hit *orientation, t_axis *axis, float ray_angle, char dir)
++void	find_intercept(t_axis *axis, float ray_angle, char dir)
+ {
+-	orientation->distance = FLT_MAX;
+ 	if (dir == 'y')
+ 	{
+ 		axis->x_intercept = floor(player.x / TILE_SIZE) * TILE_SIZE;
+diff --git a/src/render.c b/src/render.c
+index f0b571d..6ce1fd6 100644
+--- a/src/render.c
++++ b/src/render.c
+@@ -68,18 +68,6 @@ void	generate_3d_projection(t_game *game)
+ 	}
+ }
+ 
+-/*
+-int			wall_top_pixel;
+-int			wall_bottom_pixel;
+-
+-wall_top_pixel = (WINDOW_HEIGHT / 2) - (projected_wall_height / 2);
+-if (wall_top_pixel < 0)
+-	wall_top_pixel = 0;
+-wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (projected_wall_height / 2);
+-if (wall_bottom_pixel > WINDOW_HEIGHT)
+-wall_bottom_pixel = WINDOW_HEIGHT;
+-*/
+-
+ int	color_assignment(t_game *game, int i)
+ {
+ 	if (game->rays[i].is_ray_facing_down && !game->rays[i].was_hit_vertical)
+diff --git a/src/update.c b/src/update.c
+new file mode 100644
+index 0000000..555a263
+--- /dev/null
++++ b/src/update.c
+@@ -0,0 +1,18 @@
++#include "cub3d.h"
++#include "structs.h"
++
++int update(t_game *game)
++{
++	if (game->update.refresh_rate < 30)
++		game->update.refresh_rate += 0.1;
++	else if (game->update.end_game < 1)
++	{
++		render(game);
++		game->update.refresh_rate = 0;
++		if (game->update.animate < 90)
++			game->update.animate++;
++		else
++			game->update.animate = 0;
++	}
++	return (0);
++}
+\ No newline at end of file
