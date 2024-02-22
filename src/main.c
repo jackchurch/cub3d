@@ -12,8 +12,8 @@ t_player	player;
 	// Add wall textrues here?
 void	setup(t_game *game)
 {
-	player.x = game->input.map.spawn_loc.x * TILE_SIZE;
-	player.y = game->input.map.spawn_loc.y * TILE_SIZE;
+	player.x = game->input.map.spawn_loc.x * TILE_SIZE + TILE_SIZE / 2;
+	player.y = game->input.map.spawn_loc.y * TILE_SIZE + TILE_SIZE / 2;
 	player.width = 1;
 	player.height = 1;
 	player.turn_direction = 0;
@@ -116,11 +116,11 @@ int	main(int argc, char **argv)
 		return (printf("Error: Please execute with only 1 argument.\n"));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(argv[1]);
-	game->win_width = 800; //game->input.map.longest_row * TILE_SIZE;
-	game->win_height = 600; //game->input.map.rows * TILE_SIZE;
+	game->win_width = game->input.map.longest_row * TILE_SIZE;
+	game->win_height = game->input.map.rows * TILE_SIZE;
 	init_window(game);
 	setup(game);
-	game->num_rays = game->win_width;
+	game->num_rays = 5;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
 	game->data.img = mlx_new_image(game->mlx,

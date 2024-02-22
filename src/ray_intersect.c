@@ -24,6 +24,8 @@ t_wall_hit	horizontal_intersection(t_game *game, float ray_angle)
 		axis.y_to_check = axis.next_touch_y;
 		if (is_ray_facing_up(ray_angle))
 			axis.y_to_check--;
+		printf("horiz.next_touch_x: %f\n", axis.next_touch_x);
+		printf("horiz.next_touch_y: %f\n", axis.next_touch_y);
 		if (map_content_at(game, axis.x_to_check, axis.y_to_check) == '1')
 		{
 			wall_found(game, &hori, axis, false);
@@ -53,6 +55,8 @@ t_wall_hit	vertical_intersection(t_game *game, float ray_angle)
 		axis.y_to_check = axis.next_touch_y;
 		if (is_ray_facing_left(ray_angle))
 			axis.x_to_check--;
+		printf("vert.next_touch_x: %f\n", axis.next_touch_x);
+		printf("vert.next_touch_y: %f\n", axis.next_touch_y);
 		if (map_content_at(game, axis.x_to_check, axis.y_to_check) == '1')
 		{
 			wall_found(game, &vertical, axis, true);
