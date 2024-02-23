@@ -11,14 +11,13 @@ bool	is_white_space(char c)
 	return (false);
 }
 
-void	find_first_char(char *current_line, int *i)
+/* void	find_first_char(char *current_line, int *i)
 {
-	int i = 0;
 	while (is_white_space(current_line[*i]))
 		*i++;
 	if (current_line[*i] == '\0')
 		*i = -1;
-}
+} */
 
 char	*remove_tail_whitespace(char *in_string)
 {
@@ -32,7 +31,8 @@ char	*remove_tail_whitespace(char *in_string)
 		{
 			len--;
 		}
-		ft_strlcpy(temp, in_string, ft_strlen(in_string) - len);
+		temp = malloc(len + 1);
+		ft_strlcpy(temp, in_string, len);
 		return (temp);
 	}
 	return (in_string);
@@ -45,13 +45,9 @@ bool	is_xpm_file(char *file_name)
 	len = ft_strlen(file_name);
 	if (file_name[len - 1] == 'm' && file_name[len - 2] == 'p' && 
 		file_name[len - 3] == 'x' && file_name[len - 4] == '.')
-	{
 		return (true);
-	}
 	else
-	{
 		return (false);
-	}
 }
 
 int	open_cub_file(char *file_name)
@@ -61,7 +57,7 @@ int	open_cub_file(char *file_name)
 	if (file_name == NULL)
 		return (-1);
 	fd = open(file_name, O_RDONLY);
-	if (fd == -1 || fd == NULL)
+	if (fd == -1 || !fd)
 		return (-1);
 	return (fd);
 }

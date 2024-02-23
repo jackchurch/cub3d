@@ -5,38 +5,35 @@
 #include "../inc/map.h"
 
 extern t_player	player;
-extern t_ray	g_rays[NUM_RAYS];
 
 //////////////////////////////////////////////
 // Horizintal ray grid intersection code.
 //////////////////////////////////////////////
-t_wall_hit	horizontal_intersection(float ray_angle)
+t_wall_hit	horizontal_intersection(t_game *game, float ray_angle)
 {
 	static t_wall_hit	hori;
 	t_axis				axis;
 
 	ft_memset(&hori, 0, sizeof(hori));
 	ft_memset(&axis, 0, sizeof(axis));
-	find_intercept(&hori, &axis, ray_angle, 'x');
-	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'x');
-	axis.next_touch_x = axis.x_intercept;
-	axis.next_touch_y = axis.y_intercept;
-	while (is_inside_map(axis.next_touch_x, axis.next_touch_y))
+	hori.found_wall_hit = false;
+	find_intercept(&axis, ray_angle, 'x');
+	calculate_steps(ray_angle, &axis, 'x');
+	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
 	{
 		axis.x_to_check = axis.next_touch_x;
 		axis.y_to_check = axis.next_touch_y;
 		if (is_ray_facing_up(ray_angle))
 			axis.y_to_check--;
-		if (map_content_at(axis.x_to_check, axis.y_to_check) == 1)
+		// printf("horiz.next_touch_x: %f\n", axis.next_touch_x);
+		// printf("horiz.next_touch_y: %f\n", axis.next_touch_y);
+		if (map_content_at(game, axis.x_to_check, axis.y_to_check) == '1')
 		{
-			wall_found(&hori, axis.next_touch_x, axis.next_touch_y, false);
+			wall_found(game, &hori, axis, false);
 			break ;
 		}
-		else
-		{
 		axis.next_touch_x += axis.x_step;
 		axis.next_touch_y += axis.y_step;
-		}
 	}
 	return (hori);
 }
@@ -44,26 +41,27 @@ t_wall_hit	horizontal_intersection(float ray_angle)
 //////////////////////////////////////////////
 // Vertical ray grid intersection code.
 //////////////////////////////////////////////
-t_wall_hit	vertical_intersection(float ray_angle)
+t_wall_hit	vertical_intersection(t_game *game, float ray_angle)
 {
 	static t_wall_hit	vertical;
 	t_axis				axis;
 
 	ft_memset(&vertical, 0, sizeof(vertical));
 	ft_memset(&axis, 0, sizeof(axis));
-	find_intercept(&vertical, &axis, ray_angle, 'y');
-	calculate_steps(ray_angle, &axis.x_step, &axis.y_step, 'y');
-	axis.next_touch_x = axis.x_intercept;
-	axis.next_touch_y = axis.y_intercept;
-	while (is_inside_map(axis.next_touch_x, axis.next_touch_y))
+	vertical.found_wall_hit = false;
+	find_intercept(&axis, ray_angle, 'y');
+	calculate_steps(ray_angle, &axis, 'y');
+	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
 	{
 		axis.x_to_check = axis.next_touch_x;
 		axis.y_to_check = axis.next_touch_y;
 		if (is_ray_facing_left(ray_angle))
 			axis.x_to_check--;
-		if (map_content_at(axis.x_to_check, axis.y_to_check) == 1)
+		// printf("vert.next_touch_x: %f\n", axis.next_touch_x);
+		// printf("vert.next_touch_y: %f\n", axis.next_touch_y);
+		if (map_content_at(game, axis.x_to_check, axis.y_to_check) == '1')
 		{
-			wall_found(&vertical, axis.next_touch_x, axis.next_touch_y, true);
+			wall_found(game, &vertical, axis, true);
 			break ;
 		}
 		axis.next_touch_x += axis.x_step;
@@ -72,22 +70,18 @@ t_wall_hit	vertical_intersection(float ray_angle)
 	return (vertical);
 }
 
-void	wall_found(t_wall_hit *orientation, float x_to_check,
-		float y_to_check, bool is_vertical)
+void	wall_found(t_game *game, t_wall_hit *orientation, t_axis axis, bool is_vertical)
 {
 	orientation->found_wall_hit = true;
-	orientation->wall_hit_x = x_to_check;
-	orientation->wall_hit_y = y_to_check;
-	orientation->wall_content = map_content_at((y_to_check / TILE_SIZE),
-			(x_to_check / TILE_SIZE));
+	orientation->wall_hit_x = axis.next_touch_x;
+	orientation->wall_hit_y = axis.next_touch_y;
+	orientation->wall_content = map_content_at(game, axis.next_touch_y / TILE_SIZE,
+			axis.next_touch_x / TILE_SIZE);
 	orientation->is_vertical = is_vertical;
-//	orientation->distance = distance_between_points(player.x, player.y,
-//			orientation->wall_hit_x, orientation->wall_hit_y);
 }
 
-void	find_intercept(t_wall_hit *orientation, t_axis *axis, float ray_angle, char dir)
+void	find_intercept(t_axis *axis, float ray_angle, char dir)
 {
-	orientation->distance = FLT_MAX;
 	if (dir == 'y')
 	{
 		axis->x_intercept = floor(player.x / TILE_SIZE) * TILE_SIZE;

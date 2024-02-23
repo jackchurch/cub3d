@@ -17,13 +17,14 @@ $(SRC_PATH)/render.c \
 $(SRC_PATH)/ray.c \
 $(SRC_PATH)/ray_intersect.c \
 $(SRC_PATH)/ray_facing.c \
-#$(SRC_PATH)/cub_file_utils.c \
-#$(SRC_PATH)/init_cub_file.c \
-#$(SRC_PATH)/set_ceiling_floor.c
+$(SRC_PATH)/cub_file_utils.c \
+$(SRC_PATH)/init_cub_file.c \
+$(SRC_PATH)/set_ceiling_floor.c
+#$(SRC_PATH)/update.c \
 
 CC		= gcc
-DFLAGS  = -fsanitize=address -g 
-CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD
+DFLAGS  = -fsanitize=address -g
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD -O0
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 DEPFILES = $(patsubst %.c,%.d,$(SRCS))
 
@@ -32,7 +33,7 @@ ifeq ($(OS),Darwin)
 	MLX_FLAGS = -framework OpenGL -framework AppKit
 else ifeq ($(OS),Linux)
 	MLX_PATH = ./mlx_linux
-	MLX_FLAGS = -lXext -lX11
+	MLX_FLAGS = -lXext -lX11 -lm
 endif
 
 INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft

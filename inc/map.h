@@ -10,16 +10,9 @@
 # include "constance.h"
 # include "draw.h"
 
-typedef struct s_tile
-{
-	int	x;
-	int	y;
-	int	color;
-}	t_tile;
-
 void	render_map(t_game *game);
-int		map_content_at(float x, float y);
+char	map_content_at(t_game *game, float x, float y);
 void	tile_rect_init(t_rectangle *map_tile_rect, const t_tile tile);
-bool	is_inside_map(float x, float y);
+bool	is_inside_map(t_game *game, float x, float y);
 
 #endif

@@ -34,15 +34,15 @@ void	draw_ceiling(t_game *game)
 
 	ceiling.x = 0;
 	ceiling.y = 0;
-	ceiling.width = WINDOW_WIDTH;
-	ceiling.height = WINDOW_HEIGHT / 2;
-	ceiling.color = 0x00FAF0E6;
+	ceiling.width = game->win_width;
+	ceiling.height = game->win_height / 2;
+	ceiling.color = game->input.ceiling_color;
 	draw_rect(game, &ceiling);
 	floor.x = 0;
-	floor.y = WINDOW_HEIGHT / 2;
-	floor.width = WINDOW_WIDTH;
-	floor.height = WINDOW_HEIGHT / 2;
-	floor.color = 0x008B9E8A;
+	floor.y = game->win_height / 2;
+	floor.width = game->win_width;
+	floor.height = game->win_height / 2;
+	floor.color = game->input.floor_color;
 	draw_rect(game, &floor);
 }
 
@@ -54,41 +54,29 @@ void	generate_3d_projection(t_game *game)
 
 	i = -1;
 	draw_ceiling(game);
-	while (++i < NUM_RAYS)
+	while (++i < game->num_rays)
 	{
-		projected_wall_height = (int)((TILE_SIZE / (g_rays[i].distance
-						* cos(g_rays[i].ray_angle - player.rotation_angle)))
-				* ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2)));
+		projected_wall_height = (int)((TILE_SIZE / (game->rays[i].distance
+						* cos(game->rays[i].ray_angle - player.rotation_angle)))
+				* ((game->win_width / 2) / tan(FOV_ANGLE / 2)));
 		rect.x = i;
-		rect.y = WINDOW_HEIGHT / 2 - projected_wall_height / 2;
+		rect.y = game->win_height / 2 - projected_wall_height / 2;
 		rect.width = 1;
 		rect.height = projected_wall_height;
-		rect.color = color_assignment(i);
+		rect.color = color_assignment(game, i);
 		draw_rect(game, &rect);
 	}
 }
 
-/*
-int			wall_top_pixel;
-int			wall_bottom_pixel;
-
-wall_top_pixel = (WINDOW_HEIGHT / 2) - (projected_wall_height / 2);
-if (wall_top_pixel < 0)
-	wall_top_pixel = 0;
-wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (projected_wall_height / 2);
-if (wall_bottom_pixel > WINDOW_HEIGHT)
-wall_bottom_pixel = WINDOW_HEIGHT;
-*/
-
-int	color_assignment(int i)
+int	color_assignment(t_game *game, int i)
 {
-	if (g_rays[i].is_ray_facing_down && !g_rays[i].was_hit_vertical)
+	if (game->rays[i].is_ray_facing_down && !game->rays[i].was_hit_vertical)
 		return (0x0000FFFF);
-	if (g_rays[i].is_ray_facing_up && !g_rays[i].was_hit_vertical)
+	if (game->rays[i].is_ray_facing_up && !game->rays[i].was_hit_vertical)
 		return (0x00FFFF00);
-	if (g_rays[i].is_ray_facing_left && g_rays[i].was_hit_vertical)
+	if (game->rays[i].is_ray_facing_left && game->rays[i].was_hit_vertical)
 		return (0x00FF00FF);
-	if (g_rays[i].is_ray_facing_right && g_rays[i].was_hit_vertical)
+	if (game->rays[i].is_ray_facing_right && game->rays[i].was_hit_vertical)
 		return (0x0000FF00);
 	return (0x00000000);
 }

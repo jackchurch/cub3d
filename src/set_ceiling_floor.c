@@ -1,6 +1,7 @@
 #include <fcntl.h>
 
-#include "../inc/map.h"
+#include "map.h"
+#include "structs.h"
 #include "cub_file.h"
 #include "constance.h"
 #include "cub3d.h"
@@ -15,7 +16,7 @@ int	num_of_strs(char **str)
 	return (i);
 }
 
-int	valid_spacing(char **str)
+/* int	valid_spacing(char **str)
 {
 	int	i;
 
@@ -24,7 +25,7 @@ int	valid_spacing(char **str)
 	{
 		
 	}
-}
+} */
 
 /*
 This needs some work. 
@@ -47,7 +48,6 @@ bool	any_invalid_chars(char *str)
 	i = 0;
 	white_space_found = false;
 	digit_found = false;
-	// While string exists
 	while (str[i] != '\0')
 	{
 		if (ft_isdigit(str[i]))
@@ -72,52 +72,71 @@ bool	valid_range(int i)
 	return (false);
 }
 
-int	for_each_value(char *value, int i, t_map *map, int element_type)
+void	input_path(t_input *input, char *path, int element_type)
 {
-	char	*str;
-
-
-	// Remove leading and tailing whitespace for each number (R G B)
-	str = ft_strtrim(value, " 	");
-	// If no numbers error; and also if number at index [0] and index [2] but white space at index [1], error as the number has a space in it. 
-	if (any_invalid_chars(str) == true)
-		return (-1);
-	if (element_type == CELING)
-	{
-		// Set struct with colour for R G Or B
-		map->celing[i] = ft_atoi(str);
-		if (valid_range(map->celing[i]) == false)
-			return (-1);
-	}
-	else
-	{
-		// WTF, can I use function pointers to set celing or floor
-		map->celing[i] = ft_atoi(str);
-		if (valid_range(map->celing[i]) == false)
-		return (-1);
-	}
+	if (element_type == NORTH)
+		input->north_path = ft_strdup(path);
+	if (element_type == SOUTH)
+		input->south_path = ft_strdup(path);
+	if (element_type == EAST)
+		input->east_path = ft_strdup(path);
+	if (element_type == WEST)
+		input->west_path = ft_strdup(path);
 }
 
-int	celing_floor_branch(char *current_line, int element_type)
+int	for_each_value(t_input *input, char *value, int element_type)
 {
 	char	*str;
+
+	str = ft_strtrim(value, " 	");
+	if (any_invalid_chars(str) == true)
+		return (-1);
+	input_path(input, str, element_type);
+	free(str);
+	return (0);
+}
+
+unsigned int	ceiling_floor_color(char *str)
+{
 	char	**values;
+	int		r;
+	int		g;
+	int		b;
+
+	values = ft_split(str, ',');
+	r = ft_atoi(values[0]);
+	g = ft_atoi(values[1]);
+	b = ft_atoi(values[2]);
+	while (*values)
+		free(*values++);
+	if (r > 255 || g > 255 || b > 255)
+		return (0);
+	return (r * 256 * 256 + g * 256 + b);
+}
+
+int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
+{
+	char	*str;
 	int		i;
+	int		count;
 
 	i = 0;
-	// str = Remove the C or F from the return string and then remove any leading white space.
-	str = isolate_element_path(current_line, 1);
-	// Split the string based on commas, this also removes the commas
-	values = ft_split(str, ',');
-	free(str);
-	while (values[i] != NULL)
+	count = 0;
+	str = isolate_element_path(current_line);
+	while (str[i] != '\0')
 	{
-		// if there are more than 3 value, then the RGB is invalid
-		// TODO: if it is 0 or 1 we also need to error before the while loop starts. ie `If number of strings is != 2` error
-		if (i == 3)
+		if (str[i] == ',')
+			count++;
+		if (count > 2)
 			return (-1);
-		if (for_each_value(values[i], i, map, element_type) == -1)
-			return (-1);
+		i++;
 	}
+	if (element_type != FLOOR && element_type != CEILING)
+		for_each_value(input, str, element_type);
+	else if (element_type == FLOOR)
+		input->floor_color = ceiling_floor_color(str);
+	else if (element_type == CEILING)
+		input->ceiling_color = ceiling_floor_color(str);
+	free(str);
 	return (0);
 }
