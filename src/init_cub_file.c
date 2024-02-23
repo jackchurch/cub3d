@@ -21,7 +21,6 @@ void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
 	new_ptr = malloc(new_len);
 	if (new_ptr)
 		ft_memcpy(new_ptr, ptr, old_len);
-//		free(ptr);
 	return (new_ptr);
 }
 
@@ -120,7 +119,6 @@ int	init_map(t_map *map, char *line)
 
 	length = ft_strlen(line);
 	i = map->rows;
-	printf("%p\n", map->content);
 	if (!map->content)
 		map->content = malloc(sizeof(char *));
 	else
@@ -179,7 +177,6 @@ t_input	init_cub_file(char *file_name)
 	t_input 	input;
 	t_coords	loc;
 
-	// input = (t_input){0};
 	ft_memset(&input, 0, sizeof(t_input));
 	ft_memset(&input.map, 0, sizeof(t_map));
 	ft_memset(&loc, 0, sizeof(t_coords));
