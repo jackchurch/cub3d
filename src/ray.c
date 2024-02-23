@@ -95,7 +95,6 @@ void	cast_all_rays(t_game *game)
 	ray_angle = g_player.rotation_angle - FOV_ANGLE / 2;
 	while (strip_id < game->num_rays)
 	{
-		// printf("\n\n\nRay ID: %d\n", strip_id);
 		cast_one_ray(game, ray_angle, strip_id);
 		ray_angle += FOV_ANGLE / game->num_rays;
 		strip_id++;

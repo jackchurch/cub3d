@@ -10,6 +10,7 @@ OBJ_PATH	= ./obj
 
 SRCS	= $(SRC_PATH)/main.c \
 $(SRC_PATH)/ft_mlx.c \
+$(SRC_PATH)/movement.c \
 $(SRC_PATH)/maths.c \
 $(SRC_PATH)/map.c \
 $(SRC_PATH)/draw.c \
@@ -18,6 +19,7 @@ $(SRC_PATH)/ray.c \
 $(SRC_PATH)/ray_intersect.c \
 $(SRC_PATH)/ray_facing.c \
 $(SRC_PATH)/cub_file_utils.c \
+$(SRC_PATH)/cub_file_utils_2.c \
 $(SRC_PATH)/init_cub_file.c \
 $(SRC_PATH)/set_ceiling_floor.c
 #$(SRC_PATH)/update.c \

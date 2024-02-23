@@ -22,6 +22,7 @@
 # include "constance.h"
 # include "ray.h"
 # include "cub_file.h"
+# include "map.h"
 
 bool	init_window(t_game *game);
 
@@ -30,7 +31,8 @@ void	safe_exit(t_game *game);
 
 // To sort
 void	render(t_game *game);
-
 int		update(t_game *game);
+void	strafe(float side_step, float *new_player_x, float *new_player_y);
+void	move_player(t_game *game);
 
 #endif

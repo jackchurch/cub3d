@@ -1,45 +1,24 @@
 src/cub_file_utils.c: OK!
+src/cub_file_utils_2.c: OK!
 src/draw.c: OK!
 src/ft_mlx.c: OK!
 Notice: GLOBAL_VAR_DETECTED  (line:  16, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-src/init_cub_file.c: Error!
-Error: LINE_TOO_LONG        (line: 102, col:  82):	line too long
-Error: LINE_TOO_LONG        (line: 111, col:  83):	line too long
-Error: LINE_TOO_LONG        (line: 112, col:  87):	line too long
-Error: TOO_MANY_LINES       (line: 128, col:   1):	Function has more than 25 lines
-Error: TOO_MANY_FUNCS       (line: 150, col:   1):	Too many functions in file
-Error: MIXED_SPACE_TAB      (line: 154, col:  12):	Mixed spaces and tabs
-Error: SPACE_REPLACE_TAB    (line: 154, col:  12):	Found space when expecting tab
-Error: TOO_MANY_LINES       (line: 178, col:   1):	Function has more than 25 lines
+src/init_cub_file.c: OK!
 src/main.c: Error!
 Notice: GLOBAL_VAR_DETECTED  (line:  22, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-Error: TOO_FEW_TAB          (line:  83, col:   1):	Missing tabs for indent level
-Error: LINE_TOO_LONG        (line:  83, col:  82):	line too long
-Error: TOO_FEW_TAB          (line:  85, col:   1):	Missing tabs for indent level
-Error: LINE_TOO_LONG        (line:  85, col:  82):	line too long
-Error: TOO_FEW_TAB          (line:  90, col:   1):	Missing tabs for indent level
-Error: LINE_TOO_LONG        (line:  90, col:  82):	line too long
-Error: SPC_BEFORE_NL        (line:  91, col:  64):	Space before newline
-Error: TOO_FEW_TAB          (line:  92, col:   1):	Missing tabs for indent level
-Error: TOO_MANY_LINES       (line:  99, col:   1):	Function has more than 25 lines
-Error: WRONG_SCOPE_COMMENT  (line: 142, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line: 143, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line: 145, col:   5):	Comment is invalid in this scope
-src/map.c: Error!
-Error: EMPTY_LINE_FUNCTION  (line:  39, col:   1):	Empty line in function
-Error: SPACE_EMPTY_LINE     (line:  39, col:   1):	Space on empty line
+Error: WRONG_SCOPE_COMMENT  (line:  96, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  97, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  99, col:   5):	Comment is invalid in this scope
+src/map.c: OK!
 src/maths.c: OK!
-src/ray.c: Error!
+src/movement.c: OK!
+Notice: GLOBAL_VAR_DETECTED  (line:  15, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
+src/ray.c: OK!
 Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-Error: WRONG_SCOPE_COMMENT  (line:  98, col:   9):	Comment is invalid in this scope
 src/ray_facing.c: OK!
 src/ray_intersect.c: OK!
 Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-src/render.c: Error!
+src/render.c: OK!
 Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-Error: LINE_TOO_LONG        (line:  72, col:  82):	line too long
-src/set_ceiling_floor.c: Error!
-Error: SPC_BEFORE_NL        (line:  68, col:  31):	Space before newline
-Error: TOO_MANY_FUNCS       (line: 111, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 129, col:   1):	Too many functions in file
+src/set_ceiling_floor.c: OK!
 src/update.c: OK!

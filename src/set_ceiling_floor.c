@@ -18,39 +18,6 @@
 #include "constance.h"
 #include "cub3d.h"
 
-int	num_of_strs(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != NULL)
-		i++;
-	return (i);
-}
-
-/* int	valid_spacing(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != NULL)
-	{
-		
-	}
-} */
-
-/*
-This needs some work. 
-
-Needs to have these return true for invalid_char
-`4 5`
-
-Needs to allow these to return false for no invalid char found
-` 45`
-`45 `
-
-using 2 booleans to help rember what previously found. 
-*/
 bool	any_invalid_chars(char *str)
 {
 	int		i;
@@ -65,7 +32,7 @@ bool	any_invalid_chars(char *str)
 		if (ft_isdigit(str[i]))
 		{
 			if (digit_found == true && white_space_found == true)
-				return (true); 
+				return (true);
 			digit_found = true;
 		}
 		else if (is_white_space(str[i]))
@@ -74,13 +41,6 @@ bool	any_invalid_chars(char *str)
 			return (true);
 		i++;
 	}
-	return (false);
-}
-
-bool	valid_range(int i)
-{
-	if (i >= 0 && i <= 255)
-		return (true);
 	return (false);
 }
 
