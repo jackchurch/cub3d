@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkabzins <rkabzins@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 16:18:31 by rkabzins          #+#    #+#             */
+/*   Updated: 2024/02/23 16:18:39 by rkabzins         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 #include "../inc/ray.h"
 #include "../inc/maths.h"
@@ -47,7 +59,7 @@ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
 	vertical = vertical_intersection(game, ray_angle);
 	horizontal.distance = FLT_MAX;
 	vertical.distance = FLT_MAX;
-	if (horizontal.found_wall_hit == true)
+
 	{
 		horizontal.distance = distance_between_points(player.x, player.y,
 			horizontal.wall_hit_x, horizontal.wall_hit_y);

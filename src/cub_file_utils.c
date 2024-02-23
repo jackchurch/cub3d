@@ -1,5 +1,16 @@
-#include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub_file_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkabzins <rkabzins@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 16:15:52 by rkabzins          #+#    #+#             */
+/*   Updated: 2024/02/23 16:16:04 by rkabzins         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include <fcntl.h>
 #include "../inc/map.h"
 #include "constance.h"
 #include "cub3d.h"
@@ -11,13 +22,20 @@ bool	is_white_space(char c)
 	return (false);
 }
 
-/* void	find_first_char(char *current_line, int *i)
+int	is_only_one(char *line)
 {
-	while (is_white_space(current_line[*i]))
-		*i++;
-	if (current_line[*i] == '\0')
-		*i = -1;
-} */
+	int	i;
+
+	i = -1;
+	if (!line)
+		return (1);
+	while (line[++i] != '\n' && line[i] != '\0')
+	{
+		if (!(is_white_space(line[i]) || line[i] == '1'))
+			return (0);
+	}
+	return (1);
+}
 
 char	*remove_tail_whitespace(char *in_string)
 {
@@ -43,8 +61,8 @@ bool	is_xpm_file(char *file_name)
 	int	len;
 
 	len = ft_strlen(file_name);
-	if (file_name[len - 1] == 'm' && file_name[len - 2] == 'p' && 
-		file_name[len - 3] == 'x' && file_name[len - 4] == '.')
+	if (file_name[len - 1] == 'm' && file_name[len - 2] == 'p'
+		&& file_name[len - 3] == 'x' && file_name[len - 4] == '.')
 		return (true);
 	else
 		return (false);

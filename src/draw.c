@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkabzins <rkabzins@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 16:16:22 by rkabzins          #+#    #+#             */
+/*   Updated: 2024/02/23 16:16:23 by rkabzins         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 #include "../inc/draw.h"
 
@@ -7,7 +19,8 @@ void	my_mlx_pixel_put(t_game *game, int x, int y, unsigned int color)
 
 	if (x < 0 || y < 0 || x >= game->win_width || y >= game->win_height)
 		return ;
-	dst = (game->data.addr + (y * game->data.line_length + x * game->data.bpp / 8));
+	dst = (game->data.addr + (y * game->data.line_length
+				+ x * game->data.bpp / 8));
 	*(unsigned int *)dst = color;
 }
 

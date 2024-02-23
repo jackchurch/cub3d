@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_mlx.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkabzins <rkabzins@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 16:16:30 by rkabzins          #+#    #+#             */
+/*   Updated: 2024/02/23 16:16:32 by rkabzins         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/ft_mlx.h"
 #include "../inc/constance.h"
 
@@ -8,7 +20,7 @@ int	key_release(int keycode)
 	if (keycode == MAC_LEFT || keycode == MAC_RIGHT)
 		player.turn_direction = 0;
 	if (keycode == MAC_W || keycode == LINUX_W
-			|| keycode == MAC_S || keycode == LINUX_S)
+		|| keycode == MAC_S || keycode == LINUX_S)
 		player.walk_direction = 0;
 	if (keycode == MAC_A || keycode == MAC_D)
 		player.strafe_direction = 0;
@@ -31,10 +43,6 @@ int	key_hook(int keycode, t_game *game)
 		player.walk_direction = -1;
 	if (keycode == MAC_ESC || keycode == LINUX_ESC)
 		safe_exit(game);
-	// render_player(game);
-	// move_player(game);
-	// render_map(game);
-	// render_player(game);
 	render(game);
 	return (0);
 }

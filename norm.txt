@@ -1,296 +1,83 @@
-src/main.c: Error!
-Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
-Error: CONSECUTIVE_NEWLINES (line:  27, col:   1):	Consecutive newlines
-Error: CONSECUTIVE_NEWLINES (line:  28, col:   1):	Consecutive newlines
-Error: CONSECUTIVE_NEWLINES (line:  29, col:   1):	Consecutive newlines
-Error: FORBIDDEN_CHAR_NAME  (line:  30, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: VAR_DECL_START_FUNC  (line:  35, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  35, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  35, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  35, col:  20):	Declaration and assignation on a single line
-Error: SPACE_REPLACE_TAB    (line:  36, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  36, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  36, col:  22):	Declaration and assignation on a single line
-Error: SPACE_REPLACE_TAB    (line:  37, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  37, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  37, col:  22):	Declaration and assignation on a single line
-Error: CONSECUTIVE_NEWLINES (line:  39, col:   1):	Consecutive newlines
-Error: EMPTY_LINE_FUNCTION  (line:  39, col:   1):	Empty line in function
-Error: SPACE_BEFORE_FUNC    (line:  47, col:   5):	space before function name
-Error: FORBIDDEN_CHAR_NAME  (line:  47, col:   6):	user defined identifiers should contain only lowercase characters, digits or '_'
+src/cub_file_utils.c: OK!
+src/draw.c: Error!
+Error: LINE_TOO_LONG        (line:  22, col:  82):	line too long
+src/ft_mlx.c: Error!
+Notice: GLOBAL_VAR_DETECTED  (line:  16, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
+Error: GLOBAL_VAR_NAMING    (line:  16, col:  17):	Global variable must start with g_
+Error: TOO_MANY_TAB         (line:  23, col:  13):	Extra tabs for indent level
+Error: WRONG_SCOPE_COMMENT  (line:  46, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  47, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  48, col:   5):	Comment is invalid in this scope
 Error: WRONG_SCOPE_COMMENT  (line:  49, col:   5):	Comment is invalid in this scope
-Error: EMPTY_LINE_FUNCTION  (line:  51, col:   1):	Empty line in function
-Error: WRONG_SCOPE_COMMENT  (line:  52, col:   5):	Comment is invalid in this scope
-Error: VAR_DECL_START_FUNC  (line:  53, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  53, col:   8):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  53, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  53, col:  25):	Declaration and assignation on a single line
-Error: SPACE_REPLACE_TAB    (line:  54, col:   8):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  54, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  54, col:  23):	Declaration and assignation on a single line
-Error: SPACE_REPLACE_TAB    (line:  55, col:   8):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  55, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  55, col:  26):	Declaration and assignation on a single line
-Error: SPACE_REPLACE_TAB    (line:  56, col:   8):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  56, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  56, col:  25):	Declaration and assignation on a single line
-Error: VAR_DECL_START_FUNC  (line:  58, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  58, col:  10):	Found space when expecting tab
-Error: MISALIGNED_VAR_DECL  (line:  58, col:  11):	Misaligned variable declaration
-Error: TOO_MANY_VARS_FUNC   (line:  59, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  59, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  59, col:  10):	Found space when expecting tab
-Error: MISALIGNED_VAR_DECL  (line:  59, col:  11):	Misaligned variable declaration
-Error: TOO_MANY_VARS_FUNC   (line:  60, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  60, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  60, col:  10):	Found space when expecting tab
-Error: MISALIGNED_VAR_DECL  (line:  60, col:  11):	Misaligned variable declaration
-Error: TOO_MANY_VARS_FUNC   (line:  61, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  61, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  61, col:  10):	Found space when expecting tab
-Error: MISALIGNED_VAR_DECL  (line:  61, col:  11):	Misaligned variable declaration
-Error: WRONG_SCOPE_COMMENT  (line:  63, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  64, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  65, col:   5):	Comment is invalid in this scope
-Error: TOO_MANY_VARS_FUNC   (line:  66, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  66, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  66, col:   8):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  66, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  66, col:  26):	Declaration and assignation on a single line
-Error: TOO_MANY_VARS_FUNC   (line:  67, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  67, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  67, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  67, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line:  67, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line:  67, col:  24):	Declaration and assignation on a single line
-Error: TOO_MANY_VARS_FUNC   (line:  68, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  68, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  68, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  68, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line:  68, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line:  68, col:  24):	Declaration and assignation on a single line
-Error: TOO_MANY_VARS_FUNC   (line:  69, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  69, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  69, col:   8):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  69, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  69, col:  25):	Declaration and assignation on a single line
-Error: WRONG_SCOPE_COMMENT  (line:  71, col:   5):	Comment is invalid in this scope
-Error: TERNARY_FBIDDEN      (line:  73, col:  36):	Ternaries are forbidden
-Error: EMPTY_LINE_FUNCTION  (line:  74, col:   1):	Empty line in function
-Error: WRONG_SCOPE_COMMENT  (line:  75, col:   5):	Comment is invalid in this scope
-Error: EMPTY_LINE_FUNCTION  (line:  77, col:   1):	Empty line in function
-Error: WRONG_SCOPE_COMMENT  (line:  78, col:   5):	Comment is invalid in this scope
-Error: TERNARY_FBIDDEN      (line:  80, col:  29):	Ternaries are forbidden
-Error: EMPTY_LINE_FUNCTION  (line:  81, col:   1):	Empty line in function
-Error: TERNARY_FBIDDEN      (line:  83, col:  46):	Ternaries are forbidden
-Error: TERNARY_FBIDDEN      (line:  84, col:  47):	Ternaries are forbidden
-Error: LINE_TOO_LONG        (line:  85, col:   5):	line too long
-Error: WRONG_SCOPE_COMMENT  (line:  85, col:   5):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line:  85, col: 103):	line too long
-Error: TOO_MANY_VARS_FUNC   (line:  86, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  86, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  86, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  86, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line:  86, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line:  86, col:  26):	Declaration and assignation on a single line
-Error: TOO_MANY_VARS_FUNC   (line:  87, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line:  87, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line:  87, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  87, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line:  87, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line:  87, col:  26):	Declaration and assignation on a single line
-Error: WRONG_SCOPE_COMMENT  (line:  89, col:   5):	Comment is invalid in this scope
+src/init_cub_file.c: Error!
+Error: SPACE_REPLACE_TAB    (line:  22, col:   9):	Found space when expecting tab
+Error: SPC_BEFORE_NL        (line:  79, col:   2):	Space before newline
+Error: LINE_TOO_LONG        (line: 100, col:   1):	line too long
+Error: LINE_TOO_LONG        (line: 100, col:  86):	line too long
+Error: SPACE_EMPTY_LINE     (line: 106, col:   1):	Space on empty line
+Error: TOO_MANY_FUNCS       (line: 126, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 137, col:  82):	line too long
+Error: LINE_TOO_LONG        (line: 146, col:  83):	line too long
+Error: LINE_TOO_LONG        (line: 147, col:  87):	line too long
+Error: TOO_MANY_LINES       (line: 163, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 165, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 185, col:   1):	Too many functions in file
+Error: MIXED_SPACE_TAB      (line: 189, col:  12):	Mixed spaces and tabs
+Error: SPACE_REPLACE_TAB    (line: 189, col:  12):	Found space when expecting tab
+Error: TOO_MANY_LINES       (line: 213, col:   1):	Function has more than 25 lines
+src/main.c: Error!
+Notice: GLOBAL_VAR_DETECTED  (line:  22, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
+Error: GLOBAL_VAR_NAMING    (line:  22, col:  13):	Global variable must start with g_
+Error: TOO_FEW_TAB          (line:  83, col:   1):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  85, col:   1):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  90, col:   1):	Missing tabs for indent level
+Error: SPC_BEFORE_NL        (line:  91, col:  60):	Space before newline
+Error: TOO_FEW_TAB          (line:  92, col:   1):	Missing tabs for indent level
+Error: TOO_MANY_LINES       (line:  99, col:   1):	Function has more than 25 lines
+Error: WRONG_SCOPE_COMMENT  (line: 142, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line: 143, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line: 145, col:   5):	Comment is invalid in this scope
+src/map.c: Error!
+Error: EMPTY_LINE_FUNCTION  (line:  39, col:   1):	Empty line in function
+Error: SPACE_EMPTY_LINE     (line:  39, col:   1):	Space on empty line
+src/maths.c: OK!
+src/ray.c: Error!
+Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
+Error: GLOBAL_VAR_NAMING    (line:  19, col:  17):	Global variable must start with g_
+Error: WRONG_SCOPE_COMMENT  (line:  23, col:   5):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  34, col:   9):	line too long
+Error: WRONG_SCOPE_COMMENT  (line:  34, col:   9):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  34, col:  92):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   9):	line too long
+Error: WRONG_SCOPE_COMMENT  (line:  46, col:   9):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  46, col:  91):	line too long
+Error: TOO_MANY_LINES       (line:  50, col:   1):	Function has more than 25 lines
+Error: EMPTY_LINE_FUNCTION  (line:  62, col:   1):	Empty line in function
+Error: TOO_FEW_TAB          (line:  65, col:   1):	Missing tabs for indent level
+Error: EMPTY_LINE_FUNCTION  (line:  67, col:   1):	Empty line in function
+Error: LINE_TOO_LONG        (line:  75, col:   9):	line too long
+Error: WRONG_SCOPE_COMMENT  (line:  75, col:   9):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  75, col:  98):	line too long
+Error: LINE_TOO_LONG        (line:  80, col:   9):	line too long
+Error: WRONG_SCOPE_COMMENT  (line:  80, col:   9):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  80, col: 100):	line too long
+Error: TOO_MANY_LINES       (line:  83, col:   1):	Function has more than 25 lines
+Error: WRONG_SCOPE_COMMENT  (line: 108, col:   9):	Comment is invalid in this scope
+src/ray_facing.c: OK!
+src/ray_intersect.c: Error!
+Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
+Error: GLOBAL_VAR_NAMING    (line:  19, col:  17):	Global variable must start with g_
+Error: WRONG_SCOPE_COMMENT  (line:  40, col:   9):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  41, col:   9):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  72, col:   9):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  73, col:   9):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  85, col:  88):	line too long
 Error: LINE_TOO_LONG        (line:  90, col:  83):	line too long
-Error: WRONG_SCOPE_COMMENT  (line:  92, col:   9):	Comment is invalid in this scope
-Error: WRONG_SCOPE_VAR      (line:  93, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line:  93, col:  14):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  93, col:  15):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  93, col:  24):	Declaration and assignation on a single line
-Error: WRONG_SCOPE_VAR      (line:  94, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line:  94, col:  14):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line:  94, col:  15):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line:  94, col:  24):	Declaration and assignation on a single line
-Error: TERNARY_FBIDDEN      (line:  94, col:  58):	Ternaries are forbidden
-Error: LINE_TOO_LONG        (line: 101, col:  82):	line too long
-Error: NO_SPC_AFR_PAR       (line: 101, col: 109):	Extra space after parenthesis (brace/bracket)
-Error: NO_SPC_BFR_PAR       (line: 101, col: 111):	Extra space before parenthesis (brace/bracket)
-Error: LINE_TOO_LONG        (line: 102, col:  13):	line too long
-Error: WRONG_SCOPE_COMMENT  (line: 102, col:  13):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line: 102, col: 110):	line too long
-Error: EMPTY_LINE_FUNCTION  (line: 111, col:   1):	Empty line in function
-Error: WRONG_SCOPE_COMMENT  (line: 112, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line: 113, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line: 114, col:   5):	Comment is invalid in this scope
-Error: TOO_MANY_VARS_FUNC   (line: 115, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line: 115, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line: 115, col:   8):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 115, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line: 115, col:  26):	Declaration and assignation on a single line
-Error: TOO_MANY_VARS_FUNC   (line: 116, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line: 116, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line: 116, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 116, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 116, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 116, col:  24):	Declaration and assignation on a single line
-Error: TOO_MANY_VARS_FUNC   (line: 117, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line: 117, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line: 117, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 117, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 117, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 117, col:  24):	Declaration and assignation on a single line
-Error: TOO_MANY_VARS_FUNC   (line: 118, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line: 118, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line: 118, col:   8):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 118, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line: 118, col:  25):	Declaration and assignation on a single line
-Error: WRONG_SCOPE_COMMENT  (line: 120, col:   5):	Comment is invalid in this scope
-Error: TERNARY_FBIDDEN      (line: 122, col:  37):	Ternaries are forbidden
-Error: EMPTY_LINE_FUNCTION  (line: 123, col:   1):	Empty line in function
-Error: WRONG_SCOPE_COMMENT  (line: 124, col:   5):	Comment is invalid in this scope
-Error: EMPTY_LINE_FUNCTION  (line: 126, col:   1):	Empty line in function
-Error: WRONG_SCOPE_COMMENT  (line: 127, col:   5):	Comment is invalid in this scope
-Error: TERNARY_FBIDDEN      (line: 129, col:  31):	Ternaries are forbidden
-Error: EMPTY_LINE_FUNCTION  (line: 130, col:   1):	Empty line in function
-Error: TERNARY_FBIDDEN      (line: 132, col:  44):	Ternaries are forbidden
-Error: TERNARY_FBIDDEN      (line: 133, col:  46):	Ternaries are forbidden
-Error: LINE_TOO_LONG        (line: 134, col:   5):	line too long
-Error: WRONG_SCOPE_COMMENT  (line: 134, col:   5):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line: 134, col: 103):	line too long
-Error: TOO_MANY_VARS_FUNC   (line: 135, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line: 135, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line: 135, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 135, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 135, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 135, col:  26):	Declaration and assignation on a single line
-Error: TOO_MANY_VARS_FUNC   (line: 136, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line: 136, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line: 136, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 136, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 136, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 136, col:  26):	Declaration and assignation on a single line
-Error: WRONG_SCOPE_COMMENT  (line: 138, col:   5):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line: 139, col:  83):	line too long
-Error: WRONG_SCOPE_COMMENT  (line: 141, col:   9):	Comment is invalid in this scope
-Error: WRONG_SCOPE_VAR      (line: 142, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 142, col:  14):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 142, col:  15):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line: 142, col:  24):	Declaration and assignation on a single line
-Error: TERNARY_FBIDDEN      (line: 142, col:  60):	Ternaries are forbidden
-Error: WRONG_SCOPE_VAR      (line: 143, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 143, col:  14):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 143, col:  15):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line: 143, col:  24):	Declaration and assignation on a single line
-Error: LINE_TOO_LONG        (line: 150, col:  82):	line too long
-Error: LINE_TOO_LONG        (line: 151, col:  13):	line too long
-Error: WRONG_SCOPE_COMMENT  (line: 151, col:  13):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line: 151, col: 110):	line too long
-Error: EMPTY_LINE_FUNCTION  (line: 160, col:   1):	Empty line in function
-Error: SPACE_EMPTY_LINE     (line: 160, col:   1):	Space on empty line
-Error: WRONG_SCOPE_COMMENT  (line: 161, col:   5):	Comment is invalid in this scope
-Error: TOO_MANY_VARS_FUNC   (line: 162, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line: 162, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line: 162, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 162, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 162, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 162, col:  27):	Declaration and assignation on a single line
-Error: TOO_FEW_TAB          (line: 163, col:   1):	Missing tabs for indent level
-Error: TERNARY_FBIDDEN      (line: 163, col:   9):	Ternaries are forbidden
-Error: LINE_TOO_LONG        (line: 163, col:  83):	line too long
-Error: TOO_FEW_TAB          (line: 164, col:   1):	Missing tabs for indent level
-Error: TOO_MANY_VARS_FUNC   (line: 166, col:   1):	Too many variables declarations in a function
-Error: VAR_DECL_START_FUNC  (line: 166, col:   1):	Variable declaration not at start of function
-Error: SPACE_REPLACE_TAB    (line: 166, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 166, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 166, col:  11):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 166, col:  27):	Declaration and assignation on a single line
-Error: TOO_FEW_TAB          (line: 167, col:   1):	Missing tabs for indent level
-Error: TERNARY_FBIDDEN      (line: 167, col:   9):	Ternaries are forbidden
-Error: LINE_TOO_LONG        (line: 167, col:  83):	line too long
-Error: TOO_FEW_TAB          (line: 168, col:   1):	Missing tabs for indent level
-Error: WRONG_SCOPE_COMMENT  (line: 170, col:   5):	Comment is invalid in this scope
-Error: TOO_MANY_LINES       (line: 192, col:   1):	Function has more than 25 lines
-Error: SPACE_BEFORE_FUNC    (line: 194, col:   5):	space before function name
-Error: FORBIDDEN_CHAR_NAME  (line: 194, col:   6):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: FORBIDDEN_CHAR_NAME  (line: 194, col:   6):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: NO_ARGS_VOID         (line: 194, col:  18):	Empty function argument requires void
-Error: SPACE_REPLACE_TAB    (line: 196, col:  10):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 196, col:  11):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line: 196, col:  20):	Declaration and assignation on a single line
-Error: NL_AFTER_VAR_DECL    (line: 197, col:   1):	Variable declarations must be followed by a newline
-Error: FORBIDDEN_CS         (line: 197, col:   5):	Forbidden control structure
-Error: LINE_TOO_LONG        (line: 199, col:   9):	line too long
-Error: WRONG_SCOPE_COMMENT  (line: 199, col:   9):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line: 199, col:  87):	line too long
-Error: CONSECUTIVE_NEWLINES (line: 205, col:   1):	Consecutive newlines
-Error: TOO_MANY_FUNCS       (line: 206, col:   1):	Too many functions in file
-Error: FORBIDDEN_CHAR_NAME  (line: 206, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: FORBIDDEN_CS         (line: 208, col:   5):	Forbidden control structure
-Error: WRONG_SCOPE_VAR      (line: 210, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 210, col:  15):	Found space when expecting tab
-Error: DECL_ASSIGN_LINE     (line: 210, col:  21):	Declaration and assignation on a single line
-Error: LINE_TOO_LONG        (line: 229, col:   1):	line too long
-Error: LINE_TOO_LONG        (line: 229, col:  95):	line too long
-Error: CONSECUTIVE_NEWLINES (line: 232, col:   1):	Consecutive newlines
-Error: CONSECUTIVE_NEWLINES (line: 233, col:   1):	Consecutive newlines
-Error: TOO_MANY_FUNCS       (line: 234, col:   1):	Too many functions in file
-Error: FORBIDDEN_CHAR_NAME  (line: 234, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: FORBIDDEN_CHAR_NAME  (line: 234, col:   9):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: FORBIDDEN_CS         (line: 237, col:   5):	Forbidden control structure
-Error: WRONG_SCOPE_VAR      (line: 239, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 239, col:  14):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 239, col:  15):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line: 239, col:  33):	Declaration and assignation on a single line
-Error: LINE_TOO_LONG        (line: 239, col:  85):	line too long
-Error: WRONG_SCOPE_VAR      (line: 240, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 240, col:  14):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 240, col:  15):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line: 240, col:  33):	Declaration and assignation on a single line
-Error: WRONG_SCOPE_VAR      (line: 241, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 241, col:  14):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 241, col:  15):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: DECL_ASSIGN_LINE     (line: 241, col:  35):	Declaration and assignation on a single line
-Error: LINE_TOO_LONG        (line: 241, col:  88):	line too long
-Error: WRONG_SCOPE_VAR      (line: 242, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 242, col:  12):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 242, col:  13):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 242, col:  13):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 242, col:  29):	Declaration and assignation on a single line
-Error: WRONG_SCOPE_VAR      (line: 244, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 244, col:  12):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 244, col:  13):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 244, col:  13):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 244, col:  26):	Declaration and assignation on a single line
-Error: TERNARY_FBIDDEN      (line: 245, col:  41):	Ternaries are forbidden
-Error: EMPTY_LINE_FUNCTION  (line: 246, col:   1):	Empty line in function
-Error: CONSECUTIVE_NEWLINES (line: 247, col:   1):	Consecutive newlines
-Error: EMPTY_LINE_FUNCTION  (line: 247, col:   1):	Empty line in function
-Error: WRONG_SCOPE_VAR      (line: 248, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 248, col:  12):	Found space when expecting tab
-Error: FORBIDDEN_CHAR_NAME  (line: 248, col:  13):	user defined identifiers should contain only lowercase characters, digits or '_'
-Error: MISALIGNED_VAR_DECL  (line: 248, col:  13):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 248, col:  29):	Declaration and assignation on a single line
-Error: TERNARY_FBIDDEN      (line: 249, col:  56):	Ternaries are forbidden
-Error: LINE_TOO_LONG        (line: 249, col:  89):	line too long
-Error: EMPTY_LINE_FUNCTION  (line: 250, col:   1):	Empty line in function
-Error: WRONG_SCOPE_VAR      (line: 251, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 251, col:  12):	Found space when expecting tab
-Error: MISALIGNED_VAR_DECL  (line: 251, col:  13):	Misaligned variable declaration
-Error: WRONG_SCOPE_VAR      (line: 260, col:   1):	Variable declared in incorrect scope
-Error: SPACE_REPLACE_TAB    (line: 260, col:  20):	Found space when expecting tab
-Error: MISALIGNED_VAR_DECL  (line: 260, col:  21):	Misaligned variable declaration
-Error: DECL_ASSIGN_LINE     (line: 260, col:  26):	Declaration and assignation on a single line
-Error: DECL_ASSIGN_LINE     (line: 261, col:  16):	Declaration and assignation on a single line
-Error: DECL_ASSIGN_LINE     (line: 262, col:  16):	Declaration and assignation on a single line
-Error: SPC_BEFORE_NL        (line: 262, col:  58):	Space before newline
-Error: DECL_ASSIGN_LINE     (line: 263, col:  20):	Declaration and assignation on a single line
-Error: DECL_ASSIGN_LINE     (line: 264, col:  21):	Declaration and assignation on a single line
-Error: DECL_ASSIGN_LINE     (line: 265, col:  20):	Declaration and assignation on a single line
-Error: TOO_MANY_LINES       (line: 269, col:   1):	Function has more than 25 lines
-Error: TOO_MANY_FUNCS       (line: 271, col:   1):	Too many functions in file
-Error: WRONG_SCOPE_COMMENT  (line: 277, col:   5):	Comment is invalid in this scope
-Error: EMPTY_LINE_FUNCTION  (line: 279, col:   1):	Empty line in function
-Error: TOO_MANY_FUNCS       (line: 282, col:   1):	Too many functions in file
-Error: SPACE_REPLACE_TAB    (line: 284, col:  11):	Found space when expecting tab
-Error: EMPTY_LINE_FUNCTION  (line: 289, col:   1):	Empty line in function
-Error: WRONG_SCOPE_COMMENT  (line: 290, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line: 291, col:   5):	Comment is invalid in this scope
+src/render.c: Error!
+Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
+Error: GLOBAL_VAR_NAMING    (line:  19, col:  17):	Global variable must start with g_
+src/set_ceiling_floor.c: Error!
+Error: SPC_BEFORE_NL        (line:  68, col:  31):	Space before newline
+Error: TOO_MANY_FUNCS       (line: 111, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 129, col:   1):	Too many functions in file
+src/update.c: OK!

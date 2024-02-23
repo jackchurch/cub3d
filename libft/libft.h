@@ -51,6 +51,7 @@ int		ft_memcmp(void *s1, void *s2, size_t n);
 char	*ft_strnstr(char *haystack, char *needle, size_t len);
 int		ft_atoi(const char *str);
 char	*ft_strdup(const char *s1);
+void	*ft_realloc(void *ptr, size_t old_len, size_t new_len);
 void	*ft_calloc(size_t count, size_t size);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkabzins <rkabzins@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 16:21:22 by rkabzins          #+#    #+#             */
+/*   Updated: 2024/02/23 16:21:23 by rkabzins         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RAY_H
 # define RAY_H
 
@@ -13,7 +25,8 @@
 void		render_rays(t_game *game);
 void		ray_cast(t_game *game, t_wall_hit *hit,
 				int stripId, float ray_angle);
-void		wall_found(t_game *game, t_wall_hit *orientation, t_axis axis, bool is_vertical);
+void		wall_found(t_game *game, t_wall_hit *orientation,
+				t_axis axis, bool is_vertical);
 void		find_intercept(t_axis *axis, float ray_angle, char dir);
 void		cast_all_rays(t_game *game);
 void		cast_one_ray(t_game *game, float ray_angle, int stripId);

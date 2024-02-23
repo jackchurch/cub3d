@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.h                                             :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkabzins <rkabzins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 16:20:59 by rkabzins          #+#    #+#             */
-/*   Updated: 2024/02/23 16:21:00 by rkabzins         ###   ########.fr       */
+/*   Created: 2024/02/23 16:27:31 by rkabzins          #+#    #+#             */
+/*   Updated: 2024/02/23 16:27:33 by rkabzins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DRAW_H
-# define DRAW_H
+#include "libft.h"
 
-# include <math.h>
-# include <stdbool.h>
-# include "../libft/libft.h"
-# include "../mlx_linux/mlx.h"
-# include "../mlx_mac/mlx.h"
-# include "cub3d.h"
+void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
+{
+	void	*new_ptr;
 
-void	draw_rect(t_game *game, t_rectangle *rect);
-void	draw_line(t_game *game, const t_line *line);
-
-#endif
+	if (new_len == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	if (ptr == NULL)
+		return (malloc(new_len));
+	if (new_len <= old_len)
+		return (ptr);
+	new_ptr = malloc(new_len);
+	if (new_ptr)
+		ft_memcpy(new_ptr, ptr, old_len);
+	return (new_ptr);
+}

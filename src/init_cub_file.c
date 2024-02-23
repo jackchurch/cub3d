@@ -1,28 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_cub_file.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkabzins <rkabzins@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 16:16:40 by rkabzins          #+#    #+#             */
+/*   Updated: 2024/02/23 16:16:41 by rkabzins         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fcntl.h>
 
-#include "../inc/map.h"
+#include "map.h"
 #include "cub_file.h"
 #include "constance.h"
 #include "cub3d.h"
-
-void	*ft_realloc(void *ptr, size_t old_len, size_t new_len)
-{
-	void *new_ptr;
-
-	if (new_len == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	if (ptr == NULL)
-		return (malloc(new_len));
-	if (new_len <= old_len)
-		return (ptr);
-	new_ptr = malloc(new_len);
-	if (new_ptr)
-		ft_memcpy(new_ptr, ptr, old_len);
-	return (new_ptr);
-}
 
 char	player_spawn(t_map *map, int i, int j, char line)
 {
@@ -43,28 +36,13 @@ char	player_spawn(t_map *map, int i, int j, char line)
 	return (0);
 }
 
-int	is_only_one(char *line)
-{
-	int	i;
-
-	i = -1;
-	if (!line)
-		return (1);
-	while (line[++i] != '\n' && line[i] != '\0')
-	{
-		if (!(is_white_space(line[i]) || line[i] == '1'))
-			return (0);
-	}
-	return (1);
-}
-
 /*
 Return element type only if element has a space or tab after the last valid char.
 ie C345,654,344 will fail.
 C   645,421,334 will pass
 */
 int	discover_element_type(char *current_line)
-{ 
+{
 	char	*line;
 
 	if (is_only_one(current_line))
@@ -85,13 +63,12 @@ int	discover_element_type(char *current_line)
 	return (-1);
 }
 
-/*Remove the C or F from the return string and then remove any leading white space.*/
 char	*isolate_element_path(char *str)
 {
 	char	*ret;
 	int		i;
 	int		start;
-	
+
 	i = 0;
 	while (!(is_white_space(str[i])))
 		i++;
