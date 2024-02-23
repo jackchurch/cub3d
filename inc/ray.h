@@ -23,6 +23,6 @@ int			is_ray_facing_down(float angle);
 int			is_ray_facing_up(float angle);
 int			is_ray_facing_right(float angle);
 int			is_ray_facing_left(float angle);
-void		calculate_steps(t_game *game, float ray_angle, t_axis *axis, char dir);
+void		calculate_steps(float ray_angle, t_axis *axis, char dir);
 
 #endif

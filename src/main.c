@@ -14,8 +14,8 @@ void	setup(t_game *game)
 {
 	player.x = game->input.map.spawn_loc.x * TILE_SIZE;
 	player.y = game->input.map.spawn_loc.y * TILE_SIZE;
-	player.width = 10;
-	player.height = 10;
+	player.width = 1;
+	player.height = 1;
 	player.turn_direction = 0;
 	player.walk_direction = 0;
 	player.strafe_direction = 0;

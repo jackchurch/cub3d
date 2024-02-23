@@ -20,6 +20,6 @@ void	*ft_memset(void *ptr, int c, size_t n)
 	str = ptr;
 	value = (unsigned char)c;
 	while (n--)
-		*str++ = value;
+		str[n] = value;
 	return (ptr);
 }

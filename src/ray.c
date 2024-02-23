@@ -6,7 +6,7 @@
 
 extern t_player	player;
 
-void	calculate_steps(t_game *game, float ray_angle, t_axis *axis, char dir)
+void	calculate_steps(float ray_angle, t_axis *axis, char dir)
 {
 	if (dir == 'x')
 	{
@@ -14,9 +14,9 @@ void	calculate_steps(t_game *game, float ray_angle, t_axis *axis, char dir)
 		if (is_ray_facing_up(ray_angle))
 			axis->y_step *= -1;
 		axis->x_step = TILE_SIZE / tan(ray_angle);
-		if (is_ray_facing_left(ray_angle) && axis->x_step > 0)
+		if (is_ray_facing_left(ray_angle) && axis->x_step < 0)
 			axis->x_step *= -1;
-		if (is_ray_facing_right(ray_angle) && axis->x_step < 0)
+		if (is_ray_facing_right(ray_angle) && axis->x_step > 0)
 			axis->x_step *= -1;
 	}
 	if (dir == 'y')
@@ -30,7 +30,6 @@ void	calculate_steps(t_game *game, float ray_angle, t_axis *axis, char dir)
 		if (is_ray_facing_down(ray_angle) && axis->y_step < 0)
 			axis->y_step *= -1;
 	}
-	game->num_rays = game->num_rays;
 }
 
 void	cast_one_ray(t_game *game, float ray_angle, int stripId)

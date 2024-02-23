@@ -58,7 +58,7 @@ void	generate_3d_projection(t_game *game)
 	{
 		projected_wall_height = (int)((TILE_SIZE / (game->rays[i].distance
 						* cos(game->rays[i].ray_angle - player.rotation_angle)))
-				* ((game->win_width) / tan(FOV_ANGLE / 2)));
+				* ((game->win_width / 2) / tan(FOV_ANGLE / 2)));
 		rect.x = i;
 		rect.y = game->win_height / 2 - projected_wall_height / 2;
 		rect.width = 1;
