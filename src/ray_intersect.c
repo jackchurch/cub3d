@@ -16,6 +16,7 @@ t_wall_hit	horizontal_intersection(t_game *game, float ray_angle)
 
 	ft_memset(&hori, 0, sizeof(hori));
 	ft_memset(&axis, 0, sizeof(axis));
+	hori.found_wall_hit = false;
 	find_intercept(&axis, ray_angle, 'x');
 	calculate_steps(ray_angle, &axis, 'x');
 	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))
@@ -47,6 +48,7 @@ t_wall_hit	vertical_intersection(t_game *game, float ray_angle)
 
 	ft_memset(&vertical, 0, sizeof(vertical));
 	ft_memset(&axis, 0, sizeof(axis));
+	vertical.found_wall_hit = false;
 	find_intercept(&axis, ray_angle, 'y');
 	calculate_steps(ray_angle, &axis, 'y');
 	while (is_inside_map(game, axis.next_touch_x, axis.next_touch_y))

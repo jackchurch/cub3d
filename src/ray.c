@@ -45,13 +45,19 @@ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
 	normalize_angle(&ray_angle);
 	horizontal = horizontal_intersection(game, ray_angle);
 	vertical = vertical_intersection(game, ray_angle);
-	// while (!horizontal.found_wall_hit)
+	horizontal.distance = FLT_MAX;
+	vertical.distance = FLT_MAX;
+	if (horizontal.found_wall_hit == true)
+	{
 		horizontal.distance = distance_between_points(player.x, player.y,
 			horizontal.wall_hit_x, horizontal.wall_hit_y);
-	// while (!vertical.found_wall_hit)
+	}
+
+	if (vertical.found_wall_hit == true)
+	{
 		vertical.distance = distance_between_points(player.x, player.y,
 				vertical.wall_hit_x, vertical.wall_hit_y);
-	//printf("Ray: %d\nVert Distance: %f\nHori Distance: %f\n\n", stripId, vertical.distance, horizontal.distance);
+	}
 	if (vertical.distance < horizontal.distance)
 	{
 		printf("using Vertical:\n\tv: %f\n\th: %f\n", vertical.distance, horizontal.distance);
