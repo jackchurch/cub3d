@@ -84,8 +84,10 @@ int	main(int argc, char **argv)
 	game->input = init_cub_file(argv[1]);
 	game->win_width = game->input.map.longest_row * TILE_SIZE;
 	game->win_height = game->input.map.rows * TILE_SIZE;
+	game->tile_size = TILE_SIZE;
 	init_window(game);
 	setup(game);
+	//game->walls = init_textures(game);
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));

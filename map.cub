@@ -1,7 +1,7 @@
-NO  textures/north.xpm
-EA  textures/east.xpm
-SO  textures/south.xpm
-WE  textures/west.xpm
+NO  textures/Grey_Bricks.xpm
+EA  textures/Metalic.xpm
+SO  textures/Vines.xpm
+WE  textures/Rocky_Road.xpm
 F   0,0,210
 C   200,0,2
 

@@ -13,6 +13,23 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+typedef struct s_image
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_image;
+
+typedef struct s_wall
+{
+	t_image	north;
+	t_image	south;
+	t_image	east;
+	t_image	west;
+}	t_wall;
+
 typedef struct s_coords
 {
 	int	x;
@@ -159,6 +176,8 @@ typedef struct s_game
 	int			win_width;
 	int			win_height;
 	int			num_rays;
+	int			tile_size;
+	t_wall		walls;
 	t_update	update;
 	t_input		input;
 	t_ray		*rays;

@@ -1,3 +1,13 @@
+inc/constance.h: OK!
+inc/cub3d.h: OK!
+inc/cub_file.h: OK!
+inc/draw.h: OK!
+inc/ft_mlx.h: OK!
+inc/map.h: OK!
+inc/maths.h: OK!
+inc/ray.h: OK!
+inc/render.h: OK!
+inc/structs.h: OK!
 src/cub_file_utils.c: OK!
 src/cub_file_utils_2.c: OK!
 src/draw.c: OK!
