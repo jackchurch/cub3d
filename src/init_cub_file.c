@@ -88,6 +88,22 @@ char	*isolate_element_path(char *str)
 	return (ret);
 }
 
+int	row_update(t_map *map, int length)
+{
+	int	j;
+
+	j = 0;
+	while (j < map->rows)
+	{
+		map->content[j] = ft_realloc(map->content[j],
+				map->longest_row, length + 1);
+		ft_memset(map->content[j]
+			+ map->longest_row, 0, length - map->longest_row + 1);
+		j++;
+	}
+	return (length);
+}
+
 int	init_map(t_map *map, char *line)
 {
 	int		length;
@@ -99,28 +115,18 @@ int	init_map(t_map *map, char *line)
 	if (!map->content)
 		map->content = malloc(sizeof(char *));
 	else
-		map->content = ft_realloc(map->content, sizeof(char *) * i, sizeof(char *) * (i + 1));
-	length = ft_strlen(line);
+		map->content = ft_realloc(map->content,
+				sizeof(char *) * i, sizeof(char *) * (i + 1));
 	if (line[length - 1] == '\n')
 		length--;
 	if (length > map->longest_row)
-	{
-		j = 0;
-		while (j < i)
-		{
-			map->content[j] = ft_realloc(map->content[j], map->longest_row, length + 1);
-			ft_memset(map->content[j] + map->longest_row, 0, length - map->longest_row + 1);
-			j++;
-		}
-		map->longest_row = length;
-	}
+		map->longest_row = row_update(map, length);
 	map->content[i] = malloc(length + 1);
-	j = 0;
-	while (j < length)
+	j = -1;
+	while (++j < length)
 	{
 		map->content[i][j] = line[j];
 		map->spawn_dir = player_spawn(map, i, j, line[j]);
-		j++;
 	}
 	map->content[i][j] = '\0';
 	map->rows++;
