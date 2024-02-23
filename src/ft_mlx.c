@@ -13,34 +13,34 @@
 #include "../inc/ft_mlx.h"
 #include "../inc/constance.h"
 
-extern t_player	player;
+extern t_player	g_player;
 
 int	key_release(int keycode)
 {
 	if (keycode == MAC_LEFT || keycode == MAC_RIGHT)
-		player.turn_direction = 0;
+		g_player.turn_direction = 0;
 	if (keycode == MAC_W || keycode == LINUX_W
 		|| keycode == MAC_S || keycode == LINUX_S)
-		player.walk_direction = 0;
+		g_player.walk_direction = 0;
 	if (keycode == MAC_A || keycode == MAC_D)
-		player.strafe_direction = 0;
+		g_player.strafe_direction = 0;
 	return (0);
 }
 
 int	key_hook(int keycode, t_game *game)
 {
 	if (keycode == MAC_LEFT)
-		player.turn_direction = -1;
+		g_player.turn_direction = -1;
 	if (keycode == MAC_RIGHT)
-		player.turn_direction = 1;
+		g_player.turn_direction = 1;
 	if (keycode == MAC_A || keycode == LINUX_A)
-		player.strafe_direction = -1;
+		g_player.strafe_direction = -1;
 	if (keycode == MAC_D || keycode == LINUX_D)
-		player.strafe_direction = 1;
+		g_player.strafe_direction = 1;
 	if (keycode == MAC_W || keycode == LINUX_W)
-		player.walk_direction = 1;
+		g_player.walk_direction = 1;
 	if (keycode == MAC_S || keycode == LINUX_S)
-		player.walk_direction = -1;
+		g_player.walk_direction = -1;
 	if (keycode == MAC_ESC || keycode == LINUX_ESC)
 		safe_exit(game);
 	render(game);

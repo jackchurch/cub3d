@@ -1,37 +1,25 @@
 src/cub_file_utils.c: OK!
-src/draw.c: Error!
-Error: LINE_TOO_LONG        (line:  22, col:  82):	line too long
-src/ft_mlx.c: Error!
+src/draw.c: OK!
+src/ft_mlx.c: OK!
 Notice: GLOBAL_VAR_DETECTED  (line:  16, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-Error: GLOBAL_VAR_NAMING    (line:  16, col:  17):	Global variable must start with g_
-Error: TOO_MANY_TAB         (line:  23, col:  13):	Extra tabs for indent level
-Error: WRONG_SCOPE_COMMENT  (line:  46, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  47, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  48, col:   5):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  49, col:   5):	Comment is invalid in this scope
 src/init_cub_file.c: Error!
-Error: SPACE_REPLACE_TAB    (line:  22, col:   9):	Found space when expecting tab
-Error: SPC_BEFORE_NL        (line:  79, col:   2):	Space before newline
-Error: LINE_TOO_LONG        (line: 100, col:   1):	line too long
-Error: LINE_TOO_LONG        (line: 100, col:  86):	line too long
-Error: SPACE_EMPTY_LINE     (line: 106, col:   1):	Space on empty line
-Error: TOO_MANY_FUNCS       (line: 126, col:   1):	Too many functions in file
-Error: LINE_TOO_LONG        (line: 137, col:  82):	line too long
-Error: LINE_TOO_LONG        (line: 146, col:  83):	line too long
-Error: LINE_TOO_LONG        (line: 147, col:  87):	line too long
-Error: TOO_MANY_LINES       (line: 163, col:   1):	Function has more than 25 lines
-Error: TOO_MANY_FUNCS       (line: 165, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 185, col:   1):	Too many functions in file
-Error: MIXED_SPACE_TAB      (line: 189, col:  12):	Mixed spaces and tabs
-Error: SPACE_REPLACE_TAB    (line: 189, col:  12):	Found space when expecting tab
-Error: TOO_MANY_LINES       (line: 213, col:   1):	Function has more than 25 lines
+Error: LINE_TOO_LONG        (line: 102, col:  82):	line too long
+Error: LINE_TOO_LONG        (line: 111, col:  83):	line too long
+Error: LINE_TOO_LONG        (line: 112, col:  87):	line too long
+Error: TOO_MANY_LINES       (line: 128, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 150, col:   1):	Too many functions in file
+Error: MIXED_SPACE_TAB      (line: 154, col:  12):	Mixed spaces and tabs
+Error: SPACE_REPLACE_TAB    (line: 154, col:  12):	Found space when expecting tab
+Error: TOO_MANY_LINES       (line: 178, col:   1):	Function has more than 25 lines
 src/main.c: Error!
 Notice: GLOBAL_VAR_DETECTED  (line:  22, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-Error: GLOBAL_VAR_NAMING    (line:  22, col:  13):	Global variable must start with g_
 Error: TOO_FEW_TAB          (line:  83, col:   1):	Missing tabs for indent level
+Error: LINE_TOO_LONG        (line:  83, col:  82):	line too long
 Error: TOO_FEW_TAB          (line:  85, col:   1):	Missing tabs for indent level
+Error: LINE_TOO_LONG        (line:  85, col:  82):	line too long
 Error: TOO_FEW_TAB          (line:  90, col:   1):	Missing tabs for indent level
-Error: SPC_BEFORE_NL        (line:  91, col:  60):	Space before newline
+Error: LINE_TOO_LONG        (line:  90, col:  82):	line too long
+Error: SPC_BEFORE_NL        (line:  91, col:  64):	Space before newline
 Error: TOO_FEW_TAB          (line:  92, col:   1):	Missing tabs for indent level
 Error: TOO_MANY_LINES       (line:  99, col:   1):	Function has more than 25 lines
 Error: WRONG_SCOPE_COMMENT  (line: 142, col:   5):	Comment is invalid in this scope
@@ -43,39 +31,13 @@ Error: SPACE_EMPTY_LINE     (line:  39, col:   1):	Space on empty line
 src/maths.c: OK!
 src/ray.c: Error!
 Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-Error: GLOBAL_VAR_NAMING    (line:  19, col:  17):	Global variable must start with g_
-Error: WRONG_SCOPE_COMMENT  (line:  23, col:   5):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line:  34, col:   9):	line too long
-Error: WRONG_SCOPE_COMMENT  (line:  34, col:   9):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line:  34, col:  92):	line too long
-Error: LINE_TOO_LONG        (line:  46, col:   9):	line too long
-Error: WRONG_SCOPE_COMMENT  (line:  46, col:   9):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line:  46, col:  91):	line too long
-Error: TOO_MANY_LINES       (line:  50, col:   1):	Function has more than 25 lines
-Error: EMPTY_LINE_FUNCTION  (line:  62, col:   1):	Empty line in function
-Error: TOO_FEW_TAB          (line:  65, col:   1):	Missing tabs for indent level
-Error: EMPTY_LINE_FUNCTION  (line:  67, col:   1):	Empty line in function
-Error: LINE_TOO_LONG        (line:  75, col:   9):	line too long
-Error: WRONG_SCOPE_COMMENT  (line:  75, col:   9):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line:  75, col:  98):	line too long
-Error: LINE_TOO_LONG        (line:  80, col:   9):	line too long
-Error: WRONG_SCOPE_COMMENT  (line:  80, col:   9):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line:  80, col: 100):	line too long
-Error: TOO_MANY_LINES       (line:  83, col:   1):	Function has more than 25 lines
-Error: WRONG_SCOPE_COMMENT  (line: 108, col:   9):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  98, col:   9):	Comment is invalid in this scope
 src/ray_facing.c: OK!
-src/ray_intersect.c: Error!
+src/ray_intersect.c: OK!
 Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-Error: GLOBAL_VAR_NAMING    (line:  19, col:  17):	Global variable must start with g_
-Error: WRONG_SCOPE_COMMENT  (line:  40, col:   9):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  41, col:   9):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  72, col:   9):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  73, col:   9):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line:  85, col:  88):	line too long
-Error: LINE_TOO_LONG        (line:  90, col:  83):	line too long
 src/render.c: Error!
 Notice: GLOBAL_VAR_DETECTED  (line:  19, col:   1):	Global variable present in file. Make sure it is a reasonable choice.
-Error: GLOBAL_VAR_NAMING    (line:  19, col:  17):	Global variable must start with g_
+Error: LINE_TOO_LONG        (line:  72, col:  82):	line too long
 src/set_ceiling_floor.c: Error!
 Error: SPC_BEFORE_NL        (line:  68, col:  31):	Space before newline
 Error: TOO_MANY_FUNCS       (line: 111, col:   1):	Too many functions in file

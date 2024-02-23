@@ -16,11 +16,10 @@
 #include "../inc/constance.h"
 #include "../inc/map.h"
 
-extern t_player	player;
+extern t_player	g_player;
 
 void	calculate_steps(float ray_angle, t_axis *axis, char dir)
 {
-	// printf("Player x: %f and player y: %f\n", player.x, player.y);
 	if (dir == 'x')
 	{
 		axis->y_step = TILE_SIZE;
@@ -31,7 +30,6 @@ void	calculate_steps(float ray_angle, t_axis *axis, char dir)
 			axis->x_step *= -1;
 		if (is_ray_facing_right(ray_angle) && axis->x_step < 0)
 			axis->x_step *= -1;
-		// printf("Horizontal:\nStep Dir\n\tx: %f\n\ty: %f\n", axis->x_step, axis->y_step);
 	}
 	if (dir == 'y')
 	{
@@ -43,7 +41,6 @@ void	calculate_steps(float ray_angle, t_axis *axis, char dir)
 			axis->y_step *= -1;
 		if (is_ray_facing_down(ray_angle) && axis->y_step < 0)
 			axis->y_step *= -1;
-		// printf("Vertical:\nStep Dir\n\tx: %f`\n\ty: %f\n", axis->x_step, axis->y_step);
 	}
 	axis->next_touch_x = axis->x_intercept;
 	axis->next_touch_y = axis->y_intercept;
@@ -59,27 +56,20 @@ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
 	vertical = vertical_intersection(game, ray_angle);
 	horizontal.distance = FLT_MAX;
 	vertical.distance = FLT_MAX;
-
+	if (horizontal.found_wall_hit == true)
 	{
-		horizontal.distance = distance_between_points(player.x, player.y,
-			horizontal.wall_hit_x, horizontal.wall_hit_y);
+		horizontal.distance = distance_between_points(g_player.x, g_player.y,
+				horizontal.wall_hit_x, horizontal.wall_hit_y);
 	}
-
 	if (vertical.found_wall_hit == true)
 	{
-		vertical.distance = distance_between_points(player.x, player.y,
+		vertical.distance = distance_between_points(g_player.x, g_player.y,
 				vertical.wall_hit_x, vertical.wall_hit_y);
 	}
 	if (vertical.distance < horizontal.distance)
-	{
-		// printf("using Vertical:\n\tv: %f\n\th: %f\n", vertical.distance, horizontal.distance);
 		ray_cast(game, &vertical, stripId, ray_angle);
-	}
 	else
-	{
-		// printf("using Horizontal:\n\tv: %f\n\th: %f\n", vertical.distance, horizontal.distance);
 		ray_cast(game, &horizontal, stripId, ray_angle);
-	}
 }
 
 void	ray_cast(t_game *game, t_wall_hit *hit, int stripId, float ray_angle)
@@ -102,7 +92,7 @@ void	cast_all_rays(t_game *game)
 	float	ray_angle;
 
 	strip_id = 0;
-	ray_angle = player.rotation_angle - FOV_ANGLE / 2;
+	ray_angle = g_player.rotation_angle - FOV_ANGLE / 2;
 	while (strip_id < game->num_rays)
 	{
 		// printf("\n\n\nRay ID: %d\n", strip_id);
@@ -120,8 +110,8 @@ void	render_rays(t_game *game)
 	i = 0;
 	while (i < game->num_rays)
 	{
-		line.x0 = player.x * MINIMAP_SCALE;
-		line.y0 = player.y * MINIMAP_SCALE;
+		line.x0 = g_player.x * MINIMAP_SCALE;
+		line.y0 = g_player.y * MINIMAP_SCALE;
 		line.x1 = game->rays[i].wall_hit_x * MINIMAP_SCALE;
 		line.y1 = game->rays[i].wall_hit_y * MINIMAP_SCALE;
 		line.color = 0x00FFC8D7;

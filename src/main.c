@@ -19,21 +19,21 @@
 #include "../inc/constance.h"
 #include <math.h>
 
-t_player	player;
+t_player	g_player;
 
 	// Add wall textrues here?
 void	setup(t_game *game)
 {
-	player.x = game->input.map.spawn_loc.x * TILE_SIZE + TILE_SIZE / 2;
-	player.y = game->input.map.spawn_loc.y * TILE_SIZE + TILE_SIZE / 2;
-	player.width = 1;
-	player.height = 1;
-	player.turn_direction = 0;
-	player.walk_direction = 0;
-	player.strafe_direction = 0;
-	player.rotation_angle = game->input.map.rot_angle;
-	player.walk_speed = 10;
-	player.turn_speed = M_PI / 180 * player.walk_speed;
+	g_player.x = game->input.map.spawn_loc.x * TILE_SIZE + TILE_SIZE / 2;
+	g_player.y = game->input.map.spawn_loc.y * TILE_SIZE + TILE_SIZE / 2;
+	g_player.width = 1;
+	g_player.height = 1;
+	g_player.turn_direction = 0;
+	g_player.walk_direction = 0;
+	g_player.strafe_direction = 0;
+	g_player.rotation_angle = game->input.map.rot_angle;
+	g_player.walk_speed = 10;
+	g_player.turn_speed = M_PI / 180 * g_player.walk_speed;
 	ft_memset(&game->update, 0, sizeof(t_update));
 }
 
@@ -72,29 +72,29 @@ void	move_player(t_game *game)
 
 	if (!game)
 		return ;
-	move_step = player.walk_direction * player.walk_speed;
-	side_step = player.strafe_direction * player.walk_speed;
-	player.rotation_angle += player.turn_direction * player.turn_speed;
-	new_player_x = player.x + cos(player.rotation_angle) * move_step;
-	new_player_y = player.y + sin(player.rotation_angle) * move_step;
+	move_step = g_player.walk_direction * g_player.walk_speed;
+	side_step = g_player.strafe_direction * g_player.walk_speed;
+	g_player.rotation_angle += g_player.turn_direction * g_player.turn_speed;
+	new_player_x = g_player.x + cos(g_player.rotation_angle) * move_step;
+	new_player_y = g_player.y + sin(g_player.rotation_angle) * move_step;
 	if (side_step > 0)
 	{
-		new_player_x = player.x + cos(player.rotation_angle
-			+ (player.strafe_direction * player.turn_speed * 9)) * side_step;
-		new_player_y = player.y + sin(player.rotation_angle
-			+ (player.strafe_direction * player.turn_speed * 9)) * side_step;
+		new_player_x = g_player.x + cos(g_player.rotation_angle
+			+ (g_player.strafe_direction * g_player.turn_speed * 9)) * side_step;
+		new_player_y = g_player.y + sin(g_player.rotation_angle
+			+ (g_player.strafe_direction * g_player.turn_speed * 9)) * side_step;
 	}
 	if (side_step < 0)
 	{
-		new_player_x = player.x + cos(player.rotation_angle
-			+ (player.strafe_direction * player.turn_speed * 27)) * side_step;
-		new_player_y = player.y + sin(player.rotation_angle 
-		+ (player.strafe_direction * player.turn_speed * 27)) * side_step;
+		new_player_x = g_player.x + cos(g_player.rotation_angle
+			+ (g_player.strafe_direction * g_player.turn_speed * 27)) * side_step;
+		new_player_y = g_player.y + sin(g_player.rotation_angle 
+		+ (g_player.strafe_direction * g_player.turn_speed * 27)) * side_step;
 	}
 	if (map_content_at(game, new_player_x, new_player_y) != '1')
 	{
-		player.x = new_player_x;
-		player.y = new_player_y;
+		g_player.x = new_player_x;
+		g_player.y = new_player_y;
 	}
 }
 
