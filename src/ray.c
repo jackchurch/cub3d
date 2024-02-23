@@ -8,7 +8,7 @@ extern t_player	player;
 
 void	calculate_steps(float ray_angle, t_axis *axis, char dir)
 {
-	printf("Player x: %f and player y: %f\n", player.x, player.y);
+	// printf("Player x: %f and player y: %f\n", player.x, player.y);
 	if (dir == 'x')
 	{
 		axis->y_step = TILE_SIZE;
@@ -19,7 +19,7 @@ void	calculate_steps(float ray_angle, t_axis *axis, char dir)
 			axis->x_step *= -1;
 		if (is_ray_facing_right(ray_angle) && axis->x_step < 0)
 			axis->x_step *= -1;
-		printf("Horizontal:\nStep Dir\n\tx: %f\n\ty: %f\n", axis->x_step, axis->y_step);
+		// printf("Horizontal:\nStep Dir\n\tx: %f\n\ty: %f\n", axis->x_step, axis->y_step);
 	}
 	if (dir == 'y')
 	{
@@ -31,7 +31,7 @@ void	calculate_steps(float ray_angle, t_axis *axis, char dir)
 			axis->y_step *= -1;
 		if (is_ray_facing_down(ray_angle) && axis->y_step < 0)
 			axis->y_step *= -1;
-		printf("Vertical:\nStep Dir\n\tx: %f`\n\ty: %f\n", axis->x_step, axis->y_step);
+		// printf("Vertical:\nStep Dir\n\tx: %f`\n\ty: %f\n", axis->x_step, axis->y_step);
 	}
 	axis->next_touch_x = axis->x_intercept;
 	axis->next_touch_y = axis->y_intercept;
@@ -60,12 +60,12 @@ void	cast_one_ray(t_game *game, float ray_angle, int stripId)
 	}
 	if (vertical.distance < horizontal.distance)
 	{
-		printf("using Vertical:\n\tv: %f\n\th: %f\n", vertical.distance, horizontal.distance);
+		// printf("using Vertical:\n\tv: %f\n\th: %f\n", vertical.distance, horizontal.distance);
 		ray_cast(game, &vertical, stripId, ray_angle);
 	}
 	else
 	{
-		printf("using Horizontal:\n\tv: %f\n\th: %f\n", vertical.distance, horizontal.distance);
+		// printf("using Horizontal:\n\tv: %f\n\th: %f\n", vertical.distance, horizontal.distance);
 		ray_cast(game, &horizontal, stripId, ray_angle);
 	}
 }
@@ -93,7 +93,7 @@ void	cast_all_rays(t_game *game)
 	ray_angle = player.rotation_angle - FOV_ANGLE / 2;
 	while (strip_id < game->num_rays)
 	{
-		printf("\n\n\nRay ID: %d\n", strip_id);
+		// printf("\n\n\nRay ID: %d\n", strip_id);
 		cast_one_ray(game, ray_angle, strip_id);
 		ray_angle += FOV_ANGLE / game->num_rays;
 		strip_id++;

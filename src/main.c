@@ -120,7 +120,7 @@ int	main(int argc, char **argv)
 	game->win_height = game->input.map.rows * TILE_SIZE;
 	init_window(game);
 	setup(game);
-	game->num_rays = 5;
+	game->num_rays = game->win_width;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
 	game->data.img = mlx_new_image(game->mlx,

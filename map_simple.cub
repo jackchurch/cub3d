@@ -1,6 +1,6 @@
-NO  textures/north.xpm
+NO  textures/north_bricks.xpm
 EA  textures/east.xpm
-SO  textures/south.xpm
+SO  textures/south_bricks.xpm
 WE  textures/west.xpm
 F   0,0,210
 C   200,0,2
