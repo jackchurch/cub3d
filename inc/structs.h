@@ -13,28 +13,25 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef struct s_image
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-}	t_image;
-
-typedef struct s_wall
-{
-	t_image	north;
-	t_image	south;
-	t_image	east;
-	t_image	west;
-}	t_wall;
+# include "constance.h"
 
 typedef struct s_coords
 {
 	int	x;
 	int	y;
 }	t_coords;
+
+typedef struct s_image
+{
+	void		*img;
+	int			*addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+	int			width;
+	int			height;
+	t_coords	loc;
+}	t_image;
 
 typedef struct s_map
 {
@@ -49,10 +46,7 @@ typedef struct s_map
 
 typedef struct s_input
 {
-	char			*north_path;
-	char			*south_path;
-	char			*east_path;
-	char			*west_path;
+	char			*paths[4];
 	unsigned int	ceiling_color;
 	unsigned int	floor_color;
 	int				element_type;
@@ -177,7 +171,8 @@ typedef struct s_game
 	int			win_height;
 	int			num_rays;
 	int			tile_size;
-	t_wall		walls;
+	t_image		walls[4];
+	int			texture[4][TILE_SIZE * TILE_SIZE];
 	t_update	update;
 	t_input		input;
 	t_ray		*rays;

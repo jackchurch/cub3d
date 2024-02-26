@@ -25,8 +25,8 @@
 # include "map.h"
 
 bool	init_window(t_game *game);
-t_wall	init_textures(t_game *game);
-void	init_wall(t_game *game, t_wall *wall);
+int		init_textures(t_game *game);
+void	fill_textures(t_game *game, int i);
 
 // main.c
 void	safe_exit(t_game *game);

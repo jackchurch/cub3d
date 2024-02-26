@@ -44,12 +44,12 @@
 # define LINUX_W 119
 # define LINUX_ESC 65307
 
-# define NORTH 1
+# define NORTH 0
+# define SOUTH 1
 # define EAST 2
-# define SOUTH 3
-# define WEST 4
-# define CEILING 5
-# define FLOOR 6
-# define MAP 7
+# define WEST 3
+# define CEILING 4
+# define FLOOR 5
+# define MAP 6
 
 #endif

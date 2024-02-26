@@ -58,38 +58,49 @@ void	draw_ceiling(t_game *game)
 	draw_rect(game, &floor);
 }
 
+void	wall_direction_init(t_game *game, int height, int dir, int i)
+{
+	game->walls[dir].loc.x = i;
+	game->walls[dir].loc.y = game->win_height
+		/ 2 - height / 2;
+	game->walls[dir].width = 1;
+	game->walls[dir].height = height;
+}
+
+int	find_direction(t_game *game, int i)
+{
+	if (game->rays[i].is_ray_facing_down && !game->rays[i].was_hit_vertical)
+		return (SOUTH);
+	if (game->rays[i].is_ray_facing_up && !game->rays[i].was_hit_vertical)
+		return (NORTH);
+	if (game->rays[i].is_ray_facing_left && game->rays[i].was_hit_vertical)
+		return (WEST);
+	if (game->rays[i].is_ray_facing_right && game->rays[i].was_hit_vertical)
+		return (EAST);
+	return (-1);
+}
+
 void	generate_3d_projection(t_game *game)
 {
 	int			i;
 	int			projected_wall_height;
-	t_rectangle	rect;
+	int			dir;
 
 	i = -1;
 	draw_ceiling(game);
 	while (++i < game->num_rays)
 	{
+		dir = find_direction(game, i);
+		if (dir < 0)
+		{
+			printf("Error\n\tUnknown Ray Projection Direction.\n\n");
+			return ;
+		}
 		projected_wall_height = (int)((TILE_SIZE / (game->rays[i].distance
 						* cos(game->rays[i].ray_angle
 							- g_player.rotation_angle)))
 				* ((game->win_width / 2) / tan(FOV_ANGLE / 2)));
-		rect.x = i;
-		rect.y = game->win_height / 2 - projected_wall_height / 2;
-		rect.width = 1;
-		rect.height = projected_wall_height;
-		rect.color = color_assignment(game, i);
-		draw_rect(game, &rect);
+		wall_direction_init(game, projected_wall_height, dir, i);
+		draw_walls(game, &game->walls[dir]);
 	}
-}
-
-int	color_assignment(t_game *game, int i)
-{
-	if (game->rays[i].is_ray_facing_down && !game->rays[i].was_hit_vertical)
-		return (0x0000FFFF);
-	if (game->rays[i].is_ray_facing_up && !game->rays[i].was_hit_vertical)
-		return (0x00FFFF00);
-	if (game->rays[i].is_ray_facing_left && game->rays[i].was_hit_vertical)
-		return (0x00FF00FF);
-	if (game->rays[i].is_ray_facing_right && game->rays[i].was_hit_vertical)
-		return (0x0000FF00);
-	return (0x00000000);
 }

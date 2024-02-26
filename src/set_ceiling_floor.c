@@ -37,24 +37,22 @@ bool	any_invalid_chars(char *str)
 		}
 		else if (is_white_space(str[i]))
 			white_space_found = true;
-		else if (!is_white_space(str[i] && !ft_isdigit(str[i])))
-			return (true);
 		i++;
 	}
 	return (false);
 }
 
-void	input_path(t_input *input, char *path, int element_type)
-{
-	if (element_type == NORTH)
-		input->north_path = ft_strdup(path);
-	if (element_type == SOUTH)
-		input->south_path = ft_strdup(path);
-	if (element_type == EAST)
-		input->east_path = ft_strdup(path);
-	if (element_type == WEST)
-		input->west_path = ft_strdup(path);
-}
+// void	input_path(t_input *input, char *path, int element_type)
+// {
+// 	if (element_type == NORTH)
+// 		input->north_path = ft_strdup(path);
+// 	if (element_type == SOUTH)
+// 		input->south_path = ft_strdup(path);
+// 	if (element_type == EAST)
+// 		input->east_path = ft_strdup(path);
+// 	if (element_type == WEST)
+// 		input->west_path = ft_strdup(path);
+// }
 
 int	for_each_value(t_input *input, char *value, int element_type)
 {
@@ -63,10 +61,11 @@ int	for_each_value(t_input *input, char *value, int element_type)
 	str = ft_strtrim(value, " 	");
 	if (any_invalid_chars(str) == true)
 		return (-1);
-	input_path(input, str, element_type);
+	input->paths[element_type] = ft_strdup(str);
 	free(str);
 	return (0);
 }
+	//input_path(input, str, element_type);
 
 unsigned int	ceiling_floor_color(char *str)
 {

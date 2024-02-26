@@ -35,10 +35,27 @@ void	draw_rect(t_game *game, t_rectangle *rect)
 		j = rect->y;
 		while (j <= (rect->y + rect->height))
 		{
-			if (i == rect->x || j == rect-> y)
-				my_mlx_pixel_put(game, i, j, 0x00AABBCC);
-			else
-				my_mlx_pixel_put(game, i, j, rect->color);
+			my_mlx_pixel_put(game, i, j, rect->color);
+			j++;
+		}
+		i++;
+	}
+	return ;
+}
+
+void	draw_walls(t_game *game, t_image *wall)
+{
+	int	i;
+	int	j;
+
+	i = wall->loc.x;
+	while (i <= (wall->loc.x + wall->width))
+	{
+		j = wall->loc.y;
+		while (j <= (wall->loc.y + wall->height))
+		{
+			mlx_put_image_to_window(game->mlx, game->win, wall->img,
+				wall->loc.x, wall->loc.y);
 			j++;
 		}
 		i++;
