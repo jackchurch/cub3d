@@ -10,6 +10,7 @@ OBJ_PATH	= ./obj
 
 SRCS	= $(SRC_PATH)/main.c \
 $(SRC_PATH)/ft_mlx.c \
+$(SRC_PATH)/error.c \
 $(SRC_PATH)/movement.c \
 $(SRC_PATH)/maths.c \
 $(SRC_PATH)/map.c \

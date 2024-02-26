@@ -79,7 +79,7 @@ int	main(int argc, char **argv)
 	t_game	*game;
 
 	if (argc != 2)
-		return (printf("Error\nPlease execute with only 1 argument.\n"));
+		return (err_i("Please execute with only 1 argument."));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(argv[1]);
 	game->win_width = game->input.map.longest_row * TILE_SIZE;

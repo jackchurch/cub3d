@@ -24,6 +24,12 @@
 # include "cub_file.h"
 # include "map.h"
 
+//error
+int		err_i(char *str);
+void	err_v(char *str);
+void	*err_p(char *str);
+
+// init
 bool	init_window(t_game *game);
 int		init_textures(t_game *game);
 void	fill_textures(t_game *game, int i);
