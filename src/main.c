@@ -77,10 +77,9 @@ void	render(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-	int	error;
 
 	if (argc != 2)
-		return (printf("Error: Please execute with only 1 argument.\n"));
+		return (printf("Error\nPlease execute with only 1 argument.\n"));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(argv[1]);
 	game->win_width = game->input.map.longest_row * TILE_SIZE;
@@ -88,8 +87,7 @@ int	main(int argc, char **argv)
 	game->tile_size = TILE_SIZE;
 	init_window(game);
 	setup(game);
-	if ((error = init_textures(game)))
-		printf("unable to load textures %d\n", error);
+	init_textures(game);
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));
