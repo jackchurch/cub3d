@@ -45,6 +45,7 @@ typedef struct s_map
 	char		spawn_dir;
 	t_coords	spawn_loc;
 	float		rot_angle;
+	float		minimap_scale;
 }	t_map;
 
 typedef struct s_input

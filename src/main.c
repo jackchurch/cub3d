@@ -21,9 +21,11 @@
 
 t_player	g_player;
 
-	// Add wall textrues here?
 void	setup(t_game *game)
 {
+	int		num_units;
+	float	target;
+
 	g_player.x = game->input.map.spawn_loc.x * TILE_SIZE + TILE_SIZE / 2;
 	g_player.y = game->input.map.spawn_loc.y * TILE_SIZE + TILE_SIZE / 2;
 	g_player.width = 1;
@@ -35,6 +37,9 @@ void	setup(t_game *game)
 	g_player.walk_speed = 10;
 	g_player.turn_speed = M_PI / 180 * g_player.walk_speed;
 	ft_memset(&game->update, 0, sizeof(t_update));
+	target = 0.4;
+	num_units = (int)game->input.map.longest_row / 10 + 1;
+	game->input.map.minimap_scale = target / num_units;
 }
 
 void	safe_exit(t_game *game)
@@ -82,8 +87,8 @@ int	main(int argc, char **argv)
 		return (printf("Error: Please execute with only 1 argument.\n"));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(argv[1]);
-	game->win_width = game->input.map.longest_row * TILE_SIZE;
-	game->win_height = game->input.map.rows * TILE_SIZE;
+	game->win_width = 800;
+	game->win_height = 600;
 	game->tile_size = TILE_SIZE;
 	init_window(game);
 	setup(game);

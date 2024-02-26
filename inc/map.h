@@ -24,7 +24,7 @@
 
 void	render_map(t_game *game);
 char	map_content_at(t_game *game, float x, float y);
-void	tile_rect_init(t_rectangle *map_tile_rect, const t_tile tile);
+void	tile_rect_init(t_game *game, t_rectangle *map_tile_rect, const t_tile tile);
 bool	is_inside_map(t_game *game, float x, float y);
 
 #endif
