@@ -87,20 +87,17 @@ void	generate_3d_projection(t_game *game)
 	int			dir;
 
 	i = -1;
-	draw_ceiling(game);
+	//draw_ceiling(game);
 	while (++i < game->num_rays)
 	{
 		dir = find_direction(game, i);
 		if (dir < 0)
-		{
-			printf("Error\n\tUnknown Ray Projection Direction.\n\n");
-			return ;
-		}
+			return (err_v("Unknown Ray Projection Direction."));
 		projected_wall_height = (int)((TILE_SIZE / (game->rays[i].distance
 						* cos(game->rays[i].ray_angle
 							- g_player.rotation_angle)))
 				* ((game->win_width / 2) / tan(FOV_ANGLE / 2)));
 		wall_direction_init(game, projected_wall_height, dir, i);
-		draw_walls(game, &game->walls[dir]);
+		draw_walls(game, &game->walls[dir], dir);
 	}
 }

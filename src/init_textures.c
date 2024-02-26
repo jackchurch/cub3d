@@ -41,7 +41,6 @@ int	init_textures(t_game *game)
 		temp = mlx_xpm_file_to_image(game->mlx, game->input.paths[i],
 				&game->tile_size, &game->tile_size);
 		game->walls[i].img = temp;
-		printf("%s\n", game->input.paths[i]);
 		if (!game->walls[i].img)
 			return (1);
 		addr = (int *)mlx_get_data_addr(game->walls[i].img, &game->walls[i].bpp,

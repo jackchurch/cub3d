@@ -35,10 +35,10 @@ int		init_textures(t_game *game);
 void	fill_textures(t_game *game, int i);
 
 // main.c
-void	safe_exit(t_game *game);
+int		safe_exit(t_game *game);
 
 // To sort
-void	render(t_game *game);
+int		render(t_game *game);
 int		update(t_game *game);
 void	strafe(float side_step, float *new_player_x, float *new_player_y);
 void	move_player(t_game *game);

@@ -17,6 +17,7 @@
 #include "../inc/maths.h"
 #include "../inc/ray.h"
 #include "../inc/constance.h"
+#include "../inc/ft_mlx.h"
 #include <math.h>
 
 t_player	g_player;
@@ -37,7 +38,7 @@ void	setup(t_game *game)
 	ft_memset(&game->update, 0, sizeof(t_update));
 }
 
-void	safe_exit(t_game *game)
+int	safe_exit(t_game *game)
 {
 	int	i;
 
@@ -60,11 +61,12 @@ void	safe_exit(t_game *game)
 	}
 	if (game)
 		free(game);
-	exit(0);
+	return (exit(0), 0);
 }
 
-void	render(t_game *game)
+int	render(t_game *game)
 {
+	draw_ceiling(game);
 	move_player(game);
 	cast_all_rays(game);
 	generate_3d_projection(game);
@@ -72,6 +74,7 @@ void	render(t_game *game)
 	render_rays(game);
 	render_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data.img, 0, 0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -97,8 +100,8 @@ int	main(int argc, char **argv)
 			&game->data.line_length, &game->data.endian);
 	// process_input(); // See keyhooks
 	// update(game); // Add FPS if have time.
-	render(game);
-	//mlx_loop_hook(game->mlx, update, &game);
+	//render(game);
+	mlx_loop_hook(game->mlx, update, game);
 	mlx_loop(game->mlx);
 	return (0);
 }

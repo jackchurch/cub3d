@@ -21,5 +21,7 @@
 # include "cub3d.h"
 
 bool	init_window(t_game *game);
+int		key_release(int keycode);
+int		key_hook(int keycode, t_game *game);
 
 #endif

@@ -43,19 +43,23 @@ void	draw_rect(t_game *game, t_rectangle *rect)
 	return ;
 }
 
-void	draw_walls(t_game *game, t_image *wall)
+void	draw_walls(t_game *game, t_image *wall, int dir)
 {
 	int	i;
 	int	j;
 
+	//printf("entered walls\n");
 	i = wall->loc.x;
 	while (i <= (wall->loc.x + wall->width))
 	{
+		//printf("loc.x = %d\nwall->width = %d\n", wall->loc.x, wall->width);
 		j = wall->loc.y;
 		while (j <= (wall->loc.y + wall->height))
 		{
-			mlx_put_image_to_window(game->mlx, game->win, wall->img,
-				wall->loc.x, wall->loc.y);
+			//printf("loc.y = %d\nwall->height = %d\n", wall->loc.y, wall->height);
+			// mlx_put_image_to_window(game->mlx, game->win, wall->img,
+			// 	wall->loc.x, wall->loc.y);
+			my_mlx_pixel_put(game, wall->loc.x, wall->loc.y, game->texture[dir][i + j]);
 			j++;
 		}
 		i++;
