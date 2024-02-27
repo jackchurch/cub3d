@@ -30,34 +30,44 @@ int	map_check(char **map, int i, int j)
 	return (0);
 }
 
+int	walk_area(char check)
+{
+	if (check == '0' || check == 'N' || check == 'S'
+		|| check == 'E' || check == 'W' || check == 'D')
+		return (1);
+	return (0);
+}
+
+int	check_vars(t_input *input)
+{
+	if (input->map.count.spawn_dir > 1)
+		return (err_i("Please only use one spawn location."));
+	if (input->map.count.spawn_dir < 1)
+		return (err_i("Please provide a spawn location: 'N', 'E', 'S' or 'W'"));
+	if (input->map.count.valid > 0)
+		return (err_i("Invalid Map Content. Please check and try again."));
+	if (input->map.count.colors != 0)
+		return (err_i("Invalid color code spacing."));
+	return (0);
+}
+
 int	map_parsing(t_game *game, char **map)
 {
 	int	i;
 	int	j;
-	int	check;
 
 	i = -1;
 	if (!is_only_one(map[0]) || !is_only_one(map[game->input.map.rows - 1]))
-	{
-		err_i("Invalid Map Content. Please check map and try again!");
-		game->update.end_game = 1;
-		return (1);
-	}
-	while (++i < game->input.map.rows)
+		game->input.map.count.valid += 1;
+	while (++i < game->input.map.rows && game->input.map.count.valid == 0)
 	{
 		j = -1;
-		while (++j < game->input.map.longest_row)
+		while (++j < game->input.map.longest_row
+			&& game->input.map.count.valid == 0)
 		{
-			if (map[i][j] == '0')
-				check = map_check(map, i, j);
-			if (check == 1)
-			{
-				err_i("Invalid Map Content. Please check map and try again.");
-				game->update.end_game = 1;
-				safe_exit(game);
-				return (1);
-			}
+			if (walk_area(map[i][j]))
+				game->input.map.count.valid += map_check(map, i, j);
 		}
 	}
-	return (0);
+	return (check_vars(&game->input));
 }

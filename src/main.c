@@ -25,6 +25,8 @@ t_player	g_player;
 	// Add wall textrues here?
 void	setup(t_game *game)
 {
+	if (game->input.map.rot_angle == 0 || game->input.map.rot_angle == 1)
+		safe_exit(game);
 	g_player.x = game->input.map.spawn_loc.x * TILE_SIZE + TILE_SIZE / 2;
 	g_player.y = game->input.map.spawn_loc.y * TILE_SIZE + TILE_SIZE / 2;
 	g_player.width = 1;

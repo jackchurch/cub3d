@@ -33,7 +33,7 @@ int	init_map(t_map *map, char *line)
 		length--;
 	if (length > map->longest_row)
 		map->longest_row = row_update(map, length);
-	map->content[i] = malloc(length + 1);
+	map->content[i] = malloc(map->longest_row + 1);
 	j = -1;
 	while (++j < length)
 	{
@@ -55,8 +55,11 @@ int	do_shit(t_input *input, char *current_line)
 		input->element_type = discover_element_type(str_1);
 		ceiling_floor_branch(input, str_1, input->element_type);
 	}
-	else if (input->complete == NUM_OF_ELEMENTS)
+	else if (input->complete >= NUM_OF_ELEMENTS)
+	{
 		init_map(&input->map, current_line);
+		input->complete++;
+	}
 	if (input->element_type == -1)
 		return (-1);
 	return (0);
@@ -77,7 +80,7 @@ t_input	init_cub_file(char *file_name)
 	current_line = get_next_line(fd);
 	while (current_line != NULL)
 	{
-		while (current_line[0] == '\n')
+		while (current_line[0] == '\n' && input.complete <= NUM_OF_ELEMENTS)
 			current_line = get_next_line(fd);
 		if (do_shit(&input, current_line) < 0)
 			break ;

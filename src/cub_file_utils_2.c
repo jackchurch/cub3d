@@ -30,6 +30,7 @@ char	player_spawn(t_map *map, int i, int j, char line)
 			map->rot_angle = M_PI * 2;
 		else if (line == 'W')
 			map->rot_angle = M_PI;
+		map->count.spawn_dir++;
 		return (line);
 	}
 	return (0);
@@ -74,7 +75,7 @@ char	*isolate_element_path(char *str)
 	while (is_white_space(str[i]))
 		i++;
 	start = i;
-	while (str[i] && !(is_white_space(str[i])))
+	while (str[i])
 		i++;
 	ret = malloc(i - start);
 	i = 0;

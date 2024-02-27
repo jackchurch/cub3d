@@ -33,6 +33,13 @@ typedef struct s_image
 	t_coords	loc;
 }	t_image;
 
+typedef struct s_count
+{
+	int	spawn_dir;
+	int	valid;
+	int	colors;
+}	t_count;
+
 typedef struct s_map
 {
 	char		**content;
@@ -41,6 +48,7 @@ typedef struct s_map
 	char		spawn_dir;
 	t_coords	spawn_loc;
 	float		rot_angle;
+	t_count		count;
 }	t_map;
 
 typedef struct s_input

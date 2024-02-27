@@ -61,8 +61,16 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 	int		r;
 	int		g;
 	int		b;
+	int		i;
 
 	values = ft_split(str, ',');
+	i = -1;
+	while (++i < 3)
+	{
+		values[i] = ft_strtrim(values[i], " 	");
+		if (any_invalid_chars(values[i]))
+			input->map.count.colors = 1;
+	}
 	r = ft_atoi(values[0]);
 	g = ft_atoi(values[1]);
 	b = ft_atoi(values[2]);
