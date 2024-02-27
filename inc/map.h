@@ -22,6 +22,9 @@
 # include "constance.h"
 # include "draw.h"
 
+int		map_invalid(char check);
+int		map_check(char **map, int i, int j);
+int		map_parsing(t_game *game, char **map);
 void	render_map(t_game *game);
 char	map_content_at(t_game *game, float x, float y);
 void	tile_rect_init(t_rectangle *map_tile_rect, const t_tile tile);

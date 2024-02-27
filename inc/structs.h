@@ -38,7 +38,6 @@ typedef struct s_map
 	char		**content;
 	int			longest_row;
 	int			rows;
-	bool		loading_map;
 	char		spawn_dir;
 	t_coords	spawn_loc;
 	float		rot_angle;
@@ -50,6 +49,7 @@ typedef struct s_input
 	unsigned int	ceiling_color;
 	unsigned int	floor_color;
 	int				element_type;
+	int				complete;
 	t_map			map;
 }	t_input;
 

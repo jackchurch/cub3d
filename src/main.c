@@ -82,12 +82,14 @@ int	main(int argc, char **argv)
 	t_game	*game;
 
 	if (argc != 2)
-		return (err_i("Please execute with only 1 argument."));
+		return (err_i("Please execute with exactly 1 argument."));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(argv[1]);
 	game->win_width = game->input.map.longest_row * TILE_SIZE;
 	game->win_height = game->input.map.rows * TILE_SIZE;
 	game->tile_size = TILE_SIZE;
+	if (map_parsing(game, game->input.map.content))
+		safe_exit(game);
 	init_window(game);
 	setup(game);
 	init_textures(game);
@@ -98,9 +100,6 @@ int	main(int argc, char **argv)
 			game->win_width, game->win_height);
 	game->data.addr = mlx_get_data_addr(game->data.img, &game->data.bpp,
 			&game->data.line_length, &game->data.endian);
-	// process_input(); // See keyhooks
-	// update(game); // Add FPS if have time.
-	//render(game);
 	mlx_loop_hook(game->mlx, update, game);
 	mlx_loop(game->mlx);
 	return (0);

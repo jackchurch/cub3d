@@ -50,18 +50,15 @@ int	do_shit(t_input *input, char *current_line)
 	char	*str_1;
 
 	str_1 = ft_strdup(current_line);
-	if (input->map.loading_map == false)
+	if (input->complete < NUM_OF_ELEMENTS)
+	{
 		input->element_type = discover_element_type(str_1);
+		ceiling_floor_branch(input, str_1, input->element_type);
+	}
+	else if (input->complete == NUM_OF_ELEMENTS)
+		init_map(&input->map, current_line);
 	if (input->element_type == -1)
 		return (-1);
-	if (input->element_type == MAP || input->map.loading_map == true)
-	{
-		if (input->map.loading_map == false)
-			input->map.loading_map = true;
-		init_map(&input->map, current_line);
-	}
-	else
-		ceiling_floor_branch(input, str_1, input->element_type);
 	return (0);
 }
 
@@ -76,17 +73,15 @@ t_input	init_cub_file(char *file_name)
 	ft_memset(&input.map, 0, sizeof(t_map));
 	ft_memset(&loc, 0, sizeof(t_coords));
 	input.map.spawn_loc = loc;
-	input.map.loading_map = false;
 	fd = open_cub_file(file_name);
 	current_line = get_next_line(fd);
 	while (current_line != NULL)
 	{
 		while (current_line[0] == '\n')
 			current_line = get_next_line(fd);
-		do_shit(&input, current_line);
+		if (do_shit(&input, current_line) < 0)
+			break ;
 		current_line = get_next_line(fd);
-		if (input.map.loading_map == true && is_only_one(current_line))
-			input.map.loading_map = false;
 	}
 	free(current_line);
 	close(fd);

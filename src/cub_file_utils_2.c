@@ -44,8 +44,6 @@ int	discover_element_type(char *current_line)
 {
 	char	*line;
 
-	if (is_only_one(current_line))
-		return (MAP);
 	line = ft_strtrim(current_line, " 	");
 	if (line[0] == 'C' && is_white_space(line[1]))
 		return (CEILING);

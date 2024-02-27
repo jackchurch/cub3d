@@ -31,6 +31,8 @@
 
 # define FOV_ANGLE 1.047197666666667
 
+# define NUM_OF_ELEMENTS 6
+
 # define MAC_W 13
 # define MAC_S 1
 # define MAC_A 0

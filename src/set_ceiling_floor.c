@@ -42,18 +42,6 @@ bool	any_invalid_chars(char *str)
 	return (false);
 }
 
-// void	input_path(t_input *input, char *path, int element_type)
-// {
-// 	if (element_type == NORTH)
-// 		input->north_path = ft_strdup(path);
-// 	if (element_type == SOUTH)
-// 		input->south_path = ft_strdup(path);
-// 	if (element_type == EAST)
-// 		input->east_path = ft_strdup(path);
-// 	if (element_type == WEST)
-// 		input->west_path = ft_strdup(path);
-// }
-
 int	for_each_value(t_input *input, char *value, int element_type)
 {
 	char	*str;
@@ -62,12 +50,12 @@ int	for_each_value(t_input *input, char *value, int element_type)
 	if (any_invalid_chars(str) == true)
 		return (-1);
 	input->paths[element_type] = ft_strdup(str);
+	input->complete++;
 	free(str);
 	return (0);
 }
-	//input_path(input, str, element_type);
 
-unsigned int	ceiling_floor_color(char *str)
+unsigned int	ceiling_floor_color(t_input *input, char *str)
 {
 	char	**values;
 	int		r;
@@ -80,6 +68,7 @@ unsigned int	ceiling_floor_color(char *str)
 	b = ft_atoi(values[2]);
 	while (*values)
 		free(*values++);
+	input->complete++;
 	if (r > 255 || g > 255 || b > 255)
 		return (0);
 	return (r * 256 * 256 + g * 256 + b);
@@ -105,9 +94,9 @@ int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 	if (element_type != FLOOR && element_type != CEILING)
 		for_each_value(input, str, element_type);
 	else if (element_type == FLOOR)
-		input->floor_color = ceiling_floor_color(str);
+		input->floor_color = ceiling_floor_color(input, str);
 	else if (element_type == CEILING)
-		input->ceiling_color = ceiling_floor_color(str);
+		input->ceiling_color = ceiling_floor_color(input, str);
 	free(str);
 	return (0);
 }

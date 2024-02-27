@@ -24,6 +24,7 @@ $(SRC_PATH)/cub_file_utils_2.c \
 $(SRC_PATH)/init_cub_file.c \
 $(SRC_PATH)/init_textures.c \
 $(SRC_PATH)/update.c \
+$(SRC_PATH)/parsing.c \
 $(SRC_PATH)/set_ceiling_floor.c
 
 CC		= gcc

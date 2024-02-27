@@ -49,7 +49,6 @@ int	init_textures(t_game *game)
 		if (!game->walls[i].addr)
 			return (2);
 		fill_textures(game, i);
-		//mlx_destroy_image(game->mlx, game->walls[i].img);
 		i++;
 	}
 	return (0);
