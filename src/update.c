@@ -26,5 +26,7 @@ int	update(t_game *game)
 		else
 			game->update.animate = 0;
 	}
+	else
+		safe_exit(game);
 	return (0);
 }

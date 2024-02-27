@@ -42,8 +42,7 @@ int	key_hook(int keycode, t_game *game)
 	if (keycode == MAC_S || keycode == LINUX_S)
 		g_player.walk_direction = -1;
 	if (keycode == MAC_ESC || keycode == LINUX_ESC)
-		safe_exit(game);
-	render(game);
+		game->update.end_game = 1;
 	return (0);
 }
 
@@ -51,11 +50,11 @@ bool	init_window(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		safe_exit(game);
+		game->update.end_game = 1;
 	game->win = mlx_new_window(game->mlx, game->win_width, game->win_height,
 			"Legally Distinct Slï'mę Game");
 	if (!game->win)
-		safe_exit(game);
+		game->update.end_game = 1;
 	mlx_hook(game->win, 2, 1L << 0, key_hook, game);
 	mlx_hook(game->win, 3, 1L << 1, key_release, game);
 	mlx_hook(game->win, 17, 1L << 0, &safe_exit, game);

@@ -97,6 +97,8 @@ void	generate_3d_projection(t_game *game)
 						* cos(game->rays[i].ray_angle
 							- g_player.rotation_angle)))
 				* ((game->win_width / 2) / tan(FOV_ANGLE / 2)));
+		if (projected_wall_height > (game->win_height * 2))
+			projected_wall_height = game->win_height * 2;
 		wall_direction_init(game, projected_wall_height, dir, i);
 		draw_walls(game, &game->walls[dir], dir);
 	}
