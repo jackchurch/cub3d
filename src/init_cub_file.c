@@ -65,7 +65,7 @@ int	do_shit(t_input *input, char *current_line)
 	return (0);
 }
 
-t_input	init_cub_file(char *file_name)
+t_input	init_cub_file(t_game *game, char *file_name)
 {
 	int			fd;
 	char		*current_line;
@@ -87,6 +87,8 @@ t_input	init_cub_file(char *file_name)
 		current_line = get_next_line(fd);
 	}
 	free(current_line);
+	if (map_parsing(&input, input.map.content))
+		safe_exit(game);
 	close(fd);
 	return (input);
 }

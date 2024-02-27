@@ -51,23 +51,23 @@ int	check_vars(t_input *input)
 	return (0);
 }
 
-int	map_parsing(t_game *game, char **map)
+int	map_parsing(t_input *input, char **map)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	if (!is_only_one(map[0]) || !is_only_one(map[game->input.map.rows - 1]))
-		game->input.map.count.valid += 1;
-	while (++i < game->input.map.rows && game->input.map.count.valid == 0)
+	if (!is_only_one(map[0]) || !is_only_one(map[input->map.rows - 1]))
+		input->map.count.valid += 1;
+	while (++i < input->map.rows && input->map.count.valid == 0)
 	{
 		j = -1;
-		while (++j < game->input.map.longest_row
-			&& game->input.map.count.valid == 0)
+		while (++j < input->map.longest_row
+			&& input->map.count.valid == 0)
 		{
 			if (walk_area(map[i][j]))
-				game->input.map.count.valid += map_check(map, i, j);
+				input->map.count.valid += map_check(map, i, j);
 		}
 	}
-	return (check_vars(&game->input));
+	return (check_vars(input));
 }
