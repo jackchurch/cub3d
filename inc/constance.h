@@ -16,7 +16,7 @@
 # include <math.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
-# include "../mlx_linux/mlx.h"
+//# include "../mlx_linux/mlx.h"
 # include "../mlx_mac/mlx.h"
 
 # ifndef M_PI

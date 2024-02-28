@@ -69,6 +69,7 @@ int	safe_exit(t_game *game)
 int	render(t_game *game)
 {
 	draw_ceiling(game);
+	//mouse_rotate(game);
 	move_player(game);
 	cast_all_rays(game);
 	generate_3d_projection(game);

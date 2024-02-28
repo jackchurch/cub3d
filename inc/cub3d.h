@@ -17,7 +17,7 @@
 # include "structs.h"
 # include <math.h>
 # include "../libft/libft.h"
-# include "../mlx_linux/mlx.h"
+//# include "../mlx_linux/mlx.h"
 # include "../mlx_mac/mlx.h"
 # include "constance.h"
 # include "ray.h"
@@ -38,6 +38,7 @@ void	fill_textures(t_game *game, int i);
 int		safe_exit(t_game *game);
 
 // To sort
+void	mouse_rotate(t_game *game);
 int		render(t_game *game);
 int		update(t_game *game);
 void	strafe(float side_step, float *new_player_x, float *new_player_y);
