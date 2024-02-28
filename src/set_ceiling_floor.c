@@ -47,10 +47,15 @@ int	for_each_value(t_input *input, char *value, int element_type)
 	char	*str;
 
 	str = ft_strtrim(value, " 	");
-	if (any_invalid_chars(str) == true)
-		return (-1);
-	input->paths[element_type] = ft_strdup(str);
-	input->complete++;
+	if (any_invalid_chars(str) == true || value == NULL)
+		input->map.count.invalid_char++;
+	else if (!(is_xpm_file(str)))
+		input->map.count.not_xpm++;
+	else
+	{
+		input->paths[element_type] = ft_strdup(str);
+		input->complete++;
+	}
 	free(str);
 	return (0);
 }
@@ -88,23 +93,27 @@ int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 	int		i;
 	int		count;
 
-	i = 0;
+	i = -1;
 	count = 0;
+	if (element_type < 0)
+		return (-1);
 	str = isolate_element_path(current_line);
-	while (str[i] != '\0')
+	if (str == NULL)
+		input->map.count.invalid_char++;
+	while (str[++i] != '\0')
 	{
-		if (str[i] == ',')
-			count++;
-		if (count > 2)
+		if (str[i] == ',' && ++count > 2)
+		{
+			input->map.count.comma++;
 			return (-1);
-		i++;
+		}
 	}
-	if (element_type != FLOOR && element_type != CEILING)
-		for_each_value(input, str, element_type);
-	else if (element_type == FLOOR)
+	if (element_type == FLOOR)
 		input->floor_color = ceiling_floor_color(input, str);
 	else if (element_type == CEILING)
 		input->ceiling_color = ceiling_floor_color(input, str);
+	else
+		for_each_value(input, str, element_type);
 	free(str);
 	return (0);
 }

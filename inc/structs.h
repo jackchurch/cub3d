@@ -38,6 +38,10 @@ typedef struct s_count
 	int	spawn_dir;
 	int	valid;
 	int	colors;
+	int	invalid_char;
+	int	comma;
+	int	not_xpm;
+	int	filepath;
 }	t_count;
 
 typedef struct s_map

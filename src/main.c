@@ -84,7 +84,7 @@ int	main(int argc, char **argv)
 	t_game	*game;
 
 	if (argc != 2)
-		return (err_i("Please execute with exactly 1 argument."));
+		return (err_i("Please execute with exactly 1 argument.", 0));
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	game->input = init_cub_file(game, argv[1]);
 	game->win_width = game->input.map.longest_row * TILE_SIZE;
@@ -92,7 +92,8 @@ int	main(int argc, char **argv)
 	game->tile_size = TILE_SIZE;
 	init_window(game);
 	setup(game);
-	init_textures(game);
+	if (init_textures(game) > 0)
+		return (err_i("Error loading textures. Please check filepath.", 0));
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));

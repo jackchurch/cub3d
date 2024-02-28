@@ -1,8 +1,8 @@
+EA  textures/Checkered.xpm
 NO  textures/Red_Bricks.xpm
-EA  textures/Magma.xpm
-SO  textures/Gray_Bricks.xpm
+SO  textures/Grey_Bricks.xpm
 WE  textures/Rocky_Road.xpm
-C   53,81,92
+C   53,150,150
 F   83,83,83
 
 111111111

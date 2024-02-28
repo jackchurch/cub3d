@@ -60,8 +60,11 @@ int	do_shit(t_input *input, char *current_line)
 		init_map(&input->map, current_line);
 		input->complete++;
 	}
-	if (input->element_type == -1)
+	if (input->element_type < 0)
+	{
+		input->map.count.invalid_char++;
 		return (-1);
+	}
 	return (0);
 }
 

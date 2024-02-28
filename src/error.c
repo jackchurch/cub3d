@@ -11,19 +11,30 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "constance.h"
 
 void	err_v(char *str)
 {
-	printf("Error\n\t%s\n", str);
+	printf("Error\n\t%s\n\n", str);
 }
 
-int	err_i(char *str)
+int	err_i(char *str, int i)
 {
-	return (printf("Error\n\t%s\n", str));
+	if (i == 0)
+	{
+		printf(BRED);
+		printf("\n\n\t\tPlease fix first error before moving on to others.\n");
+		printf(BMAG);
+		printf("\t\t__________________________________________________\n\n");
+		printf(CRESET);
+	}
+	printf(URED "Error" CRESET BCYN " %d\n" CRESET, i + 1);
+	printf("\t%s\n\n", str);
+	return (1);
 }
 
 void	*err_p(char *str)
 {
-	printf("Error\n\t%s\n", str);
+	printf("Error\n\t%s\n\n", str);
 	return (NULL);
 }

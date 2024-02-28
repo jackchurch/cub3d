@@ -46,7 +46,9 @@ int	discover_element_type(char *current_line)
 	char	*line;
 
 	line = ft_strtrim(current_line, " 	");
-	if (line[0] == 'C' && is_white_space(line[1]))
+	if (!line[0])
+		return (-2);
+	else if (line[0] == 'C' && is_white_space(line[1]))
 		return (CEILING);
 	else if (line[0] == 'F' && is_white_space(line[1]))
 		return (FLOOR);
@@ -68,7 +70,7 @@ char	*isolate_element_path(char *str)
 	int		start;
 
 	i = 0;
-	while (!(is_white_space(str[i])))
+	while (!(is_white_space(str[i])) && str[i])
 		i++;
 	if (str[i] == '\n' || str[i] == '\0')
 		return (NULL);

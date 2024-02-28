@@ -25,7 +25,7 @@
 # include "map.h"
 
 //error
-int		err_i(char *str);
+int		err_i(char *str, int i);
 void	err_v(char *str);
 void	*err_p(char *str);
 
