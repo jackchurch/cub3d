@@ -91,6 +91,8 @@ int	main(int argc, char **argv)
 	init_window(game);
 	setup(game);
 	init_textures(game);
+	for (int i = 0; i < 4; i++)
+		printf("%d\n", *game->walls[i].addr);
 	game->num_rays = game->win_width;
 	game->data = (t_data){0};
 	game->rays = (t_ray *)ft_calloc(game->num_rays, sizeof(t_ray));

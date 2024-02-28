@@ -61,8 +61,7 @@ void	draw_ceiling(t_game *game)
 void	wall_direction_init(t_game *game, int height, int dir, int i)
 {
 	game->walls[dir].loc.x = i;
-	game->walls[dir].loc.y = game->win_height
-		/ 2 - height / 2;
+	game->walls[dir].loc.y = game->win_height / 2 - height / 2;
 	game->walls[dir].width = 1;
 	game->walls[dir].height = height;
 }
@@ -82,9 +81,9 @@ int	find_direction(t_game *game, int i)
 
 void	generate_3d_projection(t_game *game)
 {
-	int			i;
-	int			projected_wall_height;
-	int			dir;
+	int	i;
+	int	projected_wall_height;
+	int	dir;
 
 	i = -1;
 	//draw_ceiling(game);

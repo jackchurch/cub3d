@@ -50,6 +50,7 @@ int	init_textures(t_game *game)
 			return (2);
 		fill_textures(game, i);
 		//mlx_destroy_image(game->mlx, game->walls[i].img);
+		printf("%d\n", *game->walls[i].addr);
 		i++;
 	}
 	return (0);
