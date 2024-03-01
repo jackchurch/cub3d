@@ -65,9 +65,10 @@ void	draw_walls(t_game *game, t_image *wall, int dir, int ray)
 	j = 0;
 	while (j < wall->height)
 	{
-		color = find_texture_pixel(game, dir, (int)(x * TILE_SIZE), ((float)j / wall->height) * TILE_SIZE);
+		color = find_texture_pixel(game, dir,
+				(int)(x * TILE_SIZE), ((float)j / wall->height) * TILE_SIZE);
 		my_mlx_pixel_put(game, wall->loc.x, j + wall->loc.y, color);
-		j++;			
+		j++;
 	}
 }
 

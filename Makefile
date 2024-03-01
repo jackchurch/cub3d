@@ -1,9 +1,8 @@
-NAME		= a.out cub3d
+NAME		= cub3d
 
 OS			= $(shell uname)
 FT_PATH		= ./libft
-MLX_LIB		= libmlx.a
-FT_LIB		= libft.a
+FT_LIB		= $(FT_PATH)/libft.a
 INC_PATH	= ./inc
 SRC_PATH	= ./src
 OBJ_PATH	= ./obj
@@ -42,6 +41,8 @@ else ifeq ($(OS),Linux)
 	MLX_FLAGS = -lXext -lX11 -lm
 endif
 
+MLX_LIB		= $(MLX_PATH)/libmlx.a
+
 INC_LIBS	= -L$(MLX_PATH) -lmlx -L$(FT_PATH) -lft
 CFLAGS		+= -I $(MLX_PATH)
 
@@ -50,10 +51,10 @@ all: $(NAME)
 $(NAME): $(OBJECTS) $(MLX_LIB) $(FT_LIB)
 	$(CC) $(DFLAGS) $(CFLAGS) $(OBJECTS) $(INC_LIBS) $(MLX_FLAGS) -o $@
 
-%.o: $(SRC_PATH)/%.c
+%.o:$(SRC_PATH)/.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(MLX_LIB):
+$(MLX_LIB): 
 	make -C $(MLX_PATH)
 
 $(FT_LIB):

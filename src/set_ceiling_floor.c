@@ -87,27 +87,35 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 	return (r * 256 * 256 + g * 256 + b);
 }
 
-int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
+int	get_count(t_input *input, char *str)
 {
-	char	*str;
-	int		i;
-	int		count;
+	int	i;
+	int	count;
 
 	i = -1;
 	count = 0;
-	if (element_type < 0)
-		return (-1);
-	str = isolate_element_path(current_line);
-	if (str == NULL)
-		input->map.count.invalid_char++;
 	while (str[++i] != '\0')
 	{
 		if (str[i] == ',' && ++count > 2)
 		{
 			input->map.count.comma++;
-			return (-1);
+			return (1);
 		}
 	}
+	return (0);
+}
+
+int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
+{
+	char	*str;
+
+	if (element_type < 0)
+		return (-1);
+	str = isolate_element_path(current_line);
+	if (str == NULL)
+		input->map.count.invalid_char++;
+	if (get_count(input, str))
+		return (-1);
 	if (element_type == FLOOR)
 		input->floor_color = ceiling_floor_color(input, str);
 	else if (element_type == CEILING)
