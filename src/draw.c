@@ -19,17 +19,17 @@ void	my_mlx_pixel_put(t_game *game, int x, int y, unsigned int color)
 
 	if (x < 0 || y < 0 || x >= game->win_width || y >= game->win_height)
 		return ;
-	dst = (game->data.addr + (y * game->data.line_length
+	dst = ((char *)game->data.addr + (y * game->data.line_length
 				+ x * game->data.bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
-int	find_texture_pixel(t_game *game, int dir,int x, int y)
+int	find_texture_pixel(t_game *game, int dir, int x, int y)
 {
 	char	*dest;
 
-	dest = (game->data.addr + (y * game->data.line_length
-				+ x * game->data.bpp / 8));
+	dest = (((char *)game->walls[dir].addr) + (y * game->walls[dir].line_length
+				+ x * game->walls[dir].bpp / 8));
 	return (*(unsigned int *)dest);
 }
 
@@ -52,30 +52,23 @@ void	draw_rect(t_game *game, t_rectangle *rect)
 	return ;
 }
 
-void	draw_walls(t_game *game, t_image *wall, int dir)
+void	draw_walls(t_game *game, t_image *wall, int dir, int ray)
 {
-	int	i;
-	int	j;
-	int	color;
+	float	x;
+	int		j;
+	int		color;
 
-	i = wall->loc.x;
-	while (i <= (wall->loc.x + wall->width))
+	x = game->rays[ray].wall_hit_x / TILE_SIZE;
+	if (game->rays[ray].was_hit_vertical)
+		x = game->rays[ray].wall_hit_y / TILE_SIZE;
+	x = x - floor(x);
+	j = 0;
+	while (j < wall->height)
 	{
-
-		//printf("loc.x = %d\nwall->width = %d\n", wall->loc.x, wall->width);
-		j = wall->loc.y;
-		while (j <= (wall->loc.y + wall->height))
-		{
-			color = find_texutre_pixel(game, i, j);
-			//printf("loc.y = %d\nwall->height = %d\n", wall->loc.y, wall->height);
-			// mlx_put_image_to_window(game->mlx, game->win, wall->img,
-			// 	wall->loc.x, wall->loc.y);
-			my_mlx_pixel_put(game, wall->loc.x, wall->loc.y, color);
-			j++;
-		}
-		i++;
+		color = find_texture_pixel(game, dir, (int)(x * TILE_SIZE), ((float)j / wall->height) * TILE_SIZE);
+		my_mlx_pixel_put(game, wall->loc.x, j + wall->loc.y, color);
+		j++;			
 	}
-	return ;
 }
 
 void	draw_line(t_game *game, const t_line *line)

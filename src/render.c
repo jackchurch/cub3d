@@ -86,7 +86,7 @@ void	generate_3d_projection(t_game *game)
 	int	dir;
 
 	i = -1;
-	//draw_ceiling(game);
+	draw_ceiling(game);
 	while (++i < game->num_rays)
 	{
 		dir = find_direction(game, i);
@@ -99,6 +99,6 @@ void	generate_3d_projection(t_game *game)
 		if (projected_wall_height > (game->win_height * 2))
 			projected_wall_height = game->win_height * 2;
 		wall_direction_init(game, projected_wall_height, dir, i);
-		draw_walls(game, &game->walls[dir], dir);
+		draw_walls(game, &game->walls[dir], dir, i);
 	}
 }
