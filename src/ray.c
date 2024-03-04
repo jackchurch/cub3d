@@ -109,10 +109,10 @@ void	render_rays(t_game *game)
 	i = 0;
 	while (i < game->num_rays)
 	{
-		line.x0 = g_player.x * MINIMAP_SCALE;
-		line.y0 = g_player.y * MINIMAP_SCALE;
-		line.x1 = game->rays[i].wall_hit_x * MINIMAP_SCALE;
-		line.y1 = game->rays[i].wall_hit_y * MINIMAP_SCALE;
+		line.x0 = g_player.x * game->input.map.minimap_scale;
+		line.y0 = g_player.y * game->input.map.minimap_scale;
+		line.x1 = game->rays[i].wall_hit_x * game->input.map.minimap_scale;
+		line.y1 = game->rays[i].wall_hit_y * game->input.map.minimap_scale;
 		line.color = 0x00FFC8D7;
 		draw_line(game, &line);
 		i++;

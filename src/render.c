@@ -23,18 +23,18 @@ void	render_player(t_game *game)
 	t_rectangle	player_rect;
 	t_line		player_line;
 
-	player_rect.x = g_player.x * MINIMAP_SCALE;
-	player_rect.y = g_player.y * MINIMAP_SCALE;
-	player_rect.width = g_player.width * MINIMAP_SCALE;
-	player_rect.height = g_player.height * MINIMAP_SCALE;
+	player_rect.x = g_player.x * game->input.map.minimap_scale;
+	player_rect.y = g_player.y * game->input.map.minimap_scale;
+	player_rect.width = g_player.width * game->input.map.minimap_scale;
+	player_rect.height = g_player.height * game->input.map.minimap_scale;
 	player_rect.color = 0x00E0B0FF;
 	draw_rect(game, &player_rect);
-	player_line.x0 = g_player.x * MINIMAP_SCALE;
-	player_line.y0 = g_player.y * MINIMAP_SCALE;
+	player_line.x0 = g_player.x * game->input.map.minimap_scale;
+	player_line.y0 = g_player.y * game->input.map.minimap_scale;
 	player_line.x1 = (g_player.x + cos(g_player.rotation_angle) * 40)
-		* MINIMAP_SCALE;
+		* game->input.map.minimap_scale;
 	player_line.y1 = (g_player.y + sin(g_player.rotation_angle) * 40)
-		* MINIMAP_SCALE;
+		* game->input.map.minimap_scale;
 	player_line.color = 0x00E0B0FF;
 	draw_line(game, &player_line);
 }

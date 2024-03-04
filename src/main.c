@@ -38,6 +38,8 @@ void	setup(t_game *game)
 	g_player.walk_speed = 10;
 	g_player.turn_speed = M_PI / 180 * g_player.walk_speed;
 	ft_memset(&game->update, 0, sizeof(t_update));
+	game->input.map.minimap_scale = MINIMAP_SCALE
+		/ ((int)game->input.map.longest_row / 10 + 1);
 }
 	//game->sprite = sprite_init(game->input.map.content);
 

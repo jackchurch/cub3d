@@ -53,6 +53,7 @@ typedef struct s_map
 	t_coords	spawn_loc;
 	float		rot_angle;
 	t_count		count;
+	float		minimap_scale;
 }	t_map;
 
 typedef struct s_input

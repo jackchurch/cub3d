@@ -40,12 +40,12 @@ bool	is_inside_map(t_game *game, float x, float y)
 		&& y >= 0 && y <= game->input.map.rows * TILE_SIZE);
 }
 
-void	tile_rect_init(t_rectangle *map_tile_rect, const t_tile tile)
+void	tile_rect_init(t_game *game, t_rectangle *map_tile_rect, const t_tile tile)
 {
-	map_tile_rect->x = tile.x * MINIMAP_SCALE;
-	map_tile_rect->y = tile.y * MINIMAP_SCALE;
-	map_tile_rect->width = TILE_SIZE * MINIMAP_SCALE;
-	map_tile_rect->height = TILE_SIZE * MINIMAP_SCALE;
+	map_tile_rect->x = tile.x * game->input.map.minimap_scale;
+	map_tile_rect->y = tile.y * game->input.map.minimap_scale;
+	map_tile_rect->width = TILE_SIZE * game->input.map.minimap_scale;
+	map_tile_rect->height = TILE_SIZE * game->input.map.minimap_scale;
 	map_tile_rect->color = tile.color;
 }
 
@@ -68,7 +68,7 @@ void	render_map(t_game *game)
 				tile.color = 0x000000FF;
 			else
 				tile.color = 0x00FFFFFF;
-			tile_rect_init(&map_tile_rect, tile);
+			tile_rect_init(game, &map_tile_rect, tile);
 			draw_rect(game, &map_tile_rect);
 		}
 	}
