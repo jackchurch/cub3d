@@ -1,4 +1,4 @@
-NAME		= cub3d
+NAME		= cub3D
 
 OS			= $(shell uname)
 FT_PATH		= ./libft

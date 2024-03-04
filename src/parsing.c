@@ -61,6 +61,8 @@ int	check_vars(t_input *input)
 		err += err_i("Invalid cub file. Please check and try again.", err);
 	if (input->map.count.colors != 0)
 		err += err_i("Invalid color code spacing.", err);
+	if (!input->ceiling_color || !input->floor_color)
+		err += err_i("Floor or Ceiling color missing or out of range.", err);
 	return (err);
 }
 

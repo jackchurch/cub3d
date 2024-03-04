@@ -46,9 +46,7 @@ char	*remove_tail_whitespace(char *in_string)
 	if (is_white_space(in_string[len - 1]))
 	{
 		while (is_white_space(in_string[len - 1]))
-		{
 			len--;
-		}
 		temp = malloc(len + 1);
 		ft_strlcpy(temp, in_string, len);
 		return (temp);
