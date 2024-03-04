@@ -43,6 +43,8 @@ int	check_vars(t_input *input)
 	int	err;
 
 	err = 0;
+	if (input->map.rows >= 64)
+		err += err_i("Map size too big. Please limit to 64x64.", err);
 	if (input->map.count.not_xpm > 0)
 		err += err_i("Please ensure texture files are .xpm format.", err);
 	if (input->map.count.comma > 0)
@@ -75,7 +77,8 @@ int	map_parsing(t_input *input, char **map)
 	{
 		j = -1;
 		while (++j < input->map.longest_row
-			&& input->map.count.valid == 0)
+			&& input->map.count.valid == 0
+			&& map[i][j])
 		{
 			if (walk_area(map[i][j]))
 				input->map.count.valid += map_check(map, i, j);
