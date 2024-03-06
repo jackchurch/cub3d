@@ -115,7 +115,10 @@ int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 	if (str == NULL)
 		input->map.count.invalid_char++;
 	if (get_count(input, str))
+	{
+		free(str);
 		return (-1);
+	}
 	if (element_type == FLOOR)
 		input->floor_color = ceiling_floor_color(input, str);
 	else if (element_type == CEILING)
