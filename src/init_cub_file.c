@@ -95,8 +95,10 @@ int	do_shit(t_input *input, char *current_line)
 	if (input->element_type < 0)
 	{
 		input->map.count.invalid_char++;
+		free(str_1);
 		return (-1);
 	}
+	free(str_1);
 	return (0);
 }
 
