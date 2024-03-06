@@ -16,6 +16,19 @@
 #include "constance.h"
 #include "cub3d.h"
 
+int	map_transfer(t_map *map, int i, int j, int temp_i)
+{
+	if (map->temp[temp_i] == '\n' && j < map->longest_row)
+		map->content[i][j] = ' ';
+	else if (j < map->longest_row)
+	{
+		map->content[i][j] = map->temp[temp_i];
+		map->spawn_dir = player_spawn(map, i, j);
+		temp_i++;
+	}
+	return (temp_i);
+}
+
 void	finalize_map(t_map *map)
 {
 	int	i;
@@ -30,16 +43,7 @@ void	finalize_map(t_map *map)
 		j = -1;
 		map->content[i] = malloc(map->longest_row + 1);
 		while (++j < map->longest_row && map->temp[temp_i] != '\0')
-		{
-			if (map->temp[temp_i] == '\n' && j < map->longest_row)
-				map->content[i][j] = ' ';
-			else if (j < map->longest_row)
-			{
-				map->content[i][j] = map->temp[temp_i];
-				map->spawn_dir = player_spawn(map, i, j);
-				temp_i++;
-			}
-		}
+			temp_i = map_transfer(map, i, j, temp_i);
 		temp_i++;
 		map->content[i][map->longest_row] = '\0';
 	}
