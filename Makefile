@@ -25,7 +25,8 @@ $(SRC_PATH)/init_textures.c \
 $(SRC_PATH)/update.c \
 $(SRC_PATH)/parsing.c \
 $(SRC_PATH)/mouse_movement.c \
-$(SRC_PATH)/set_ceiling_floor.c
+$(SRC_PATH)/set_ceiling_floor.c \
+$(SRC_PATH)/leaks.c
 
 CC		= gcc
 DFLAGS  = #-fsanitize=address -g

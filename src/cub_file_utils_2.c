@@ -16,8 +16,11 @@
 #include "cub3d.h"
 #include "cub_file.h"
 
-char	player_spawn(t_map *map, int i, int j, char line)
+char	player_spawn(t_map *map, int i, int j)
 {
+	char	line;
+
+	line = map->content[i][j];
 	if (line == 'N' || line == 'S' || line == 'E' || line == 'W')
 	{
 		map->spawn_loc.y = i;
@@ -44,23 +47,26 @@ C   645,421,334 will pass
 int	discover_element_type(char *current_line)
 {
 	char	*line;
+	int		ret;
 
+	ret = -1;
 	line = ft_strtrim(current_line, " 	");
 	if (!line[0])
-		return (-2);
+		ret = -2;
 	else if (line[0] == 'C' && is_white_space(line[1]))
-		return (CEILING);
+		ret = CEILING;
 	else if (line[0] == 'F' && is_white_space(line[1]))
-		return (FLOOR);
+		ret = FLOOR;
 	else if (line[0] == 'N' && line[1] == 'O' && is_white_space(line[2]))
-		return (NORTH);
+		ret = NORTH;
 	else if (line[0] == 'S' && line[1] == 'O' && is_white_space(line[2]))
-		return (SOUTH);
+		ret = SOUTH;
 	else if (line[0] == 'E' && line[1] == 'A' && is_white_space(line[2]))
-		return (EAST);
+		ret = EAST;
 	else if (line[0] == 'W' && line[1] == 'E' && is_white_space(line[2]))
-		return (WEST);
-	return (-1);
+		ret = WEST;
+	free(line);
+	return (ret);
 }
 
 char	*isolate_element_path(char *str)
@@ -86,20 +92,4 @@ char	*isolate_element_path(char *str)
 	ret[i] = '\0';
 	free(str);
 	return (ret);
-}
-
-int	row_update(t_map *map, int length)
-{
-	int	j;
-
-	j = 0;
-	while (j < map->rows)
-	{
-		map->content[j] = ft_realloc(map->content[j],
-				map->longest_row, length + 1);
-		ft_memset(map->content[j]
-			+ map->longest_row, 0, length - map->longest_row + 1);
-		j++;
-	}
-	return (length);
 }

@@ -41,7 +41,6 @@ void	setup(t_game *game)
 	game->input.map.minimap_scale = MINIMAP_SCALE
 		/ ((int)game->input.map.longest_row / 10 + 1);
 }
-	//game->sprite = sprite_init(game->input.map.content);
 
 int	safe_exit(t_game *game)
 {
@@ -66,6 +65,7 @@ int	safe_exit(t_game *game)
 	}
 	if (game)
 		free(game);
+	check_leaks();
 	return (exit(0), 0);
 }
 
@@ -106,5 +106,6 @@ int	main(int argc, char **argv)
 			&game->data.line_length, &game->data.endian);
 	mlx_loop_hook(game->mlx, update, game);
 	mlx_loop(game->mlx);
+	check_leaks();
 	return (0);
 }

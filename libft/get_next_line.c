@@ -21,15 +21,11 @@ char	*ft_strchr(const char *s, int c)
 	while (*s)
 	{
 		if (*s == c)
-		{
 			return ((char *)s);
-		}
 		s++;
 	}
 	if (!c)
-	{
 		return ((char *)s);
-	}
 	return (0);
 }
 
@@ -60,13 +56,9 @@ static char	*get_leftovers(char *line)
 
 	i = 0;
 	while (line[i] && line[i] != '\n')
-	{
 		i++;
-	}
 	if (!line[i] || !line[1])
-	{
 		return (NULL);
-	}
 	leftovers = ft_substr(line, i + 1, ft_strlen(line) - i);
 	if (!*leftovers)
 	{
@@ -184,21 +176,15 @@ char	*get_next_line(int fd)
 	static char	*backlog;
 
 	if ((fd < 0) || (BUFFER_SIZE <= 0))
-	{
 		return (NULL);
-	}
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-	{
 		return (NULL);
-	}
 	line = read_up_to_buffer(fd, buffer, backlog);
 	free(buffer);
 	buffer = NULL;
 	if (!line)
-	{
 		return (NULL);
-	}
 	backlog = get_leftovers(line);
 	return (line);
 }

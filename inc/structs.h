@@ -47,6 +47,7 @@ typedef struct s_count
 typedef struct s_map
 {
 	char		**content;
+	char		*temp;
 	int			longest_row;
 	int			rows;
 	char		spawn_dir;

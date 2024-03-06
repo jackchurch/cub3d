@@ -40,7 +40,8 @@ bool	is_inside_map(t_game *game, float x, float y)
 		&& y >= 0 && y <= game->input.map.rows * TILE_SIZE);
 }
 
-void	tile_rect_init(t_game *game, t_rectangle *map_tile_rect, const t_tile tile)
+void	tile_rect_init(t_game *game,
+		t_rectangle *map_tile_rect, const t_tile tile)
 {
 	map_tile_rect->x = tile.x * game->input.map.minimap_scale;
 	map_tile_rect->y = tile.y * game->input.map.minimap_scale;

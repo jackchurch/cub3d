@@ -23,6 +23,7 @@
 # include "ray.h"
 # include "cub_file.h"
 # include "map.h"
+# include "leaks.h"
 
 //error
 int		err_i(char *str, int i);

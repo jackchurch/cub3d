@@ -32,23 +32,21 @@ void	fill_textures(t_game *game, int i)
 int	init_textures(t_game *game)
 {
 	int		i;
-	void	*temp;
-	int		*addr;
 
 	i = -1;
 	while (++i < 4)
 	{
-		temp = mlx_xpm_file_to_image(game->mlx, game->input.paths[i],
-				&game->tile_size, &game->tile_size);
-		game->walls[i].img = temp;
+		game->walls[i].img = mlx_xpm_file_to_image(game->mlx,
+				game->input.paths[i], &game->tile_size, &game->tile_size);
 		if (!game->walls[i].img)
 			return (1);
-		addr = (int *)mlx_get_data_addr(game->walls[i].img, &game->walls[i].bpp,
+		game->walls[i].addr = (int *)mlx_get_data_addr(game->walls[i].img,
+				&game->walls[i].bpp,
 				&game->walls[i].line_length, &game->walls[i].endian);
-		game->walls[i].addr = addr;
 		if (!game->walls[i].addr)
 			return (2);
 		fill_textures(game, i);
+		free(game->input.paths[i]);
 	}
 	return (0);
 }

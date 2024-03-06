@@ -16,32 +16,60 @@
 #include "constance.h"
 #include "cub3d.h"
 
+void	finalize_map(t_map *map)
+{
+	int	i;
+	int	j;
+	int	temp_i;
+
+	i = -1;
+	temp_i = 0;
+	map->content = malloc(sizeof(char *) * map->rows);
+	while (++i < map->rows)
+	{
+		j = -1;
+		map->content[i] = malloc(map->longest_row + 1);
+		while (++j < map->longest_row && map->temp[temp_i] != '\0')
+		{
+			if (map->temp[temp_i] == '\n' && j < map->longest_row)
+				map->content[i][j] = ' ';
+			else if (j < map->longest_row)
+			{
+				map->content[i][j] = map->temp[temp_i];
+				map->spawn_dir = player_spawn(map, i, j);
+				temp_i++;
+			}
+		}
+		temp_i++;
+		map->content[i][map->longest_row] = '\0';
+	}
+	free(map->temp);
+	map->temp = NULL;
+}
+
 int	init_map(t_map *map, char *line)
 {
-	int		length;
-	int		j;
-	int		i;
+	char	*content;
+	int		len;
+	int		con_len;
 
-	length = ft_strlen(line);
-	i = map->rows;
-	if (!map->content)
-		map->content = malloc(sizeof(char *));
-	else
-		map->content = ft_realloc(map->content,
-				sizeof(char *) * i, sizeof(char *) * (i + 1));
-	if (line[length - 1] == '\n')
-		length--;
-	if (length > map->longest_row)
-		map->longest_row = row_update(map, length);
-	map->content[i] = malloc(map->longest_row + 1);
-	j = -1;
-	while (++j < length)
+	len = ft_strlen(line);
+	if (!map->temp)
 	{
-		map->content[i][j] = line[j];
-		map->spawn_dir = player_spawn(map, i, j, line[j]);
+		map->temp = malloc(len + 1);
+		ft_strlcpy(map->temp, line, len + 1);
 	}
-	map->content[i][j] = '\0';
+	else
+	{
+		content = ft_strjoin(map->temp, line);
+		free(map->temp);
+		con_len = ft_strlen(content);
+		map->temp = malloc(con_len + 1);
+		ft_strlcpy(map->temp, content, con_len + 1);
+	}
 	map->rows++;
+	if (len > map->longest_row)
+		map->longest_row = len;
 	return (1);
 }
 
@@ -73,12 +101,9 @@ t_input	init_cub_file(t_game *game, char *file_name)
 	int			fd;
 	char		*current_line;
 	t_input		input;
-	t_coords	loc;
 
 	ft_memset(&input, 0, sizeof(t_input));
 	ft_memset(&input.map, 0, sizeof(t_map));
-	ft_memset(&loc, 0, sizeof(t_coords));
-	input.map.spawn_loc = loc;
 	fd = open_cub_file(file_name);
 	current_line = get_next_line(fd);
 	while (current_line != NULL)
@@ -87,9 +112,11 @@ t_input	init_cub_file(t_game *game, char *file_name)
 			current_line = get_next_line(fd);
 		if (do_shit(&input, current_line) < 0)
 			break ;
+		free(current_line);
 		current_line = get_next_line(fd);
 	}
 	free(current_line);
+	finalize_map(&input.map);
 	if (map_parsing(&input, input.map.content))
 		safe_exit(game);
 	close(fd);
