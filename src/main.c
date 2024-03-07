@@ -58,7 +58,7 @@ int	safe_exit(t_game *game)
 		while (i < game->input.map.rows && game->input.map.content[i])
 		{
 			free(game->input.map.content[i]);
-			game->input.map.content[i] = NULL;
+			// game->input.map.content[i] = NULL;
 			i++;
 		}
 		free(game->input.map.content);

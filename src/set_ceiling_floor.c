@@ -18,7 +18,7 @@
 #include "constance.h"
 #include "cub3d.h"
 
-bool	any_invalid_chars(char *str)
+bool	any_invalid_chars(const char *str)
 {
 	int		i;
 	bool	digit_found;
@@ -62,25 +62,32 @@ int	for_each_value(t_input *input, char *value, int element_type)
 
 unsigned int	ceiling_floor_color(t_input *input, char *str)
 {
-	char	**values;
 	int		r;
 	int		g;
 	int		b;
 	int		i;
+	char	**values;
+	char	*temp;
 
 	values = ft_split(str, ',');
 	i = -1;
 	while (++i < 3)
 	{
-		values[i] = ft_strtrim(values[i], " 	");
+		temp = values[i];
+		values[i] = ft_strtrim(temp, " 	");
+		free(temp);
 		if (any_invalid_chars(values[i]))
 			input->map.count.colors = 1;
 	}
 	r = ft_atoi(values[0]);
 	g = ft_atoi(values[1]);
 	b = ft_atoi(values[2]);
-	while (*values)
-		free(*values++);
+	while (i >= 0)
+	{
+		free((void *)values[i]);
+		i--;
+	}
+	free(values);
 	input->complete++;
 	if (r > 255 || g > 255 || b > 255)
 		return (0);

@@ -26,6 +26,8 @@ int	map_transfer(t_map *map, int i, int j, int temp_i)
 		map->spawn_dir = player_spawn(map, i, j);
 		temp_i++;
 	}
+	if (i == map->rows - 1 && map->content[i][j + 1] != '\0')
+		map->content[i][j + 1] = '\0';
 	return (temp_i);
 }
 
@@ -37,7 +39,7 @@ void	finalize_map(t_map *map)
 
 	i = -1;
 	temp_i = 0;
-	map->content = malloc(sizeof(char *) * map->rows);
+	map->content = malloc(sizeof(char *) * map->rows + 1);
 	while (++i < map->rows)
 	{
 		j = -1;
@@ -48,7 +50,6 @@ void	finalize_map(t_map *map)
 		map->content[i][map->longest_row] = '\0';
 	}
 	free(map->temp);
-	map->temp = NULL;
 }
 
 int	init_map(t_map *map, char *line)
@@ -70,6 +71,7 @@ int	init_map(t_map *map, char *line)
 		con_len = ft_strlen(content);
 		map->temp = malloc(con_len + 1);
 		ft_strlcpy(map->temp, content, con_len + 1);
+		free(content);
 	}
 	map->rows++;
 	if (len > map->longest_row)
@@ -95,10 +97,8 @@ int	do_shit(t_input *input, char *current_line)
 	if (input->element_type < 0)
 	{
 		input->map.count.invalid_char++;
-		free(str_1);
 		return (-1);
 	}
-	free(str_1);
 	return (0);
 }
 
