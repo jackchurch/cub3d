@@ -65,7 +65,6 @@ int	safe_exit(t_game *game)
 	}
 	if (game)
 		free(game);
-	check_leaks();
 	return (exit(0), 0);
 }
 
@@ -106,6 +105,5 @@ int	main(int argc, char **argv)
 			&game->data.line_length, &game->data.endian);
 	mlx_loop_hook(game->mlx, update, game);
 	mlx_loop(game->mlx);
-	check_leaks();
 	return (0);
 }

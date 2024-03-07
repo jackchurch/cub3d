@@ -17,13 +17,11 @@
 # include "structs.h"
 # include <math.h>
 # include "../libft/libft.h"
-//# include "../mlx_linux/mlx.h"
 # include "../mlx_mac/mlx.h"
 # include "constance.h"
 # include "ray.h"
 # include "cub_file.h"
 # include "map.h"
-# include "leaks.h"
 
 //error
 int		err_i(char *str, int i);

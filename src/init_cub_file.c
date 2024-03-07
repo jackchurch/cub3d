@@ -99,6 +99,7 @@ int	do_shit(t_input *input, char *current_line)
 		input->map.count.invalid_char++;
 		return (-1);
 	}
+	free(current_line);
 	return (0);
 }
 
@@ -115,10 +116,12 @@ t_input	init_cub_file(t_game *game, char *file_name)
 	while (current_line != NULL)
 	{
 		while (current_line[0] == '\n' && input.complete <= NUM_OF_ELEMENTS)
+		{
+			free(current_line);
 			current_line = get_next_line(fd);
+		}
 		if (do_shit(&input, current_line) < 0)
 			break ;
-		free(current_line);
 		current_line = get_next_line(fd);
 	}
 	free(current_line);
