@@ -27,7 +27,7 @@ $(SRC_PATH)/parsing.c \
 $(SRC_PATH)/mouse_movement.c \
 $(SRC_PATH)/set_ceiling_floor.c
 
-CC		= gcc
+CC		= cc
 DFLAGS  = #-fsanitize=address -g
 CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD -Ofast -flto
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))

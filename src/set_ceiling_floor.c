@@ -62,9 +62,7 @@ int	for_each_value(t_input *input, char *value, int element_type)
 
 unsigned int	ceiling_floor_color(t_input *input, char *str)
 {
-	int		r;
-	int		g;
-	int		b;
+	int		rgb[3];
 	int		i;
 	char	**values;
 	char	*temp;
@@ -79,19 +77,16 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 		if (any_invalid_chars(values[i]))
 			input->map.count.colors = 1;
 	}
-	r = ft_atoi(values[0]);
-	g = ft_atoi(values[1]);
-	b = ft_atoi(values[2]);
+	rgb[0] = ft_atoi(values[0]);
+	rgb[1] = ft_atoi(values[1]);
+	rgb[2] = ft_atoi(values[2]);
 	while (i >= 0)
-	{
-		free((void *)values[i]);
-		i--;
-	}
+		free((void *)values[i--]);
 	free(values);
 	input->complete++;
-	if (r > 255 || g > 255 || b > 255)
+	if (rgb[0] > 255 || rgb[1] > 255 || rgb[2] > 255)
 		return (0);
-	return (r * 256 * 256 + g * 256 + b);
+	return (rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2]);
 }
 
 int	get_count(t_input *input, char *str)
