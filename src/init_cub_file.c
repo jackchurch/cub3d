@@ -83,9 +83,9 @@ int	do_shit(t_input *input, char *current_line)
 {
 	char	*str_1;
 
-	str_1 = ft_strdup(current_line);
 	if (input->complete < NUM_OF_ELEMENTS)
 	{
+		str_1 = ft_strdup(current_line);
 		input->element_type = discover_element_type(str_1);
 		ceiling_floor_branch(input, str_1, input->element_type);
 	}

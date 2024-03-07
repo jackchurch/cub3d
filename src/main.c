@@ -47,10 +47,11 @@ int	safe_exit(t_game *game)
 	int	i;
 
 	i = 0;
-	if (game->win)
-		free(game->win);
-	if (game->mlx)
-		free(game->mlx);
+	mlx_destroy_image(game->mlx, game->data.img);
+	mlx_destroy_image(game->mlx, game->walls[0].img);
+	mlx_destroy_image(game->mlx, game->walls[1].img);
+	mlx_destroy_image(game->mlx, game->walls[2].img);
+	mlx_destroy_image(game->mlx, game->walls[3].img);
 	if (game->rays)
 		free(game->rays);
 	if (game->input.map.content)
@@ -58,7 +59,6 @@ int	safe_exit(t_game *game)
 		while (i < game->input.map.rows && game->input.map.content[i])
 		{
 			free(game->input.map.content[i]);
-			// game->input.map.content[i] = NULL;
 			i++;
 		}
 		free(game->input.map.content);
