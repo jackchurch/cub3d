@@ -28,7 +28,7 @@ $(SRC_PATH)/mouse_movement.c \
 $(SRC_PATH)/set_ceiling_floor.c
 
 CC		= cc
-DFLAGS  = #-fsanitize=address -g
+DFLAGS  = -fsanitize=address -g
 CFLAGS	= -Wall -Wextra -Werror -I$(INC_PATH) $(DFLAGS) -MP -MD -Ofast -flto
 OBJECTS = $(patsubst %.c,%.o, $(SRCS))
 DEPFILES = $(patsubst %.c,%.d,$(SRCS))

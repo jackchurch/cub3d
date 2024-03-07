@@ -15,6 +15,7 @@
 #include "cub_file.h"
 #include "constance.h"
 #include "cub3d.h"
+#include "maths.h"
 
 int	map_transfer(t_map *map, int i, int j, int temp_i)
 {
@@ -109,9 +110,9 @@ t_input	init_cub_file(t_game *game, char *file_name)
 	char		*current_line;
 	t_input		input;
 
-	ft_memset(&input, 0, sizeof(t_input));
-	ft_memset(&input.map, 0, sizeof(t_map));
-	fd = open_cub_file(file_name);
+	eff_norm(&input);
+	if (open_cub_file(file_name, &fd) < 0)
+		bad_file(game);
 	current_line = get_next_line(fd);
 	while (current_line != NULL)
 	{

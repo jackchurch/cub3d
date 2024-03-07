@@ -66,14 +66,15 @@ bool	is_xpm_file(char *file_name)
 		return (false);
 }
 
-int	open_cub_file(char *file_name)
+int	open_cub_file(char *file_name, int *fd)
 {
-	int	fd;
-
 	if (file_name == NULL)
 		return (-1);
-	fd = open(file_name, O_RDONLY);
-	if (fd == -1 || !fd)
+	*fd = open(file_name, O_RDONLY);
+	if (*fd < 0 || !*fd)
+	{
+		close(*fd);
 		return (-1);
-	return (fd);
+	}
+	return (0);
 }

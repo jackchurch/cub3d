@@ -14,9 +14,13 @@
 # define MATHS_H
 
 # include <math.h>
+# include "structs.h"
 
 // maths.c
 void	normalize_angle(float *ray_angle);
 float	distance_between_points(float x1, float y1, float x2, float y2);
+
+//please, just TRUST us. It's worth it.
+void	eff_norm(t_input *input);
 
 #endif

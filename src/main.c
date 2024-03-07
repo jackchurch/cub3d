@@ -42,16 +42,27 @@ void	setup(t_game *game)
 		/ ((int)game->input.map.longest_row / 10 + 1);
 }
 
+int	bad_file(t_game *game)
+{
+	if (game)
+		free(game);
+	err_i("Incorrect input file.", 0);
+	return (exit(0), 0);
+}
+
 int	safe_exit(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	mlx_destroy_image(game->mlx, game->data.img);
-	mlx_destroy_image(game->mlx, game->walls[0].img);
-	mlx_destroy_image(game->mlx, game->walls[1].img);
-	mlx_destroy_image(game->mlx, game->walls[2].img);
-	mlx_destroy_image(game->mlx, game->walls[3].img);
+	if (game->mlx)
+	{
+		mlx_destroy_image(game->mlx, game->data.img);
+		mlx_destroy_image(game->mlx, game->walls[0].img);
+		mlx_destroy_image(game->mlx, game->walls[1].img);
+		mlx_destroy_image(game->mlx, game->walls[2].img);
+		mlx_destroy_image(game->mlx, game->walls[3].img);
+	}
 	if (game->rays)
 		free(game->rays);
 	if (game->input.map.content)

@@ -34,6 +34,7 @@ int		init_textures(t_game *game);
 void	fill_textures(t_game *game, int i);
 
 // main.c
+int		bad_file(t_game *game);
 int		safe_exit(t_game *game);
 
 // To sort
