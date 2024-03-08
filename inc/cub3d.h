@@ -27,6 +27,8 @@
 int		err_i(char *str, int i);
 void	err_v(char *str);
 void	*err_p(char *str);
+int		check_more_vars(t_input *input, int err);
+int		check_vars(t_input *input);
 
 // init
 bool	init_window(t_game *game);
@@ -45,7 +47,9 @@ void	strafe(float side_step, float *new_player_x, float *new_player_y);
 void	move_player(t_game *game);
 
 //eff norm, honestly. Let us COOK.
+bool	any_invalid_chars(const char *str);
 bool	color_range(int *rgb);
 void	eff_norm(t_input *input);
+int		seriously_hate_norm(char **values);
 
 #endif

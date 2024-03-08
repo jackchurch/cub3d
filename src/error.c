@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include "constance.h"
+#include "structs.h"
 
 void	err_v(char *str)
 {
@@ -37,4 +38,40 @@ void	*err_p(char *str)
 {
 	printf("Error\n\t%s\n\n", str);
 	return (NULL);
+}
+
+int	check_more_vars(t_input *input, int err)
+{
+	if (input->map.rows >= 64)
+		err += err_i("Map size too big. Please limit to 64x64.", err);
+	return (err);
+}
+
+int	check_vars(t_input *input)
+{
+	int	err;
+
+	err = 0;
+	if (input->map.count.map_exists == 0)
+		err += err_i("No Map.", err);
+	if (input->map.count.not_xpm > 0)
+		err += err_i("Please ensure texture files are .xpm format.", err);
+	if (input->map.count.comma > 0)
+		err += err_i("Invalid color formatting.", err);
+	if (input->map.count.invalid_char > 0)
+		err += err_i("Invalid characters in cub elements.", err);
+	else if (input->complete <= NUM_OF_ELEMENTS)
+		err += err_i("Please check all input elements are present.", err);
+	if (input->map.count.spawn_dir > 1)
+		err += err_i("Please only use one spawn location.", err);
+	if (input->map.count.spawn_dir < 1)
+		err += err_i("Please provide a spawn location: N, S, E or W.", err);
+	if (input->map.count.valid > 0)
+		err += err_i("Invalid cub file. Please check and try again.", err);
+	if (input->map.count.colors != 3)
+		err += err_i("Invalid color code.", err);
+	if (!input->ceiling_color || !input->floor_color)
+		err += err_i("Floor or Ceiling color missing or out of range.", err);
+	err += check_more_vars(input, err);
+	return (err);
 }

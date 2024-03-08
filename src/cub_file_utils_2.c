@@ -78,20 +78,19 @@ char	*isolate_element_path(char *str)
 	i = 0;
 	while (!(is_white_space(str[i])) && str[i])
 		i++;
-	if (str[i] == '\n' || str[i] == '\0')
-	{
-		printf("Element Path Null\n");
-		return (NULL);
-	}
 	while (is_white_space(str[i]))
 		i++;
+	if (str[i] == '\0')
+		return (NULL);
 	start = i;
 	while (str[i])
 		i++;
 	ret = malloc(i - start);
 	i = 0;
-	while (str[start] != '\n' && str[start])
+	while (str[start] != '\n' && str[start] != '\0')
 		ret[i++] = str[start++];
+	if (str[start] == '\0')
+		i--;
 	ret[i] = '\0';
 	free(str);
 	return (ret);

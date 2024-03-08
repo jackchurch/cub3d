@@ -16,7 +16,7 @@ bool	color_range(int *rgb)
 {
 	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0
 		|| rgb[1] > 255 || rgb[2] < 0 || rgb[2] > 255)
-		return (1);
+		return (-1);
 	return (0);
 }
 
@@ -26,16 +26,16 @@ void	eff_norm(t_input *input)
 	ft_memset(&input->map, 0, sizeof(t_map));
 }
 
-int	seriously_hate_norm(char *values)
+int	seriously_hate_norm(char **values)
 {
 	char	*temp;
 
-	temp = values;
-	if (!temp)
-		return (1);
-	values[i] = ft_strtrim(temp, " 	");
+	if (!*values)
+		return (-1);
+	temp = *values;
+	*values = ft_strtrim(temp, " 	");
 	free(temp);
-	if (any_invalid_chars(values[i]))
-		return (1);
-	return (0);
+	if (any_invalid_chars(*values))
+		return (-1);
+	return (1);
 }

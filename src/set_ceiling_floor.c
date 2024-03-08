@@ -76,18 +76,23 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 	values = ft_split(str, ',');
 	i = -1;
 	while (++i < 3)
+		input->map.count.colors += seriously_hate_norm(&values[i]);
+	if (input->map.count.colors == 3)
 	{
-		input->map.count.colors = seriously_hate_norm(char *values);
+		rgb[0] = ft_atoi(values[0]);
+		rgb[1] = ft_atoi(values[1]);
+		rgb[2] = ft_atoi(values[2]);
 	}
-	rgb[0] = ft_atoi(values[0]);
-	rgb[1] = ft_atoi(values[1]);
-	rgb[2] = ft_atoi(values[2]);
-	while (i >= 0)
-		free((void *)values[i--]);
+	else
+	{
+		i = input->map.count.colors - 1;
+		while (i >= 0)
+			free((void *)values[i--]);
+	}
 	free(values);
-	input->complete++;
 	if (color_range(rgb))
 		return (0);
+	input->complete++;
 	return (rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2]);
 }
 

@@ -40,6 +40,8 @@ void	finalize_map(t_map *map)
 
 	i = -1;
 	temp_i = 0;
+	if (map->count.map_exists == 0)
+		return ;
 	map->content = malloc(sizeof(char *) * map->rows + 1);
 	while (++i < map->rows)
 	{
@@ -57,8 +59,9 @@ int	init_map(t_map *map, char *line)
 {
 	char	*content;
 	int		len;
-	int		con_len;
 
+	if (!line)
+		return (0);
 	len = ft_strlen(line);
 	if (!map->temp)
 	{
@@ -69,14 +72,14 @@ int	init_map(t_map *map, char *line)
 	{
 		content = ft_strjoin(map->temp, line);
 		free(map->temp);
-		con_len = ft_strlen(content);
-		map->temp = malloc(con_len + 1);
-		ft_strlcpy(map->temp, content, con_len + 1);
+		map->temp = malloc(ft_strlen(content) + 1);
+		ft_strlcpy(map->temp, content, ft_strlen(content) + 1);
 		free(content);
 	}
 	map->rows++;
 	if (len > map->longest_row)
 		map->longest_row = len;
+	map->count.map_exists = 1;
 	return (1);
 }
 

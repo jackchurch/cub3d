@@ -38,40 +38,14 @@ int	walk_area(char check)
 	return (0);
 }
 
-int	check_vars(t_input *input)
-{
-	int	err;
-
-	err = 0;
-	if (input->map.rows >= 64)
-		err += err_i("Map size too big. Please limit to 64x64.", err);
-	if (input->map.count.not_xpm > 0)
-		err += err_i("Please ensure texture files are .xpm format.", err);
-	if (input->map.count.comma > 0)
-		err += err_i("Invalid color formatting.", err);
-	if (input->map.count.invalid_char > 0)
-		err += err_i("Invalid characters in cub elements.", err);
-	else if (input->complete <= NUM_OF_ELEMENTS)
-		err += err_i("Please check all input elements are present.", err);
-	if (input->map.count.spawn_dir > 1)
-		err += err_i("Please only use one spawn location.", err);
-	if (input->map.count.spawn_dir < 1)
-		err += err_i("Please provide a spawn location: N, S, E or W.", err);
-	if (input->map.count.valid > 0)
-		err += err_i("Invalid cub file. Please check and try again.", err);
-	if (input->map.count.colors != 0)
-		err += err_i("Invalid color code.", err);
-	if (!input->ceiling_color || !input->floor_color)
-		err += err_i("Floor or Ceiling color missing or out of range.", err);
-	return (err);
-}
-
 int	map_parsing(t_input *input, char **map)
 {
 	int	i;
 	int	j;
 
 	i = -1;
+	if (input->map.count.map_exists == 0)
+		return (check_vars(input));
 	if (input->complete < NUM_OF_ELEMENTS
 		|| !is_only_one(map[input->map.rows - 1]) || !is_only_one(map[0]))
 		input->map.count.valid += 1;

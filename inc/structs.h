@@ -42,6 +42,7 @@ typedef struct s_count
 	int	comma;
 	int	not_xpm;
 	int	filepath;
+	int	map_exists;
 }	t_count;
 
 typedef struct s_map
