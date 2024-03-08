@@ -38,6 +38,18 @@ int	seriously_hate_norm(char **values)
 	if (*values[0] == '\0')
 		return (0);
 	if (any_invalid_chars(*values))
-		return (0);
+		return (1);
 	return (1);
+}
+
+void	fuck_norm(int i, char **values)
+{
+	while (i >= 0)
+		free((void *)values[i--]);
+}
+
+void	free_shit(char *str, int *rgb)
+{
+	free(rgb);
+	free(str);
 }

@@ -69,14 +69,16 @@ int	for_each_value(t_input *input, char *value, int element_type)
 
 unsigned int	ceiling_floor_color(t_input *input, char *str)
 {
-	int		rgb[3];
 	int		i;
 	char	**values;
+	int		rgb[3];
 
 	values = ft_split(str, ',');
 	i = -1;
+	if (!*values)
+		return (free(values), 0);
 	input->map.count.colors = 0;
-	while (++i < 3)
+	while (++i < 3 && values[i] != NULL)
 		input->map.count.colors += seriously_hate_norm(&values[i]);
 	if (input->map.count.colors == 3)
 	{
@@ -86,8 +88,7 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 	}
 	else
 		i = input->map.count.colors;
-	while (i >= 0)
-		free((void *)values[i--]);
+	fuck_norm(i, values);
 	free(values);
 	if (color_range(rgb))
 		return (0);

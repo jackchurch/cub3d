@@ -1,9 +1,9 @@
 NO 	textures/Water.xpm
 SO  textures/Magma.xpm
 EA  textures/Grass.xpm
-WE  textures/Wood_Vertical.xpm
-C	255,230,2
-F   83,83,83
+WE
+C	55,100,35
+F
 
 1111111
 1000001

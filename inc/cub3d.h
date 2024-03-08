@@ -51,5 +51,6 @@ bool	any_invalid_chars(const char *str);
 bool	color_range(int *rgb);
 void	eff_norm(t_input *input);
 int		seriously_hate_norm(char **values);
-
+void	fuck_norm(int i, char **values);
+void	free_shit(char *str, int *rgb);
 #endif
