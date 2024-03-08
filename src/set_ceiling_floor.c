@@ -121,7 +121,10 @@ int	ceiling_floor_branch(t_input *input, char *current_line, int element_type)
 	char	*str;
 
 	if (element_type < 0)
+	{
+		free(current_line);
 		return (-1);
+	}
 	str = isolate_element_path(current_line);
 	if (str == NULL)
 		input->map.count.invalid_char++;
