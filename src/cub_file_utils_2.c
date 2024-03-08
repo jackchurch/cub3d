@@ -79,7 +79,10 @@ char	*isolate_element_path(char *str)
 	while (!(is_white_space(str[i])) && str[i])
 		i++;
 	if (str[i] == '\n' || str[i] == '\0')
+	{
+		printf("Element Path Null\n");
 		return (NULL);
+	}
 	while (is_white_space(str[i]))
 		i++;
 	start = i;

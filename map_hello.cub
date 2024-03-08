@@ -1,8 +1,8 @@
 NO  textures/Grey_Bricks.xpm
-EA  textures/Metalic.xpm
+EA  textures/Water.xpm
 SO  textures/Wood_Horizontal.xpm
 WE  textures/Rocky_Road.xpm
-C   255,255,255
+C   -10,-100,-1
 F   83,83,83
 
   1111111   11111111

@@ -44,4 +44,8 @@ int		update(t_game *game);
 void	strafe(float side_step, float *new_player_x, float *new_player_y);
 void	move_player(t_game *game);
 
+//eff norm, honestly. Let us COOK.
+bool	color_range(int *rgb);
+void	eff_norm(t_input *input);
+
 #endif

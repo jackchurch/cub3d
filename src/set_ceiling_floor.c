@@ -37,6 +37,8 @@ bool	any_invalid_chars(const char *str)
 		}
 		else if (is_white_space(str[i]))
 			white_space_found = true;
+		else if (!ft_isdigit(str[i]))
+			return (true);
 		i++;
 	}
 	return (false);
@@ -46,8 +48,13 @@ int	for_each_value(t_input *input, char *value, int element_type)
 {
 	char	*str;
 
+	if (value == NULL)
+	{
+		input->map.count.invalid_char++;
+		return (0);
+	}
 	str = ft_strtrim(value, " 	");
-	if (any_invalid_chars(str) == true || value == NULL)
+	if (str == NULL || str[0] == '\0')
 		input->map.count.invalid_char++;
 	else if (!(is_xpm_file(str)))
 		input->map.count.not_xpm++;
@@ -65,17 +72,12 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 	int		rgb[3];
 	int		i;
 	char	**values;
-	char	*temp;
 
 	values = ft_split(str, ',');
 	i = -1;
 	while (++i < 3)
 	{
-		temp = values[i];
-		values[i] = ft_strtrim(temp, " 	");
-		free(temp);
-		if (any_invalid_chars(values[i]))
-			input->map.count.colors = 1;
+		input->map.count.colors = seriously_hate_norm(char *values);
 	}
 	rgb[0] = ft_atoi(values[0]);
 	rgb[1] = ft_atoi(values[1]);
@@ -84,7 +86,7 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 		free((void *)values[i--]);
 	free(values);
 	input->complete++;
-	if (rgb[0] > 255 || rgb[1] > 255 || rgb[2] > 255)
+	if (color_range(rgb))
 		return (0);
 	return (rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2]);
 }
@@ -98,10 +100,13 @@ int	get_count(t_input *input, char *str)
 	count = 0;
 	while (str[++i] != '\0')
 	{
-		if (str[i] == ',' && ++count > 2)
+		if (str[i] == ',')
 		{
-			input->map.count.comma++;
-			return (1);
+			if (++count > 2)
+			{
+				input->map.count.comma++;
+				return (1);
+			}
 		}
 	}
 	return (0);
