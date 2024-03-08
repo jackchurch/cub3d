@@ -35,7 +35,9 @@ int	seriously_hate_norm(char **values)
 	temp = *values;
 	*values = ft_strtrim(temp, " 	");
 	free(temp);
+	if (*values[0] == '\0')
+		return (0);
 	if (any_invalid_chars(*values))
-		return (-1);
+		return (0);
 	return (1);
 }

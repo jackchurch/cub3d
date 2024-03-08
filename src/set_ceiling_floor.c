@@ -75,6 +75,7 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 
 	values = ft_split(str, ',');
 	i = -1;
+	input->map.count.colors = 0;
 	while (++i < 3)
 		input->map.count.colors += seriously_hate_norm(&values[i]);
 	if (input->map.count.colors == 3)
@@ -84,11 +85,9 @@ unsigned int	ceiling_floor_color(t_input *input, char *str)
 		rgb[2] = ft_atoi(values[2]);
 	}
 	else
-	{
-		i = input->map.count.colors - 1;
-		while (i >= 0)
-			free((void *)values[i--]);
-	}
+		i = input->map.count.colors;
+	while (i >= 0)
+		free((void *)values[i--]);
 	free(values);
 	if (color_range(rgb))
 		return (0);

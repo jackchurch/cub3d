@@ -2,10 +2,11 @@ NO 	textures/Water.xpm
 SO  textures/Magma.xpm
 EA  textures/Grass.xpm
 WE  textures/Wood_Vertical.xpm
-C	6,6,6
+C	255,23 ,255
 F   83,83,83
 
-1111
-1001
-1E01
-111
+1111111
+1000001
+1E00001
+1000001
+1111111
